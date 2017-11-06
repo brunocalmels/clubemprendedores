@@ -29,22 +29,22 @@
 
     <div class="field">
       <%= f.label :nombre %><br />
-      <%= f.text_field :nombre %>
+      <%= f.text_field :nombre, required: true%>
     </div>
 
     <div class="field">
       <%= f.label :apellido %><br />
-      <%= f.text_field :apellido%>
+      <%= f.text_field :apellido, required: true%>
     </div>
 
     <div class="field">
       <%= f.label :id_tipo %><br />
-      <%= f.number_field :id_tipo %>
+      <%= f.select :id_tipo, TIPOS_ID.each_with_index.map{ |k,i| [k,i] }, required: true %>
     </div>
 
     <div class="field">
       <%= f.label :número %><br />
-      <%= f.number_field :id_num %>
+      <%= f.number_field :id_num, required: true%>
     </div>
 
     <div class="field">
@@ -54,11 +54,11 @@
 
     <div class="field">
       <%= f.label :institución_o_emprendimiento %><br />
-      <%= f.text_field :institucion %>
+      <%= f.text_field :institucion, required: true %>
     </div>
 
   <div class="field">
-    <%= f.label :Contraseña_actual %> <i>(necesitamos tu contraseña actual para confirmar los cambios)</i><br />
+    <%= f.label :Contraseña_actual %> <i>(para guardar los cambios)</i><br />
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 

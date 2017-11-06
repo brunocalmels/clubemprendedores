@@ -1,0 +1,1 @@
+TIPOS_ID = ['DNI', 'CUIL', 'CUIT']
