@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+require 'factory_girl_rails'
+
+User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp')
+
+# 10.times do
+#   FactoryGirl.create(:user)
+# end

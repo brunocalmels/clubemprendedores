@@ -1,0 +1,18 @@
+<% if user_signed_in? %>
+<div>
+  <%= "Bienvenido, #{current_user.email}" %>
+</div>
+<div>
+  <%= link_to 'Salir', destroy_user_session_url, method: :delete %>
+</div>
+
+
+<% else %>
+  <div>
+  <%= 'No estás logueado.' %>
+</div>
+<div>
+  <%= link_to 'Ingresá', new_user_session_url %>
+  <%= link_to 'Registrate', new_user_registration_url %>
+</div>
+<% end %>
