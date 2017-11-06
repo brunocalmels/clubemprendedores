@@ -9,6 +9,36 @@
   </div>
 
   <div class="field">
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </div>
+
+  <div class="field">
+    <%= f.label :apellido %><br />
+    <%= f.text_field :apellido%>
+  </div>
+
+  <div class="field">
+    <%= f.label :id_tipo %><br />
+    <%= f.number_field :id_tipo %>
+  </div>
+
+  <div class="field">
+    <%= f.label :número %><br />
+    <%= f.number_field :id_num %>
+  </div>
+
+  <div class="field">
+    <%= f.label :teléfono %><br />
+    <%= f.number_field :telefono %>
+  </div>
+
+  <div class="field">
+    <%= f.label :institución_o_emprendimiento %><br />
+    <%= f.text_field :institucion %>
+  </div>
+
+  <div class="field">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>

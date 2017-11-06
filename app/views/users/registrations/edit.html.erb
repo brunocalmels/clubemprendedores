@@ -1,0 +1,74 @@
+<h2>Editar tu perfil</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Todavía se espera confirmación de: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :Contraseña %> <i>(dejala en blanco si no la querés cambiar)</i><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> caracteres mínimo</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label "Confirmación de contraseña" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+
+
+    <div class="field">
+      <%= f.label :nombre %><br />
+      <%= f.text_field :nombre %>
+    </div>
+
+    <div class="field">
+      <%= f.label :apellido %><br />
+      <%= f.text_field :apellido%>
+    </div>
+
+    <div class="field">
+      <%= f.label :id_tipo %><br />
+      <%= f.number_field :id_tipo %>
+    </div>
+
+    <div class="field">
+      <%= f.label :número %><br />
+      <%= f.number_field :id_num %>
+    </div>
+
+    <div class="field">
+      <%= f.label :teléfono %><br />
+      <%= f.number_field :telefono %>
+    </div>
+
+    <div class="field">
+      <%= f.label :institución_o_emprendimiento %><br />
+      <%= f.text_field :institucion %>
+    </div>
+
+  <div class="field">
+    <%= f.label :Contraseña_actual %> <i>(necesitamos tu contraseña actual para confirmar los cambios)</i><br />
+    <%= f.password_field :current_password, autocomplete: "off" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Guardar" %>
+  </div>
+<% end %>
+
+<!-- <h3>Eliminar usuario</h3> -->
+
+<p>¿Querés eliminar tu usuario en el Club? <%= button_to "Eliminar usuario", registration_path(resource_name), data: { confirm: "¿Estás seguro?" }, method: :delete %></p>
+
+<%= link_to "Atrás", :back %>

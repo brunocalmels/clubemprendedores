@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
 <div>
-  <%= "Bienvenido, #{current_user.email}" %>
+  <%= "Bienvenida/o, #{current_user.nombre}" %>
 </div>
 <div>
   <%= link_to 'Salir', destroy_user_session_url, method: :delete %>
