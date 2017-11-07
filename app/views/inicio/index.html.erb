@@ -1,2 +1,11 @@
 <h1>Club de Emprendedores</h1>
 <%= render 'user_status' %>
+
+<%= month_calendar(attribute: :start_time, end_attribute: :end_time, events: @reservas) do |date, reservas| %>
+  <%= date %>
+  <% reservas.each do |reserva| %>
+  <div>
+    <%= link_to "#{reserva.user.nombre} #{reserva.user.apellido}", reserva %>
+  </div>
+<% end %>
+<% end %>

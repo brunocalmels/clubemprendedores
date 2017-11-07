@@ -8,8 +8,13 @@
 
 require 'factory_girl_rails'
 
+p 'Creando usuario Bruno'
 User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp')
 
-# 10.times do
-#   FactoryGirl.create(:user)
-# end
+p 'Creando 10 usuarios'
+p 'Con una reserva cada uno'
+10.times do
+  user = FactoryGirl.create(:user)
+  reserva = FactoryGirl.create(:reserva, user: user)
+
+end

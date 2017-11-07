@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @reserva.user.nombre %>
+  <%= @reserva.user.apellido %>
+  <i> de </i>
+  <%= @reserva.user.institucion %>
+</p>
+
+<p>
+  <strong>Comienza:</strong>
+  <%= @reserva.start_time %>
+</p>
+<p>
+  <strong>Termina:</strong>
+  <%= @reserva.end_time %>
+</p>
+
+
+<%= puede_editar?(@reserva)? "#{link_to('Editar', edit_reserva_path(@reserva))} | " : '' %>
+<%= link_to 'Volver', reservas_path %>
