@@ -19,4 +19,5 @@
 
 
 <%= puede_editar?(@reserva)? "#{link_to('Editar', edit_reserva_path(@reserva))} | " : '' %>
+<%= puede_editar?(@reserva)? "#{link_to('Borrar', delete_reserva_path(@reserva))} | " : '' %>
 <%= link_to 'Volver', reservas_path %>

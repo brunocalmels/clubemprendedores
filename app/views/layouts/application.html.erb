@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ClubIdea</title>
+    <title>Club Emprendedores</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,8 @@
   </head>
 
   <body>
+    <h1>Club de Emprendedores</h1>
+    <%= render 'shared/user_status' %>
 
     <%# Para notificaciones flash de Devise %>
      <p class="notice"><%= notice %></p>

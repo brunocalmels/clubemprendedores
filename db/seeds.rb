@@ -9,7 +9,7 @@
 require 'factory_girl_rails'
 
 p 'Creando usuario Bruno'
-User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp')
+User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp', nombre: 'Bruno', apellido: 'Calmels')
 
 p 'Creando 10 usuarios'
 p 'Con una reserva cada uno'

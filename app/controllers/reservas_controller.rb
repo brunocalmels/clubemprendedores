@@ -1,5 +1,6 @@
 class ReservasController < ApplicationController
-  before_action :set_reserva, only: [:show, :edit, :update, :destroy]
+  before_action :set_reserva, only: %i[show edit update destroy]
+  before_action :authenticate_user!, only: %i[edit new destroy update]
 
   # GET /reservas
   # GET /reservas.json
@@ -9,22 +10,22 @@ class ReservasController < ApplicationController
 
   # GET /reservas/1
   # GET /reservas/1.json
-  def show
-  end
+  def show; end
 
   # GET /reservas/new
   def new
-    @reserva = Reserva.new
+    @reserva = Reserva.new(start_time: params[:date], end_time: params[:date])
   end
 
   # GET /reservas/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /reservas
   # POST /reservas.json
   def create
     @reserva = Reserva.new(reserva_params)
+    @reserva.user = current_user
+    debugger
 
     respond_to do |format|
       if @reserva.save
@@ -42,7 +43,7 @@ class ReservasController < ApplicationController
   def update
     respond_to do |format|
       if @reserva.update(reserva_params)
-        format.html { redirect_to @reserva, notice: 'Reserva was successfully updated.' }
+        format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
         format.json { render :show, status: :ok, location: @reserva }
       else
         format.html { render :edit }
@@ -56,19 +57,20 @@ class ReservasController < ApplicationController
   def destroy
     @reserva.destroy
     respond_to do |format|
-      format.html { redirect_to reservas_url, notice: 'Reserva was successfully destroyed.' }
+      format.html { redirect_to reservas_url, notice: 'La reserva fue correctamente eliminada.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_reserva
-      @reserva = Reserva.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def reserva_params
-      params.require(:reserva).permit(:end_time, :start_time)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_reserva
+    @reserva = Reserva.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def reserva_params
+    params.require(:reserva).permit(:end_time, :start_time)
+  end
 end

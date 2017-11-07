@@ -1,8 +1,7 @@
-<h1>Club de Emprendedores</h1>
-<%= render 'user_status' %>
-
 <%= month_calendar(attribute: :start_time, end_attribute: :end_time, events: @reservas) do |date, reservas| %>
-  <%= date %>
+  <%= link_to(date, new_reserva_url(date: date))%>
+  <!-- TODO (admin) -->
+  <!-- <%= @current_user || @current_admin ? link_to(date, new_reserva(date: date)) : date %> -->
   <% reservas.each do |reserva| %>
   <div>
     <%= link_to "#{reserva.user.nombre} #{reserva.user.apellido}", reserva %>
