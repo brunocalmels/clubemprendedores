@@ -12,7 +12,8 @@
 
     <%= render 'shared/menu' %>
 
-    <!-- <h1>Club de Emprendedores</h1> -->
+    <div id="main-body">
+
     <%= render 'shared/user_status' %>
 
     <%# Para notificaciones flash de Devise %>
@@ -20,5 +21,6 @@
      <p class="alert"><%= alert %></p>
 
     <%= yield %>
+  </div>
   </body>
 </html>

@@ -8,8 +8,14 @@
 
   <% reservas.each do |reserva| %>
   <div>
-    <% if reserva.user == current_user || !current_user.nil? and current_user.admin? %>
-      <%= link_to "#{reserva.user.nombre} #{reserva.user.apellido}", reserva %>
+    <% if reserva.user == current_user || !current_user.nil? && current_user.admin? %>
+      <%= link_to reserva do %>
+        <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
+        <% if reserva.invitados.any? %>
+          + <%= reserva.invitados.count %> invitados
+        <% end %>
+      <% end %>
+
     <% else %>
       <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
       <% if reserva.invitados.any? %>

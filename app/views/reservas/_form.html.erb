@@ -1,4 +1,4 @@
-<%= form_with(model: reserva, local: true) do |form| %>
+<%= bootstrap_form_for(@reserva, local: true) do |form| %>
   <% if reserva.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(reserva.errors.count, "error") %> no permitieron guardar esta reserva:</h2>
@@ -12,13 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :empieza %>
-    <%= form.datetime_select :start_time, id: :reserva_start_time %>
+    <%= form.datetime_select :start_time, id: :reserva_start_time, label: "Empieza" %>
   </div>
 
   <div class="field">
-    <%= form.label :termina %>
-    <%= form.datetime_select :end_time, id: :reserva_end_time %>
+    <%= form.datetime_select :end_time, id: :reserva_end_time, label: "Termina" %>
   </div>
 
   <div class="field">

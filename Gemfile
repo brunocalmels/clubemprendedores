@@ -41,6 +41,7 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem "haml"
 gem 'rails_bootstrap_navbar'
+gem 'bootstrap_form'
 gem "cocoon"
 
 group :development, :test do

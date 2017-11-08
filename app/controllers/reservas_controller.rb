@@ -24,7 +24,6 @@ class ReservasController < ApplicationController
   # POST /reservas
   # POST /reservas.json
   def create
-    debugger
     @reserva = Reserva.new(reserva_params)
     @reserva.user = current_user
 
