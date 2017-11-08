@@ -1,6 +1,6 @@
 class ReservasController < ApplicationController
   before_action :set_reserva, only: %i[show edit update destroy]
-  before_action :authenticate_user!, only: %i[edit new destroy update]
+  before_action :authenticate_user!, only: %i[edit new destroy update create]
 
   # GET /reservas
   # GET /reservas.json
@@ -15,6 +15,7 @@ class ReservasController < ApplicationController
   # GET /reservas/new
   def new
     @reserva = Reserva.new(start_time: params[:date], end_time: params[:date])
+    @reserva.build_invitado
   end
 
   # GET /reservas/1/edit
@@ -23,9 +24,9 @@ class ReservasController < ApplicationController
   # POST /reservas
   # POST /reservas.json
   def create
+    debugger
     @reserva = Reserva.new(reserva_params)
     @reserva.user = current_user
-    debugger
 
     respond_to do |format|
       if @reserva.save
@@ -71,6 +72,6 @@ class ReservasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def reserva_params
-    params.require(:reserva).permit(:end_time, :start_time)
+    params.require(:reserva).permit(:end_time, :start_time, invitados_attributes: %i[nombre apellido dni email _destroy])
   end
 end

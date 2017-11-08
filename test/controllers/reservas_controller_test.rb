@@ -2,7 +2,8 @@ require 'test_helper'
 
 class ReservasControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @reserva = reservas(:one)
+    @reserva = create(:reserva)
+    @user = create(:user)
   end
 
   test "should get index" do
@@ -17,7 +18,7 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
 
   test "should create reserva" do
     assert_difference('Reserva.count') do
-      post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time } }
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time } }, as: @user
     end
 
     assert_redirected_to reserva_url(Reserva.last)

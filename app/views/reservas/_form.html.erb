@@ -12,13 +12,22 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :start_time %>
-    <%= form.datetime_select :empieza, id: :reserva_start_time %>
+    <%= form.label :empieza %>
+    <%= form.datetime_select :start_time, id: :reserva_start_time %>
   </div>
 
   <div class="field">
-    <%= form.label :end_time %>
-    <%= form.datetime_select :termina, id: :reserva_end_time %>
+    <%= form.label :termina %>
+    <%= form.datetime_select :end_time, id: :reserva_end_time %>
+  </div>
+
+  <div class="field">
+    <h4>Invitados</h4>
+  <%= form.fields_for :invitados do |invitado_form| %>
+    <%= render 'invitado_fields', f: invitado_form %>
+  <% end %>
+  <!-- TODO: No está andando esto (Agregar nuevos invitado_fields para nuevos invitados) -->
+  <%= link_to_add_association 'Agregar invitado', form, :invitados, partial: 'invitado_fields' %>
   </div>
 
   <div class="actions">

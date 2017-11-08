@@ -1,7 +1,9 @@
 - [x] Como usuario, me puedo registrar con mi email y una contraseña para poder tener acceso a mis datos y a las funcionalidades del sistema.
 - [x] Como administrador, quiero que los usuarios tengan que informar nombre y apellido, DNI/CUIT/CUIL, emprendimiento/institución, email y teléfono para poder conocerlos en caso de necesitar esa información.
-- [ ] Como usuario, quiero reservar el club para mí para usar las instalaciones.
+- [x] Como usuario, quiero reservar el club para mí para usar las instalaciones.
+- [x] No se deben poder generar reservas que terminen un día distinto del que comenzaron.
 - [ ] Como usuario, quiero reservar el club para más personas también.
+- [ ] Debe haber una cantidad máxima de reservas por hora.
 - [ ] Como administrador, quiero poder evitar que en ciertos slots de tiempo los usuarios puedan reservar el club, para hacer uso interno de él.
 - [ ] Como usuario, quiero poder editar mis reservas, para cambiar su hora de comienzo o finalización.
 - [ ] Como usuario, quiero poder eliminar una reserva, para informar que no lo utilizaré.

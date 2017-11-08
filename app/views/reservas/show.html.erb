@@ -17,7 +17,17 @@
   <%= @reserva.end_time %>
 </p>
 
+<% if @reserva.invitados.any? and @reserva.invitados.first.nombre != '' %>
+  <p>
+    <strong>Invitados: (<%= @reserva.invitados.count %>) </strong>
+    <% @reserva.invitados.each do |invitado| %>
+      <%= invitado.nombre %> <%= invitado.apellido %>, <%= invitado.email %>. DNI: <%= invitado.dni %> <br />
+    <% end %>
+  </p>
+<% end %>
 
-<%= puede_editar?(@reserva)? "#{link_to('Editar', edit_reserva_path(@reserva))} | " : '' %>
-<%= puede_editar?(@reserva)? "#{link_to('Borrar', delete_reserva_path(@reserva))} | " : '' %>
+<% if puede_editar?(@reserva) %>
+  <%= link_to('Editar', edit_reserva_path(@reserva)) %> |
+  <%= link_to('Borrar', reserva_path(@reserva), method: :delete) %> |
+<% end %>
 <%= link_to 'Volver', reservas_path %>
