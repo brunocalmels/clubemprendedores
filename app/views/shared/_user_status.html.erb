@@ -1,6 +1,11 @@
 <% if user_signed_in? %>
 <div>
   <%= "Bienvenida/o, #{current_user.nombre}" %>
+  <% if current_user.admin? %>
+    <%= " al sitio administrador." %>
+  <% else %>
+    <%= "." %>
+  <% end %>
 </div>
 <div>
   <%= link_to 'Salir', destroy_user_session_url, method: :delete %>

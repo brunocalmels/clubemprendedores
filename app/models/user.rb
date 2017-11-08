@@ -5,4 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :reservas
+
+  validates :nombre, presence: true
+  validates :apellido, presence: true
+  validates :id_tipo, presence: true, numericality: { inclusion: [0..2] }
+  validates :id_num, presence: true
+  validates :institucion, presence: true
+
 end

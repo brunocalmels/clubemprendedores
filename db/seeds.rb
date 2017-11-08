@@ -8,13 +8,15 @@
 
 require 'factory_girl_rails'
 
+p 'Creando admin Maxi'
+User.create(admin: true, email: 'mgrande@cpymeadeneu.com.ar', password: 'maxclubemp', nombre: 'Maxi', apellido: 'Grande', id_tipo: 0, id_num: 123456789, institucion: 'Club Emprendedor')
+
 p 'Creando usuario Bruno'
-User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp', nombre: 'Bruno', apellido: 'Calmels')
+User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp', nombre: 'Bruno', apellido: 'Calmels', id_tipo: 0, id_num: 32974644, institucion: 'Macher IT')
 
 p 'Creando 10 usuarios'
-p 'Con una reserva cada uno'
+p '...con una reserva cada uno'
 10.times do
   user = FactoryGirl.create(:user)
   reserva = FactoryGirl.create(:reserva, user: user)
-
 end

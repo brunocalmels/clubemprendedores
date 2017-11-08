@@ -37,7 +37,10 @@ gem 'devise'
 # gem 'rails-i18n', '~> 5.0.0'
 gem "simple_calendar", "~> 2.0"
 gem 'jquery-rails'
-gem 'bootstrap', '~> 4.0.0.beta2.1'
+# gem 'bootstrap', '~> 4.0.0.beta2.1'
+gem 'bootstrap-sass', '~> 3.3.7'
+gem "haml"
+gem 'rails_bootstrap_navbar'
 gem "cocoon"
 
 group :development, :test do

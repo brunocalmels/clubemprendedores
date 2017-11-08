@@ -10,6 +10,12 @@ es:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
       models:
+        user:
+          attributes:
+            id_tipo:
+              blank: Debe incluir un tipo de identificación.
+            email:
+              taken: Ese email ya se encuentra registrado.
         reserva:
           attributes:
             user:

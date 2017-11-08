@@ -1,0 +1,22 @@
+= navbar container: 'fluid' do
+  = navbar_header brand: 'Club Emprendedor', brand_link: '/home'
+  = navbar_collapse do
+    = navbar_group class: 'foo', id: 'menu' do
+      -# = navbar_text 'Pick an option:'
+      = navbar_item "Inicio", '/'
+      = navbar_item "Acerca del Club", 'http://idea.cpymeadeneu.com.ar/#club'
+      = navbar_item '/contact' do
+        %span.glyphicon.glyphicon-hand-right
+        ¡Contactanos!
+      - if current_user.present?
+        = navbar_dropdown "Mi cuenta" do
+          = navbar_dropdown_header 'Mi cuenta'
+          = navbar_item "Editar perfil", edit_user_registration_url(current_user)
+          -# = navbar_dropdown_divider
+          -# = navbar_item "Salir", destroy_user_session_path
+          -# = navbar_item "Admin Dashboard", '/admin'
+    = navbar_group align: 'right' do
+      - if current_user.present?
+        = navbar_item "Salir", destroy_user_session_url, {}, { 'data-method': :delete }
+      - else
+        = navbar_item "Ingresar", new_user_session_path

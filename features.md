@@ -4,7 +4,7 @@
 - [x] No se deben poder generar reservas que terminen un día distinto del que comenzaron.
 - [ ] Como usuario, quiero reservar el club para más personas también.
 - [ ] Debe haber una cantidad máxima de reservas por hora.
-- [ ] Como administrador, quiero poder evitar que en ciertos slots de tiempo los usuarios puedan reservar el club, para hacer uso interno de él.
+- [ ] Como administrador, quiero poder evitar que en ciertos slots de tiempo los usuarios puedan reservar el club, para hacer uso interno de él, sin tener que detallar la información que el resto de los usuarios tienen que detallar.
 - [ ] Como usuario, quiero poder editar mis reservas, para cambiar su hora de comienzo o finalización.
 - [ ] Como usuario, quiero poder eliminar una reserva, para informar que no lo utilizaré.
 - [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.

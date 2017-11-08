@@ -5,8 +5,14 @@ FactoryGirl.define do
     nombre { Faker::Name.first_name }
     apellido { Faker::Name.last_name }
     telefono { Faker::Number.number(7) }
-    id_tipo { [0..2].sample }
-    id_num { [200000000..50000000] }
+    id_tipo { rand(0..2) }
+    id_num { rand(20000000..50000000) }
     institucion { Faker::University.name }
+    admin { false }
+
+    factory :admin do
+      admin { true }
+    end
+
   end
 end
