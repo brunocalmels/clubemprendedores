@@ -1,0 +1,7 @@
+.form-not-whole-row {
+  display: inline-block;
+
+  &.small {
+    max-width: 6em;
+  }
+}

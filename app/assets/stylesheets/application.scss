@@ -19,6 +19,9 @@
  @import "bootstrap";
  @import "colors";
 
+ // TODO: Hacer que id_tipo e id_num tengan clases de forms.scss para que entren en una linea
+ // @import "forms";
+
 body {
    display: flex;
    flex-direction: column;

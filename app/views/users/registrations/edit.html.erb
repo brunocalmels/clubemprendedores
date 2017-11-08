@@ -1,10 +1,10 @@
 <h2>Editar tu perfil</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<%= bootstrap_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :email %><br />
+    <!-- <%= f.label :email %><br /> -->
     <%= f.email_field :email, autofocus: true %>
   </div>
 
@@ -13,8 +13,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :Contraseña %> <i>(dejala en blanco si no la querés cambiar)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <!-- <%= f.label :Contraseña %> <i>(dejala en blanco si no la querés cambiar)</i><br /> -->
+    <%= f.password_field :password, autocomplete: "off", label: "Contraseña", help: "dejala en blanco si no la querés cambiar" %>
     <% if @minimum_password_length %>
       <br />
       <em><%= @minimum_password_length %> caracteres mínimo</em>
@@ -22,44 +22,36 @@
   </div>
 
   <div class="field">
-    <%= f.label "Confirmación de contraseña" %><br />
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
 
     <div class="field">
-      <%= f.label :nombre %><br />
       <%= f.text_field :nombre, required: true%>
     </div>
 
     <div class="field">
-      <%= f.label :apellido %><br />
       <%= f.text_field :apellido, required: true%>
     </div>
 
     <div class="field">
-      <%= f.label :id_tipo %><br />
-      <%= f.select :id_tipo, TIPOS_ID.each_with_index.map{ |k,i| [k,i] }, required: true %>
+      <%= f.select :id_tipo, TIPOS_ID.each_with_index.map{ |k,i| [k,i] }, required: true, label: "Tipo de ID"%>
+    <!-- </div>
+
+    <div class="field"> -->
+      <%= f.number_field :id_num, required: true, label: "Número" %>
     </div>
 
     <div class="field">
-      <%= f.label :número %><br />
-      <%= f.number_field :id_num, required: true%>
-    </div>
-
-    <div class="field">
-      <%= f.label :teléfono %><br />
       <%= f.number_field :telefono %>
     </div>
 
     <div class="field">
-      <%= f.label :institución_o_emprendimiento %><br />
-      <%= f.text_field :institucion, required: true %>
+      <%= f.text_field :institucion, required: true, label: "Instición o emprendimiento"%>
     </div>
 
   <div class="field">
-    <%= f.label :Contraseña_actual %> <i>(para guardar los cambios)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
+    <%= f.password_field :current_password, autocomplete: "off", label: "Contraseña actual", help: "para guardar los cambios" %>
   </div>
 
   <div class="actions">
