@@ -1,5 +1,11 @@
 = navbar container: 'fluid' do
-  = navbar_header brand: 'Club Emprendedor', brand_link: '/home'
+  -# = navbar_header brand: 'Club Emprendedor', brand_link: '/home'
+
+  - if current_user.present? && current_user.admin?
+    = navbar_header brand: "Club Emprendedor - #{current_user.nombre} (admin)", brand_link: '/'
+  - else
+    = navbar_header brand: "Club Emprendedor", brand_link: '/'
+
   = navbar_collapse do
     = navbar_group class: 'foo', id: 'menu' do
       -# = navbar_text 'Pick an option:'

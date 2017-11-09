@@ -19,8 +19,16 @@
     <%= form.datetime_select :end_time, id: :reserva_end_time, label: "Termina" %>
   </div>
 
-  <h4>Invitados</h4>
+  <h4>Bloquear reservas</h4>
+  <div class="" id="bloquear">
+    <%= form.check_box :bloqueo, label: "Bloquear" %>
+      <div class="">
+        <i>Para no permitir que los usuarios hagan reservas durante este horario.</i>
+      </div>
+  </div>
+
   <div id="invitados">
+    <h4>Invitados</h4>
     <%= form.fields_for :invitados do |invitado_form| %>
       <%= render 'invitado_fields', f: invitado_form %>
     <% end %>

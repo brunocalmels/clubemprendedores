@@ -9,7 +9,13 @@
 require 'factory_girl_rails'
 
 p 'Creando admin Maxi'
-User.create(admin: true, email: 'mgrande@cpymeadeneu.com.ar', password: 'maxclubemp', nombre: 'Maxi', apellido: 'Grande', id_tipo: 0, id_num: 123456789, institucion: 'Club Emprendedor')
+maxi = User.create(admin: true, email: 'mgrande@cpymeadeneu.com.ar', password: 'maxclubemp', nombre: 'Maxi', apellido: 'Grande', id_tipo: 0, id_num: 123456789, institucion: 'Club Emprendedor')
+p 'Creando turnos bloqueantes'
+3.times do
+  reserva = FactoryGirl.build(:reserva, user: maxi, bloqueo: true)
+  p reserva
+  reserva.save
+end
 
 p 'Creando usuario Bruno'
 User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp', nombre: 'Bruno', apellido: 'Calmels', id_tipo: 0, id_num: 32974644, institucion: 'Macher IT')

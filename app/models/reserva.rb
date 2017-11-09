@@ -12,56 +12,24 @@ class Reserva < ApplicationRecord
   # Que termine el mismo día que empieza
   validate :end_start_mismo_dia
 
-  # Que los invitados tengan nombre y apellido
-  # validate :atributos_invitados
+  # Que no haya reservas bloqueantes ese mismo día
+  validate :check_bloqueos
 
-  # def invitados
-  #   read_attribute(:invitados).map { |v| Invitado.new(v) }
-  # end
-  #
-  # def invitados_attributes=(attributes)
-  #   invitados = []
-  #   attributes.each do |_index, attrs|
-  #     next if attrs.delete('_destroy') == '1'
-  #     invitados << attrs
-  #   end
-  #   write_attribute(:invitados, invitados)
-  # end
-  #
-  # def build_invitado
-  #   inv = invitados.dup
-  #   inv << Invitado.new(nombre: '', apellido: '', dni: '', email: '')
-  #   self.invitados = inv
-  # end
-  #
-  # class Invitado
-  #   attr_accessor :nombre, :apellido, :dni, :email
-  #
-  #   def persisted?
-  #     false
-  #   end
-  #
-  #   def new_record?
-  #     false
-  #   end
-  #
-  #   def marked_for_destruction?
-  #     false
-  #   end
-  #
-  #   def _destroy
-  #     false
-  #   end
-  #
-  #   def initialize(hash)
-  #     @nombre = hash['nombre']
-  #     @apellido = hash['apellido']
-  #     @dni = hash['dni']
-  #     @email = hash['email']
-  #   end
-  # end
 
   private
+
+  def check_bloqueos
+    bloqueos = Reserva.where(bloqueo: true)
+    bloqueos_del_dia = []
+    bloqueos.each do |bloqueo|
+      if(
+        self.start_time > bloqueo.start_time && self.start_time < bloqueo.end_time ||
+        self.end_time   > bloqueo.start_time && self.end_time   < bloqueo.end_time
+        )
+        errors.add(:bloqueado, "El horario de #{bloqueo.start_time} a #{bloqueo.end_time} está reservado por un administrador.")
+      end
+    end
+  end
 
   def end_post_start
     errors.add(:hora_de_finalizacion, 'Debe ser posterior a la hora de comienzo') unless start_time < end_time
@@ -72,15 +40,5 @@ class Reserva < ApplicationRecord
     e = end_time
     errors.add(:dia_de_finalizacion, 'Debe finalizar el mismo día en que comienza') unless s.day == e.day && s.month == e.month && s.year == e.year
   end
-
-  # def atributos_invitados
-  #   if invitados.any?
-  #     invitados.each do |invitado|
-  #       unless invitado.nombre && invitado.apellido
-  #         errors.add(:invitados, 'Se debe informar los nombres y apellidos')
-  #       end
-  #     end
-  #   end
-  # end
 
 end

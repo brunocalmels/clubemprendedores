@@ -1,6 +1,7 @@
 class ReservasController < ApplicationController
   before_action :set_reserva, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[edit new destroy update create]
+  before_action :bloquear_solo_admins, only: %i[create update]
 
   # GET /reservas
   # GET /reservas.json
@@ -15,7 +16,6 @@ class ReservasController < ApplicationController
   # GET /reservas/new
   def new
     @reserva = Reserva.new(start_time: params[:date], end_time: params[:date])
-    # @reserva.build_invitado
   end
 
   # GET /reservas/1/edit
@@ -65,6 +65,13 @@ class ReservasController < ApplicationController
 
   private
 
+  #
+  def bloquear_solo_admins
+    if !current_user.admin?
+      params[:reserva][:bloquear] = false
+    end
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_reserva
     @reserva = Reserva.find(params[:id])
@@ -72,6 +79,6 @@ class ReservasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def reserva_params
-    params.require(:reserva).permit(:end_time, :start_time, invitados_attributes: %i[id nombre apellido dni email _destroy])
+    params.require(:reserva).permit(:end_time, :start_time, :bloqueo, invitados_attributes: %i[id nombre apellido dni email _destroy])
   end
 end

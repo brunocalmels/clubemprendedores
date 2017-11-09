@@ -17,6 +17,13 @@
   <%= @reserva.end_time %>
 </p>
 
+<% if current_user.admin? %>
+<p>
+  <strong>Bloquea:</strong>
+  <%= @reserva.bloqueo ? "Sí" : "No" %>
+<% end %>
+</p>
+
 <% if @reserva.invitados.any? and @reserva.invitados.first.nombre != '' %>
   <p>
     <strong>Invitados: (<%= @reserva.invitados.count %>) </strong>
