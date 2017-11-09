@@ -1,8 +1,7 @@
-  <fieldset>
+<div class='nested-fields'>
   <%= f.text_field :nombre %>
   <%= f.text_field :apellido %>
   <%= f.text_field :dni, label: "DNI"%>
   <%= f.text_field :email %>
-  <%= f.hidden_field :_destroy %>
-  <%= link_to "eliminar", '#', class: "remove_fields" %>
-</fieldset>
+  <%= link_to_remove_association "Eliminar invitado", f %>
+</div>

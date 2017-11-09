@@ -1,6 +1,9 @@
 class Reserva < ApplicationRecord
   belongs_to :user, optional: false
 
+  has_many :invitados
+  accepts_nested_attributes_for :invitados, reject_if: proc { |attributes| attributes[:nombre].blank? or attributes[:apellido].blank? }, allow_destroy: true
+
   validates :start_time, presence: true
   validates :end_time, presence: true
 
@@ -8,54 +11,55 @@ class Reserva < ApplicationRecord
   validate :end_post_start
   # Que termine el mismo día que empieza
   validate :end_start_mismo_dia
+
   # Que los invitados tengan nombre y apellido
-  validate :atributos_invitados
+  # validate :atributos_invitados
 
-  def invitados
-    read_attribute(:invitados).map { |v| Invitado.new(v) }
-  end
-
-  def invitados_attributes=(attributes)
-    invitados = []
-    attributes.each do |_index, attrs|
-      next if attrs.delete('_destroy') == '1'
-      invitados << attrs
-    end
-    write_attribute(:invitados, invitados)
-  end
-
-  def build_invitado
-    inv = invitados.dup
-    inv << Invitado.new(nombre: '', apellido: '', dni: '', email: '')
-    self.invitados = inv
-  end
-
-  class Invitado
-    attr_accessor :nombre, :apellido, :dni, :email
-
-    def persisted?
-      false
-    end
-
-    def new_record?
-      false
-    end
-
-    def marked_for_destruction?
-      false
-    end
-
-    def _destroy
-      false
-    end
-
-    def initialize(hash)
-      @nombre = hash['nombre']
-      @apellido = hash['apellido']
-      @dni = hash['dni']
-      @email = hash['email']
-    end
-  end
+  # def invitados
+  #   read_attribute(:invitados).map { |v| Invitado.new(v) }
+  # end
+  #
+  # def invitados_attributes=(attributes)
+  #   invitados = []
+  #   attributes.each do |_index, attrs|
+  #     next if attrs.delete('_destroy') == '1'
+  #     invitados << attrs
+  #   end
+  #   write_attribute(:invitados, invitados)
+  # end
+  #
+  # def build_invitado
+  #   inv = invitados.dup
+  #   inv << Invitado.new(nombre: '', apellido: '', dni: '', email: '')
+  #   self.invitados = inv
+  # end
+  #
+  # class Invitado
+  #   attr_accessor :nombre, :apellido, :dni, :email
+  #
+  #   def persisted?
+  #     false
+  #   end
+  #
+  #   def new_record?
+  #     false
+  #   end
+  #
+  #   def marked_for_destruction?
+  #     false
+  #   end
+  #
+  #   def _destroy
+  #     false
+  #   end
+  #
+  #   def initialize(hash)
+  #     @nombre = hash['nombre']
+  #     @apellido = hash['apellido']
+  #     @dni = hash['dni']
+  #     @email = hash['email']
+  #   end
+  # end
 
   private
 
@@ -69,13 +73,14 @@ class Reserva < ApplicationRecord
     errors.add(:dia_de_finalizacion, 'Debe finalizar el mismo día en que comienza') unless s.day == e.day && s.month == e.month && s.year == e.year
   end
 
-  def atributos_invitados
-    if invitados.any?
-      invitados.each do |invitado|
-        unless invitado.nombre && invitado.apellido
-          errors.add(:invitados, 'Se debe informar los nombres y apellidos')
-        end
-      end
-    end
-  end
+  # def atributos_invitados
+  #   if invitados.any?
+  #     invitados.each do |invitado|
+  #       unless invitado.nombre && invitado.apellido
+  #         errors.add(:invitados, 'Se debe informar los nombres y apellidos')
+  #       end
+  #     end
+  #   end
+  # end
+
 end

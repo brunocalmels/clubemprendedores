@@ -19,13 +19,14 @@
     <%= form.datetime_select :end_time, id: :reserva_end_time, label: "Termina" %>
   </div>
 
-  <div class="field">
-    <h4>Invitados</h4>
-  <%= form.fields_for :invitados do |invitado_form| %>
-    <%= render 'invitado_fields', f: invitado_form %>
-  <% end %>
-  <!-- TODO: No está andando esto (Agregar nuevos invitado_fields para nuevos invitados) -->
-  <%= link_to_add_association 'Agregar invitado', form, :invitados, partial: 'invitado_fields' %>
+  <h4>Invitados</h4>
+  <div id="invitados">
+    <%= form.fields_for :invitados do |invitado_form| %>
+      <%= render 'invitado_fields', f: invitado_form %>
+    <% end %>
+    <div clas='links'>
+      <%= link_to_add_association 'Agregar invitado', form, :invitados %>
+    </div>
   </div>
 
   <div class="actions">

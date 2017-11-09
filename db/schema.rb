@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108133437) do
+ActiveRecord::Schema.define(version: 20171109152312) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "invitados", force: :cascade do |t|
+    t.string "nombre"
+    t.string "apellido"
+    t.bigint "dni"
+    t.string "email"
+    t.bigint "reserva_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reserva_id"], name: "index_invitados_on_reserva_id"
+  end
 
   create_table "reservas", force: :cascade do |t|
     t.datetime "end_time"
@@ -21,7 +32,6 @@ ActiveRecord::Schema.define(version: 20171108133437) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.json "invitados", default: []
     t.index ["user_id"], name: "index_reservas_on_user_id"
   end
 
@@ -49,5 +59,6 @@ ActiveRecord::Schema.define(version: 20171108133437) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "invitados", "reservas"
   add_foreign_key "reservas", "users"
 end

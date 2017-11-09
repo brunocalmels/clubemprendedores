@@ -15,7 +15,7 @@ class ReservasController < ApplicationController
   # GET /reservas/new
   def new
     @reserva = Reserva.new(start_time: params[:date], end_time: params[:date])
-    @reserva.build_invitado
+    # @reserva.build_invitado
   end
 
   # GET /reservas/1/edit
@@ -55,9 +55,10 @@ class ReservasController < ApplicationController
   # DELETE /reservas/1
   # DELETE /reservas/1.json
   def destroy
+    @reserva.invitados.delete_all
     @reserva.destroy
     respond_to do |format|
-      format.html { redirect_to reservas_url, notice: 'La reserva fue correctamente eliminada.' }
+      format.html { redirect_to root_path, notice: 'La reserva fue correctamente eliminada.' }
       format.json { head :no_content }
     end
   end
@@ -71,6 +72,6 @@ class ReservasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def reserva_params
-    params.require(:reserva).permit(:end_time, :start_time, invitados_attributes: %i[nombre apellido dni email _destroy])
+    params.require(:reserva).permit(:end_time, :start_time, invitados_attributes: %i[id nombre apellido dni email _destroy])
   end
 end
