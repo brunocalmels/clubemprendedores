@@ -18,5 +18,7 @@ p 'Creando 10 usuarios'
 p '...con una reserva cada uno'
 10.times do
   user = FactoryGirl.create(:user)
-  reserva = FactoryGirl.create(:reserva, user: user)
+  reserva = FactoryGirl.build(:reserva, user: user)
+  p reserva
+  reserva.save
 end
