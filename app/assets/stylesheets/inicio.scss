@@ -2,6 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "colors";
+
 span.reserva_hora {
   font-weight: bold;
 }
@@ -9,4 +11,22 @@ span.reserva_hora {
 span.bloquea {
   font-weight: bold;
   text-transform: uppercase;
+}
+
+
+span.calendar-title {
+  text-transform: capitalize;
+  background-color: $gris_boton;
+  color: white;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+.calendar-heading {
+  a:first-child {
+    padding-left: 12px !important;
+  }
+  a:last-child {
+    padding-right: 12px !important;
+  }
 }

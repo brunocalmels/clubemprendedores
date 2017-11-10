@@ -13,13 +13,31 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Geometos';
+  src: url('Geometos.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   font-family: 'Filson';
+  font-size: 12pt;
 }
 
 h1, h2, h3, h4, h5, h6,
-body > nav > div > div.navbar-header a,
 #main-body > div.simple-calendar > div a,
 #main-body > div.simple-calendar > div span {
   font-family: 'Titillium';
+}
+
+a.navbar-brand,
+#navbar-collapsable > ul.nav.navbar-nav.navbar-right > li > a,
+#menu > li > a,
+.navbar-text {
+  font-family: 'Titillium';
+}
+
+body > nav > div > div.navbar-header a {
+  font-family: 'Geometos';
 }

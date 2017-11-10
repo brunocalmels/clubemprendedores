@@ -1,0 +1,27 @@
+@import "colors";
+
+.simple-calendar > table > thead {
+  background-color: $gris_barra;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 20px;
+  font-size: 14pt;
+   & > tr > th {
+    text-align: center;
+  }
+}
+
+.simple-calendar > div {
+  margin-bottom: 20px;
+  & > a, & > span {
+      font-size: 18pt;
+  }
+}
+
+.simple-calendar > div > a {
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  background-color: #ddd;
+  color: black;
+  padding: 2px 5px;
+}
