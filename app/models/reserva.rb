@@ -24,7 +24,8 @@ class Reserva < ApplicationRecord
     bloqueos.each do |bloqueo|
       if(
         self.start_time > bloqueo.start_time && self.start_time < bloqueo.end_time ||
-        self.end_time   > bloqueo.start_time && self.end_time   < bloqueo.end_time
+        self.end_time   > bloqueo.start_time && self.end_time   < bloqueo.end_time ||
+        self.start_time < bloqueo.start_time && self.end_time   > bloqueo.end_time
         )
         errors.add(:bloqueado, "El horario de #{bloqueo.start_time} a #{bloqueo.end_time} está reservado por un administrador.")
       end
