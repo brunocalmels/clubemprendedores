@@ -1,5 +1,11 @@
-<h1>Nueva Reserva</h1>
+<h1>
+<%= @reserva.start_time.strftime('%e/%m') %>
+</h1>
+<div class="reservas_del_dia">
+  <%= render @reservas %>
+</div>
 
+<h1>Nueva Reserva</h1>
 <%= render 'form', reserva: @reserva %>
 
 <%= link_to 'Back', reservas_path %>

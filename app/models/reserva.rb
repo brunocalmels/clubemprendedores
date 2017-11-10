@@ -15,6 +15,13 @@ class Reserva < ApplicationRecord
   # Que no haya reservas bloqueantes ese mismo día
   validate :check_bloqueos
 
+  def hora_comienzo
+    start_time.strftime('%k %M')
+  end
+  def hora_fin
+    end_time.strftime('%k %M')
+  end
+
 
   private
 

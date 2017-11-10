@@ -15,7 +15,11 @@ class ReservasController < ApplicationController
 
   # GET /reservas/new
   def new
-    @reserva = Reserva.new(start_time: params[:date], end_time: params[:date])
+    @date = params[:date]
+    @reserva = Reserva.new(start_time: @date, end_time: @date)
+    
+    # TODO: Ver si esto se puede hacer en un solo where
+    @reservas = Reserva.where('extract(day from start_time) = ?', @reserva.start_time.day).where('extract(month from start_time) = ?', @reserva.start_time.month).where('extract(year from start_time) = ?', @reserva.start_time.year)
   end
 
   # GET /reservas/1/edit

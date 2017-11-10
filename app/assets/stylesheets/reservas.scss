@@ -1,3 +1,15 @@
 // Place all the styles related to the Reservas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div.reservas_del_dia{
+  margin-bottom: 2em;
+}
+
+div.reserva_del_dia {
+  text-align: left;
+}
+
+span.reserva_hora {
+  font-weight: bold;
+}

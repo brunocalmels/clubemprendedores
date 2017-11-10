@@ -1,0 +1,25 @@
+@font-face {
+  font-family: 'Titillium';
+  src:url('TitilliumWeb-SemiBold.eot');
+  src: url('TitilliumWeb-SemiBold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Filson';
+  src: url('filson-light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Filson';
+}
+
+h1, h2, h3, h4, h5, h6,
+body > nav > div > div.navbar-header a,
+#main-body > div.simple-calendar > div a,
+#main-body > div.simple-calendar > div span {
+  font-family: 'Titillium';
+}

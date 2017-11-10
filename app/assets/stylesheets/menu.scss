@@ -1,0 +1,48 @@
+ @import "colors";
+nav.navbar {
+  background: $verde;
+  width: 100%;
+  padding: 20px 30px 0px 30px;
+  border-bottom: 2px solid $naranja;
+}
+
+body > nav > div > div.navbar-header {
+  width: 100%;
+  a {
+    font-size: 26pt;
+    text-transform: uppercase;
+  }
+}
+
+nav.navbar a {
+  font-size: 16px;
+}
+a.navbar-brand,
+#navbar-collapsable > ul.nav.navbar-nav.navbar-right > li > a,
+#menu > li > a {
+  color: white;
+}
+
+#menu > li.active > a {
+  background-color: $verde;
+  border-bottom: 6px solid $naranja;
+}
+
+
+#main-body > div.simple-calendar > table > thead {
+
+  background-color: $gris_barra;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 20px;
+   & > tr > th {
+    text-align: center;
+  }
+}
+
+#main-body > div.simple-calendar > div {
+  margin-bottom: 20px;
+  & > a, & > span {
+      font-size: 18pt;
+  }
+}
