@@ -16,10 +16,10 @@ class Reserva < ApplicationRecord
   validate :check_bloqueos
 
   def hora_comienzo
-    start_time.strftime('%k %M')
+    start_time.strftime('%k:%M')
   end
   def hora_fin
-    end_time.strftime('%k %M')
+    end_time.strftime('%k:%M')
   end
 
 

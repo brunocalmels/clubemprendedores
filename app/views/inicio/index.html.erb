@@ -7,7 +7,7 @@
   <% end %>
 
   <% reservas.each do |reserva| %>
-  <div>
+  <div class="datos-reserva">
     <!-- Si puede editar las reservas -->
     <% if reserva.user == current_user || !current_user.nil? && current_user.admin? %>
       <%= link_to reserva do %>
@@ -16,7 +16,7 @@
           + <%= reserva.invitados.count %> invitados
         <% end %>
         <% if reserva.bloqueo? %>
-          <span class="bloquea">[Todo]</span>
+          <span class="bloquea">[Todo el Club]</span>
         <% end %>
         <span class="reserva_hora">
           <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
@@ -32,7 +32,13 @@
       <span class="reserva_hora">
         <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
       </span>
-    <% end %>
+    <% end %> <!--Se puede editar las reservas -->
   </div>
-<% end %>
+  <% end %>
+
+  <!-- Lugares disponibles -->
+  <div class="lugares_disponibles">
+    <%= link_to '¡Reservá tu lugar!', new_reserva_url(date: date) %>
+  </div>
+
 <% end %>

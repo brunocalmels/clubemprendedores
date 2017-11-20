@@ -6,15 +6,18 @@
   text-transform: uppercase;
   margin-top: 20px;
   font-size: 14pt;
-   & > tr > th {
+
+  & > tr > th {
     text-align: center;
   }
 }
 
 .simple-calendar > div {
   margin-bottom: 20px;
-  & > a, & > span {
-      font-size: 18pt;
+
+  & > a,
+  & > span {
+    font-size: 18pt;
   }
 }
 
@@ -24,4 +27,47 @@
   background-color: #ddd;
   color: black;
   padding: 2px 5px;
+}
+
+.simple-calendar td {
+  &, &.day > a:first-of-type {
+    font-size: 120%;
+    font-weight: bold;
+    color: $verde;
+  }
+  .datos-reserva {
+    font-weight: initial;
+    color: initial;
+  }
+}
+// Bordes de la tabla
+.simple-calendar tr {
+  td {
+    border-left: 1px solid $gris_bordes;
+    border-right: 1px solid $gris_bordes;
+  }
+
+  td:first-child {
+    border-right: 1px solid $gris_bordes;
+    border-left: none;
+  }
+
+  td:last-child {
+    border-left: 1px solid $gris_bordes;
+    border-right: none;
+  }
+}
+
+.simple-calendar td.day {
+  // position: relative;
+  .lugares_disponibles {
+  //   position: absolute;
+  //   bottom: 10px;
+  //   left: calc(20%);
+  margin-top: 2em;
+    a {
+      color: $verde;
+      font-style: italic;
+    }
+  }
 }

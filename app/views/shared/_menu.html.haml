@@ -12,9 +12,9 @@
 
       = navbar_item "Inicio", '/'
       = navbar_item "Acerca del Club", 'http://idea.cpymeadeneu.com.ar/#club'
-      = navbar_item '/contact' do
-        -# %span.glyphicon.glyphicon-hand-right
-        ¡Contactanos!
+      -# = navbar_item '/contacto' do
+      -#   -# %span.glyphicon.glyphicon-hand-right
+      -#   ¡Contactanos!
       - if current_user.present?
         = navbar_dropdown "Mi cuenta" do
           = navbar_dropdown_header 'Mi cuenta'

@@ -19,22 +19,27 @@
     <%= form.datetime_select :end_time, id: :reserva_end_time, label: "Termina" %>
   </div>
 
-  <h4>Bloquear reservas</h4>
-  <div class="" id="bloquear">
+  <div class="field" id="bloquear">
+    <h4>Bloquear reservas</h4>
     <%= form.check_box :bloqueo, label: "Bloquear" %>
       <div class="">
         <i>Para no permitir que los usuarios hagan reservas durante este horario.</i>
       </div>
   </div>
 
-  <div id="invitados">
+  <div class="field" id="invitados">
     <h4>Invitados</h4>
-    <%= form.fields_for :invitados do |invitado_form| %>
-      <%= render 'invitado_fields', f: invitado_form %>
+    <!-- Si es admin, no necesita dar los datos de los invitados -->
+    <% if current_user.admin? %>
+      <%= number_field_tag :invitados_anon, 0, min: 0, max: MAX_OCUPACIONES %>
+    <% else %>
+      <%= form.fields_for :invitados do |invitado_form| %>
+        <%= render 'invitado_fields', f: invitado_form %>
+      <% end %>
+      <div clas='links'>
+        <%= link_to_add_association 'Agregar invitado', form, :invitados %>
+      </div>
     <% end %>
-    <div clas='links'>
-      <%= link_to_add_association 'Agregar invitado', form, :invitados %>
-    </div>
   </div>
 
   <div class="actions">

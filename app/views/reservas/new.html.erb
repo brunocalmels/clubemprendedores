@@ -2,10 +2,16 @@
 <%= @reserva.start_time.strftime('%e/%m') %>
 </h1>
 <div class="reservas_del_dia">
-  <%= render @reservas %>
+  <h4>Reservas del día</h4>
+  <% if @reservas.present? %>
+    <%= render @reservas %>
+  <% else %>
+    <%= "No hay reservas" %>
+  <% end %>
 </div>
 
-<h1>Nueva Reserva</h1>
-<%= render 'form', reserva: @reserva %>
-
-<%= link_to 'Back', reservas_path %>
+<div class="nueva_reserva">
+  <h1>Nueva Reserva</h1>
+  <%= render 'form', reserva: @reserva %>
+  <%= link_to 'Volver', reservas_path %>
+</div>

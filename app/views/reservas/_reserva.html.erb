@@ -1,8 +1,11 @@
 <div class="reserva_del_dia">
   <span class="reserva_hora">
-    <%= reserva.hora_comienzo %> -
+    <%= reserva.hora_comienzo %> hs -
     <%= reserva.hora_fin %> hs :
   </span>
   <%= reserva.user.nombre %>
   <%= reserva.user.apellido %>
+  <% if reserva.invitados.count > 0 %>
+    + <%= reserva.invitados.count %>
+  <% end %>
 </div>

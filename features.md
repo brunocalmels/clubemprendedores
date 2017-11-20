@@ -3,10 +3,10 @@
 - [x] Como usuario, quiero reservar el club para mí para usar las instalaciones.
 - [x] No se deben poder generar reservas que terminen un día distinto del que comenzaron.
 - [x] Como usuario, quiero reservar el club para más personas también.
-- [ ] Debe haber una cantidad máxima de reservas por hora.
-- [ ] Como administrador, quiero poder evitar que en ciertos slots de tiempo los usuarios puedan reservar el club, para hacer uso interno de él, sin tener que detallar la información que el resto de los usuarios tienen que detallar.
+- [x] Como administrador, quiero poder evitar que en ciertos slots de tiempo los usuarios puedan reservar el club, para hacer uso interno de él, sin tener que detallar la información que el resto de los usuarios tienen que detallar.
 - [x] Como usuario, quiero poder editar mis reservas, para cambiar su hora de comienzo o finalización.
 - [x] Como usuario, quiero poder eliminar una reserva, para informar que no lo utilizaré.
 - [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
-- [ ] Como admin, quiero que los turnos tengan una Finalidad informada, que puede ser o bien "Eventos/capacitaciones", o bien "co-working".
+- [ ] Como admin, quiero que los turnos tengan una finalidad informada, que puede ser o bien "Eventos/capacitaciones", o bien "co-working".
 - [ ] Que diga cuántos lugares disponibles quedan en cada franja horaria.
+- [ ] Debe haber una cantidad máxima de reservas por hora.

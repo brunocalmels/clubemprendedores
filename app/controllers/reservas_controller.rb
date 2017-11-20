@@ -5,9 +5,9 @@ class ReservasController < ApplicationController
 
   # GET /reservas
   # GET /reservas.json
-  def index
-    @reservas = Reserva.all
-  end
+  # def index
+  #   @reservas = Reserva.all
+  # end
 
   # GET /reservas/1
   # GET /reservas/1.json
@@ -17,7 +17,7 @@ class ReservasController < ApplicationController
   def new
     @date = params[:date]
     @reserva = Reserva.new(start_time: @date, end_time: @date)
-    
+
     # TODO: Ver si esto se puede hacer en un solo where
     @reservas = Reserva.where('extract(day from start_time) = ?', @reserva.start_time.day).where('extract(month from start_time) = ?', @reserva.start_time.month).where('extract(year from start_time) = ?', @reserva.start_time.year)
   end
@@ -30,10 +30,19 @@ class ReservasController < ApplicationController
   def create
     @reserva = Reserva.new(reserva_params)
     @reserva.user = current_user
+    if current_user.admin?
+      invitados_anon = params[:invitados_anon].to_i
+      if invitados_anon > 0 && invitados_anon <= 30
+        invitados_anon.times do |invitado_anon|
+          @reserva.invitados.new(anonimo: true)
+        end
+      end
+
+    end
 
     respond_to do |format|
       if @reserva.save
-        format.html { redirect_to @reserva, notice: 'Reserva was successfully created.' }
+        format.html { redirect_to @reserva, notice: 'La reserva se creó correctamente.' }
         format.json { render :show, status: :created, location: @reserva }
       else
         format.html { render :new }
@@ -45,6 +54,16 @@ class ReservasController < ApplicationController
   # PATCH/PUT /reservas/1
   # PATCH/PUT /reservas/1.json
   def update
+    if current_user.admin?
+      invitados_anon = params[:invitados_anon].to_i
+      if invitados_anon >= 0 && invitados_anon <= 30
+        @reserva.invitados.delete_all
+        invitados_anon.times do |invitado_anon|
+          @reserva.invitados.new(anonimo: true)
+        end
+      end
+    end
+
     respond_to do |format|
       if @reserva.update(reserva_params)
         format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
@@ -69,7 +88,6 @@ class ReservasController < ApplicationController
 
   private
 
-  #
   def bloquear_solo_admins
     if !current_user.admin?
       params[:reserva][:bloquear] = false

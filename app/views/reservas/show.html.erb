@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 
 <p>
   <strong>Usuario:</strong>
@@ -10,14 +10,14 @@
 
 <p>
   <strong>Comienza:</strong>
-  <%= @reserva.start_time %>
+  <%= @reserva.start_time.strftime('%e %b %H:%M hs') %>
 </p>
 <p>
   <strong>Termina:</strong>
-  <%= @reserva.end_time %>
+  <%= @reserva.end_time.strftime('%e %b %H:%M hs') %>
 </p>
 
-<% if current_user.admin? %>
+<% if current_user.present? && current_user.admin? %>
 <p>
   <strong>Bloquea:</strong>
   <%= @reserva.bloqueo ? "Sí" : "No" %>
@@ -26,9 +26,11 @@
 
 <% if @reserva.invitados.any? and @reserva.invitados.first.nombre != '' %>
   <p>
-    <strong>Invitados: (<%= @reserva.invitados.count %>) </strong>
+    <strong>Invitados (<%= @reserva.invitados.count %>): </strong>
     <% @reserva.invitados.each do |invitado| %>
-      <%= invitado.nombre %> <%= invitado.apellido %>, <%= invitado.email %>. DNI: <%= invitado.dni %> <br />
+      <% if !invitado.anonimo %>
+        <%= invitado.nombre %> <%= invitado.apellido %>, <%= invitado.email %>. DNI: <%= invitado.dni %> <br />
+      <% end %>
     <% end %>
   </p>
 <% end %>

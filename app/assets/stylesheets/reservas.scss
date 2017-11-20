@@ -2,8 +2,11 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@import "colors";
+
 div.reservas_del_dia{
   margin-bottom: 2em;
+  text-align: left;
 }
 
 div.reserva_del_dia {
@@ -12,4 +15,15 @@ div.reserva_del_dia {
 
 span.reserva_hora {
   font-weight: bold;
+}
+
+div.nueva_reserva {
+  border: 1px solid $gris_boton;
+  border-radius: 5px;
+  margin: 30px 0px;
+  padding: 10px 20px;
+}
+
+form div.field {
+  margin-top: 30px;
 }
