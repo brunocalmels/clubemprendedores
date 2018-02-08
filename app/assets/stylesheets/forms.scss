@@ -1,7 +1,31 @@
+ @import "colors";
+
 .form-not-whole-row {
   display: inline-block;
 
   &.small {
     max-width: 6em;
   }
+}
+
+.btn-default {
+  background-color: $verde;
+  color: white;
+  font-weight: bold;
+  margin: 20px 10px 10px;
+  font-size: 110%;
+}
+
+a {
+  padding: 0.3em;
+}
+
+a:hover, .btn-default:hover {
+  background-color: orange;
+}
+
+select {
+  max-width: 400px;
+  margin-right: auto;
+  margin-left: auto;
 }

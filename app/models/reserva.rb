@@ -6,6 +6,7 @@ class Reserva < ApplicationRecord
 
   validates :start_time, presence: true
   validates :end_time, presence: true
+  validates :finalidad, inclusion: { in: FINALIDADES }
 
   # Que termine después de que empiece
   validate :end_post_start
@@ -20,6 +21,10 @@ class Reserva < ApplicationRecord
   end
   def hora_fin
     end_time.strftime('%k:%M')
+  end
+
+  def ocupaciones
+    invitados.count + 1
   end
 
 

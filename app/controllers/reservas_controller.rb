@@ -64,6 +64,8 @@ class ReservasController < ApplicationController
       end
     end
 
+    # Chequear que solo puedan editar reservas los dueños
+
     respond_to do |format|
       if @reserva.update(reserva_params)
         format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
@@ -101,6 +103,6 @@ class ReservasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def reserva_params
-    params.require(:reserva).permit(:end_time, :start_time, :bloqueo, invitados_attributes: %i[id nombre apellido dni email _destroy])
+    params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, invitados_attributes: %i[id nombre apellido dni email _destroy])
   end
 end

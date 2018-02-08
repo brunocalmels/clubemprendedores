@@ -19,6 +19,10 @@
     <%= form.datetime_select :end_time, id: :reserva_end_time, label: "Termina" %>
   </div>
 
+  <div class="field" id="finalidad">
+    <%= form.select :finalidad, FINALIDADES, label: "Finalidad" %>
+  </div>
+
   <div class="field" id="bloquear">
     <h4>Bloquear reservas</h4>
     <%= form.check_box :bloqueo, label: "Bloquear" %>

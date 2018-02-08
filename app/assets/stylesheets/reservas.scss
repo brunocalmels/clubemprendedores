@@ -7,14 +7,31 @@
 div.reservas_del_dia{
   margin-bottom: 2em;
   text-align: left;
+  display: flex;
+  // flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
 }
 
 div.reserva_del_dia {
   text-align: left;
+  font-family: 'Titillium';
+}
+.franja_del_dia {
+  border: 1px solid $gris_barra;
+  width: 33%;
+  padding: 10px;
 }
 
-span.reserva_hora {
+
+span.reserva_hora, span.vacantes {
   font-weight: bold;
+  font-size: 110%;
+}
+
+span.vacantes {
+  float: right;
 }
 
 div.nueva_reserva {
@@ -26,4 +43,11 @@ div.nueva_reserva {
 
 form div.field {
   margin-top: 30px;
+}
+
+.hay_vacantes {
+  color: $verde;
+}
+.sin_vacantes {
+  color: $rojo;
 }

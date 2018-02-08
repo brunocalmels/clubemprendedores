@@ -1,10 +1,38 @@
 <h1>
 <%= @reserva.start_time.strftime('%e/%m') %>
 </h1>
+<h4>Reservas del día</h4>
 <div class="reservas_del_dia">
-  <h4>Reservas del día</h4>
   <% if @reservas.present? %>
-    <%= render @reservas %>
+    <% FRANJAS_HORARIAS.each do |franja| %>
+      <% reservas_franja = [] %>
+      <% horas_franja = [@reserva.start_time.change(hour:franja[0]), @reserva.end_time.change(hour:franja[1])] %>
+      <% @reservas.each do |reserva| %>
+        <% if reserva.start_time <= horas_franja[0] && reserva.end_time >= horas_franja[1] %>
+          <% reservas_franja << reserva %>
+        <% end %>
+      <% end %>
+      </br>
+      <div class="franja_del_dia">
+        <span class="reserva_hora">
+          <%= "#{horas_franja[0].strftime('%k:%M')} hs - #{horas_franja[1].strftime('%k:%M')} hs" %>
+        </span>
+        <span class='vacantes'>
+          <% ocupaciones = 0 %>
+          <% reservas_franja.each { |r| ocupaciones += r.ocupaciones } %>
+          <% if (vacantes = MAX_OCUPACIONES - ocupaciones) > 0 %>
+            <span class='hay_vacantes'>
+              <%= pluralize(vacantes, "vacante", "vacantes") %>
+            </span>
+          <% else %>
+            <span class='sin_vacantes'>
+              sin vacantes
+            </span>
+          <% end %>
+        </span>
+        <%= render partial: 'reservas_franja', collection: reservas_franja, as: :reserva %>
+      </div>
+    <% end %>
   <% else %>
     <%= "No hay reservas" %>
   <% end %>
@@ -13,5 +41,5 @@
 <div class="nueva_reserva">
   <h1>Nueva Reserva</h1>
   <%= render 'form', reserva: @reserva %>
-  <%= link_to 'Volver', reservas_path %>
+  <%= link_to 'Volver', root_path %>
 </div>

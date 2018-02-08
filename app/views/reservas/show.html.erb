@@ -17,6 +17,11 @@
   <%= @reserva.end_time.strftime('%e %b %H:%M hs') %>
 </p>
 
+<p>
+  <strong>Finalidad:</strong>
+  <%= @reserva.finalidad %>
+</p>
+
 <% if current_user.present? && current_user.admin? %>
 <p>
   <strong>Bloquea:</strong>
@@ -39,4 +44,4 @@
   <%= link_to('Editar', edit_reserva_path(@reserva)) %> |
   <%= link_to('Borrar', reserva_path(@reserva), method: :delete) %> |
 <% end %>
-<%= link_to 'Volver', reservas_path %>
+<%= link_to 'Volver', new_reserva_path(date: @reserva.start_time) %>
