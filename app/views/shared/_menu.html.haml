@@ -21,7 +21,7 @@
           = navbar_item "Editar perfil", edit_user_registration_url(current_user)
           -# = navbar_dropdown_divider
           -# = navbar_item "Salir", destroy_user_session_path
-          -# = navbar_item "Admin Dashboard", '/admin'
+        = navbar_item "Mis reservas", '/reservas'
     = navbar_group align: 'right' do
       - if current_user.present?
         = navbar_item "Salir", destroy_user_session_url, {}, { 'data-method': :delete }

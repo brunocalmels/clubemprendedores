@@ -18,4 +18,5 @@
 ActiveSupport::Inflector.inflections(:es) do |inflect|
   inflect.irregular 'error', 'errores'
   inflect.irregular 'permitió', 'permitieron'
+  inflect.irregular 'lugar', 'lugares'
 end

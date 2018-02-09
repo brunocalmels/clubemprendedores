@@ -1,13 +1,13 @@
 class ReservasController < ApplicationController
   before_action :set_reserva, only: %i[show edit update destroy]
-  before_action :authenticate_user!, only: %i[edit new destroy update create]
+  before_action :authenticate_user!, only: %i[edit new destroy update create index]
   before_action :bloquear_solo_admins, only: %i[create update]
 
   # GET /reservas
   # GET /reservas.json
-  # def index
-  #   @reservas = Reserva.all
-  # end
+  def index
+    @reservas = current_user.reservas
+  end
 
   # GET /reservas/1
   # GET /reservas/1.json
@@ -15,7 +15,7 @@ class ReservasController < ApplicationController
 
   # GET /reservas/new
   def new
-    @date = params[:date]
+    @date = params[:date] || Time.zone.now
     @reserva = Reserva.new(start_time: @date, end_time: @date)
 
     # TODO: Ver si esto se puede hacer en un solo where
@@ -37,7 +37,6 @@ class ReservasController < ApplicationController
           @reserva.invitados.new(anonimo: true)
         end
       end
-
     end
 
     respond_to do |format|
@@ -92,7 +91,7 @@ class ReservasController < ApplicationController
 
   def bloquear_solo_admins
     if !current_user.admin?
-      params[:reserva][:bloquear] = false
+      params[:reserva][:bloqueo] = false
     end
   end
 

@@ -19,6 +19,9 @@ class Reserva < ApplicationRecord
   # Que no haya reservas bloqueantes ese mismo día
   validate :check_bloqueos
 
+  def fecha
+    start_time.strftime('%-d/%-m')
+  end
   def hora_comienzo
     start_time.strftime('%k:%M')
   end
@@ -44,14 +47,14 @@ class Reserva < ApplicationRecord
   end
 
   def contenido_en(hora_ini, hora_fin)
-    false unless self.start_time >= hora_ini && self.end_time <= hora_fin
+    self.start_time >= hora_ini && self.end_time <= hora_fin
   end
 
   private
 
   def cumple_horario_apertura
     horario_apertura = [self.start_time.change(hour: HORA_APERTURA), self.end_time.change(hour: HORA_CIERRE)]
-    errors.add(:horario_de_apertura, "El horario debe estar entre #{HORA_APERTURA} y #{HORA_CIERRE}") unless self.contenido_en(*horario_apertura)
+    errors.add(:horario_de_apertura, "El horario debe estar entre #{HORA_APERTURA} hs y #{HORA_CIERRE} hs") unless self.contenido_en(*horario_apertura)
   end
 
   def check_bloqueos

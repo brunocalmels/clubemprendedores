@@ -1,12 +1,15 @@
 <div class="reserva_del_dia">
   <span class="reserva_hora">
-    <%= reserva.hora_comienzo %> hs -
-    <%= reserva.hora_fin %> hs :
-  </span>
-  <%= reserva.finalidad %>
-  <%= reserva.user.nombre %>
-  <%= reserva.user.apellido %>
-  <% if reserva.invitados.count > 0 %>
-    + <%= reserva.invitados.count %>
-  <% end %>
+    <%= link_to edit_reserva_path(reserva) do %>
+      <%= reserva.fecha %> -
+      <%= reserva.hora_comienzo %> hs a
+      <%= reserva.hora_fin %> hs
+    <% end %>
+    </span>
+    <%= reserva.finalidad %>
+    <!-- <%= reserva.user.nombre %>
+    <%= reserva.user.apellido %> -->
+    (<%= pluralize(reserva.ocupaciones, 'lugar')%>)
+    <!-- <% if reserva.invitados.count > 0 %>
+    <% end %> -->
 </div>
