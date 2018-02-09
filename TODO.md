@@ -1,4 +1,5 @@
 # TODO
+- [ ] Añadir la condición 'destroy' para la relación entre invitaciones y reservas.
 - [ ] Arreglar los tests.
 
 # ESTILO

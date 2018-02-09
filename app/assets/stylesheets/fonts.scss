@@ -1,21 +1,21 @@
 @font-face {
   font-family: 'Titillium';
-  src:url('TitilliumWeb-SemiBold.eot');
-  src: url('TitilliumWeb-SemiBold.ttf') format('truetype');
+  src: font-url( asset_path('TitilliumWeb-SemiBold.eot'));
+  src: font-url( asset_path('TitilliumWeb-SemiBold.ttf')) format('truetype');
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Filson';
-  src: url('filson-light.ttf') format('truetype');
+  src: font-url( asset_path('filson-light.ttf')) format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Geometos';
-  src: url('Geometos.ttf') format('truetype');
+  src: font-url( asset_path('Geometos.ttf')) format('truetype');
   font-weight: normal;
   font-style: normal;
 }

@@ -15,9 +15,11 @@ p 'Creando turnos bloqueantes'
   reserva = FactoryGirl.build(:reserva, user: maxi, bloqueo: true)
   p reserva
   reserva.save
-  p '... con invitados anónimos'
-  rand(1..20).times do |t|
-    FactoryGirl.create(:invitado, reserva: reserva, anonimo: true)
+  if reserva.persisted?
+    p '... con invitados anónimos'
+    rand(1..20).times do |t|
+      FactoryGirl.create(:invitado, reserva: reserva, anonimo: true)
+    end
   end
 end
 
@@ -29,9 +31,10 @@ p '...con una reserva cada uno'
 10.times do
   user = FactoryGirl.create(:user)
   reserva = FactoryGirl.build(:reserva, user: user)
-  rand(0..5).times do
-    FactoryGirl.create(:invitado, reserva: reserva)
-  end
-  # p reserva
   reserva.save
+  if reserva.persisted?
+    rand(0..5).times do
+      FactoryGirl.create(:invitado, reserva: reserva)
+    end
+  end
 end
