@@ -55,7 +55,7 @@ form div.field {
 }
 
 .elegido {
-  animation: beat 1s ease 1;
+  animation: beat 1s ease-out 1;
 }
 @keyframes beat {
   33% {

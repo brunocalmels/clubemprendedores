@@ -1,8 +1,19 @@
 <div class="reserva_del_dia">
-  <%= reserva.finalidad %>
-  <%= reserva.user.nombre %>
-  <%= reserva.user.apellido %>
-  <% if reserva.invitados.count > 0 %>
-    + <%= reserva.invitados.count %>
+  <% if reserva.user == current_user %>
+    <%= link_to edit_reserva_path(reserva) do %>
+      <%= reserva.finalidad %>
+      <%= reserva.user.nombre %>
+      <%= reserva.user.apellido %>
+      <% if reserva.invitados.count > 0 %>
+      + <%= reserva.invitados.count %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= reserva.finalidad %>
+    <%= reserva.user.nombre %>
+    <%= reserva.user.apellido %>
+    <% if reserva.invitados.count > 0 %>
+      + <%= reserva.invitados.count %>
+    <% end %>
   <% end %>
 </div>

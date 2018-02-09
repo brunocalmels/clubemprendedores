@@ -1,4 +1,5 @@
 # IN PROGRESS
+- [ ] Como admin, quiero establecer una hora de inicio y una de fin para las actividades diarias en el club. (Falta validación)
 
 # TO BE STARTED
 - [ ] Quiero poder entrar a mi reserva desde la vista del día.
@@ -18,5 +19,4 @@
 - [x] Quiero poder elegir la hora cliqueando en ella en vez de tener que ponerla en el formulario.
 
 # BACKLOG
-- [ ] Como admin, quiero establecer una hora de inicio y una de fin para las actividades diarias en el club.
 - [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
