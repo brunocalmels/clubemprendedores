@@ -3,7 +3,7 @@
 </h1>
 <h4>Reservas del día</h4>
 <div class="reservas_del_dia">
-  <% if @reservas.present? %>
+  <!-- <% if @reservas.present? %> -->
     <% FRANJAS_HORARIAS.each do |franja| %>
       <% reservas_franja = [] %>
       <% horas_franja = [@reserva.start_time.change(hour:franja[0]), @reserva.end_time.change(hour:franja[1])] %>
@@ -13,7 +13,9 @@
         <% end %>
       <% end %>
       </br>
-      <div class="franja_del_dia">
+      <div class="franja_horaria" data-hora-inicio=<%=
+      horas_franja[0].strftime('%k')%> data-hora-fin=<%=
+      horas_franja[1].strftime('%k') %>>
         <span class="reserva_hora">
           <%= "#{horas_franja[0].strftime('%k:%M')} hs - #{horas_franja[1].strftime('%k:%M')} hs" %>
         </span>
@@ -33,9 +35,9 @@
         <%= render partial: 'reservas_franja', collection: reservas_franja, as: :reserva %>
       </div>
     <% end %>
-  <% else %>
+  <!-- <% else %>
     <%= "No hay reservas" %>
-  <% end %>
+  <% end %> -->
 </div>
 
 <div class="nueva_reserva">

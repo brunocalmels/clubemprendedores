@@ -1,10 +1,9 @@
 // Place all the styles related to the Reservas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
 @import "colors";
 
-div.reservas_del_dia{
+div.reservas_del_dia {
   margin-bottom: 2em;
   text-align: left;
   display: flex;
@@ -18,14 +17,16 @@ div.reserva_del_dia {
   text-align: left;
   font-family: 'Titillium';
 }
-.franja_del_dia {
+
+.franja_horaria {
   border: 1px solid $gris_barra;
   width: 33%;
   padding: 10px;
+  background-color: white;
 }
 
-
-span.reserva_hora, span.vacantes {
+span.reserva_hora,
+span.vacantes {
   font-weight: bold;
   font-size: 110%;
 }
@@ -37,7 +38,7 @@ span.vacantes {
 div.nueva_reserva {
   border: 1px solid $gris_boton;
   border-radius: 5px;
-  margin: 30px 0px;
+  margin: 30px 0;
   padding: 10px 20px;
 }
 
@@ -48,6 +49,25 @@ form div.field {
 .hay_vacantes {
   color: $verde;
 }
+
 .sin_vacantes {
   color: $rojo;
+}
+
+.elegido {
+  animation: beat 1s ease 1;
+}
+@keyframes beat {
+  33% {
+    transform: scale( 1.1 );
+    background-color: $naranja;
+  }
+
+  67% {
+    transform: scale( .8 );
+  }
+
+  100% {
+    transform: scale( 1 );
+  }
 }

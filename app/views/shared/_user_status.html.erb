@@ -10,11 +10,11 @@
 </div> -->
 
 <% else %>
-  <div>
-  <%= 'No estás logueado.' %>
-</div>
-<div>
-  <%= link_to 'Ingresá', new_user_session_url %>
-  <%= link_to 'Registrate', new_user_registration_url %>
-</div>
+  <div class='no_logueado'>
+    <%= 'No estás logueado' %>
+    <div>
+      <%= link_to 'Ingresá', new_user_session_url %>
+      <%= link_to 'Registrate', new_user_registration_url %>
+    </div>
+  </div>
 <% end %>

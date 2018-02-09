@@ -2,7 +2,6 @@
 
 # TO BE STARTED
 - [ ] Quiero poder entrar a mi reserva desde la vista del día.
-- [ ] Quiero poder elegir la hora cliqueando en ella en vez de tener que ponerla en el formulario.
 
 # DONE
 - [x] Como usuario, me puedo registrar con mi email y una contraseña para poder tener acceso a mis datos y a las funcionalidades del sistema.
@@ -16,6 +15,7 @@
 - [x] Como admin, quiero que los turnos tengan una finalidad informada, que puede ser o bien "Eventos/capacitaciones", o bien "co-working".
 - [x] Que diga cuántos lugares disponibles quedan en cada franja horaria.
 - [x] Hay una cantidad máxima de reservas por hora.
+- [x] Quiero poder elegir la hora cliqueando en ella en vez de tener que ponerla en el formulario.
 
 # BACKLOG
 - [ ] Como admin, quiero establecer una hora de inicio y una de fin para las actividades diarias en el club.

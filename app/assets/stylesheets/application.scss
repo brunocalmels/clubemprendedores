@@ -49,3 +49,17 @@ body {
   padding: 5px 15px;
   margin-bottom: 5px;
 }
+
+.no_logueado {
+  background-color: $naranja;
+  padding: 10px 15px;
+  border-radius: 10px;
+  display: inline-block;
+  font-family: Titillium;
+  color: $blanco;
+  font-size: 110%;
+  & a {
+    font-family: Titillium;
+    color: $rojo;
+  }
+}

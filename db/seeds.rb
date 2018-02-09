@@ -22,7 +22,7 @@ p 'Creando turnos bloqueantes'
 end
 
 p 'Creando usuario Bruno'
-User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp', nombre: 'Bruno', apellido: 'Calmels', id_tipo: 0, id_num: 32974644, institucion: 'Macher IT')
+User.create!(email: 'brunocalmels@gmail.com', password:'123456', nombre: 'Bruno', apellido: 'Calmels', id_tipo: 0, id_num: 32974644, institucion: 'Macher IT')
 
 p 'Creando 10 usuarios'
 p '...con una reserva cada uno'
@@ -32,6 +32,6 @@ p '...con una reserva cada uno'
   rand(0..5).times do
     FactoryGirl.create(:invitado, reserva: reserva)
   end
-  p reserva
+  # p reserva
   reserva.save
 end
