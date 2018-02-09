@@ -1,7 +1,7 @@
 <%= bootstrap_form_for(@reserva, local: true) do |form| %>
   <% if reserva.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(reserva.errors.count, "error") %> no permitieron guardar esta reserva:</h2>
+      <h2><%= pluralize(reserva.errors.count, "error no permitió", "errores no permitieron") %> no guardar esta reserva:</h2>
 
       <ul>
       <% reserva.errors.full_messages.each do |message| %>

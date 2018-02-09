@@ -1,4 +1,6 @@
 TIPOS_ID = ['DNI', 'CUIL', 'CUIT']
 MAX_OCUPACIONES = 10
 FINALIDADES = ['Eventos/capacitaciones', 'Co-Working']
-FRANJAS_HORARIAS = (8..18).map { |p| [p, p+1] }
+HORA_APERTURA = 8
+HORA_CIERRE = 18
+FRANJAS_HORARIAS = (HORA_APERTURA..(HORA_CIERRE-1)).map { |p| [p, p+1] }

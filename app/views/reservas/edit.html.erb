@@ -3,4 +3,5 @@
 <%= render 'form', reserva: @reserva %>
 
 <%= link_to 'Ver', @reserva %> |
+<%= link_to('Borrar', reserva_path(@reserva), method: :delete) %> |
 <%= link_to 'Volver', root_path %>

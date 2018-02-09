@@ -1,5 +1,11 @@
  @import "colors";
 
+.form-control {
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .form-not-whole-row {
   display: inline-block;
 

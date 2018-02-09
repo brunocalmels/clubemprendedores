@@ -63,3 +63,15 @@ body {
     color: $rojo;
   }
 }
+
+#error_explanation {
+  background-color: $amarillo;
+  border: 1px solid $gris_boton;
+  padding: 10px 15px;
+  ul {
+    list-style: none;
+    li {
+      color: $rojo;
+    }
+  }
+}

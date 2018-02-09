@@ -1,8 +1,7 @@
 # IN PROGRESS
-- [ ] Como admin, quiero establecer una hora de inicio y una de fin para las actividades diarias en el club. (Falta validación)
+- [ ] Quiero poder ver una lista de mis reservas para administrarlas fácilmente.
 
 # TO BE STARTED
-- [ ] Quiero poder entrar a mi reserva desde la vista del día.
 
 # DONE
 - [x] Como usuario, me puedo registrar con mi email y una contraseña para poder tener acceso a mis datos y a las funcionalidades del sistema.
@@ -17,6 +16,8 @@
 - [x] Que diga cuántos lugares disponibles quedan en cada franja horaria.
 - [x] Hay una cantidad máxima de reservas por hora.
 - [x] Quiero poder elegir la hora cliqueando en ella en vez de tener que ponerla en el formulario.
+- [x] Quiero poder entrar a mi reserva desde la vista del día.
+- [x] Como admin, quiero establecer una hora de inicio y una de fin para las actividades diarias en el club.
 
 # BACKLOG
 - [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.

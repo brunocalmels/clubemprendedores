@@ -7,14 +7,17 @@
       <% reservas_franja = [] %>
       <% horas_franja = [@reserva.start_time.change(hour:franja[0]), @reserva.end_time.change(hour:franja[1])] %>
       <% @reservas.each do |reserva| %>
-        <% if reserva.start_time <= horas_franja[0] && reserva.end_time >= horas_franja[1] %>
+        <% if reserva.solapa_con?(horas_franja[0], horas_franja[1]) %>
           <% reservas_franja << reserva %>
         <% end %>
       <% end %>
       </br>
-      <div class="franja_horaria" data-hora-inicio=<%=
-      horas_franja[0].strftime('%k')%> data-hora-fin=<%=
-      horas_franja[1].strftime('%k') %>>
+      <div class="franja_horaria"
+        data-hora-inicio=<%= horas_franja[0].strftime('%k')%>
+        data-hora-fin=<%= horas_franja[1].strftime('%k') %>
+        data-min-inicio=<%= horas_franja[0].strftime('%M')%>
+        data-min-fin=<%= horas_franja[1].strftime('%M') %>
+      >
         <span class="reserva_hora">
           <%= "#{horas_franja[0].strftime('%k:%M')} hs - #{horas_franja[1].strftime('%k:%M')} hs" %>
         </span>

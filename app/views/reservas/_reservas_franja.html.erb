@@ -7,6 +7,8 @@
       <% if reserva.invitados.count > 0 %>
       + <%= reserva.invitados.count %>
       <% end %>
+      (<%= reserva.hora_comienzo %> hs -
+      <%= reserva.hora_fin %> hs)
     <% end %>
   <% else %>
     <%= reserva.finalidad %>
@@ -15,5 +17,7 @@
     <% if reserva.invitados.count > 0 %>
       + <%= reserva.invitados.count %>
     <% end %>
+    (<%= reserva.hora_comienzo %> hs -
+    <%= reserva.hora_fin %> hs)
   <% end %>
 </div>

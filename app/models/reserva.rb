@@ -9,9 +9,12 @@ class Reserva < ApplicationRecord
   validates :finalidad, inclusion: { in: FINALIDADES }
 
   # Que termine después de que empiece
-  validate :end_post_start
+  validate :termina_dsp_d_q_empiece
   # Que termine el mismo día que empieza
-  validate :end_start_mismo_dia
+  validate :empieza_termina_mismo_dia
+
+  # Que esté dentro de la franja horaria permitida
+  validate :cumple_horario_apertura
 
   # Que no haya reservas bloqueantes ese mismo día
   validate :check_bloqueos
@@ -28,7 +31,28 @@ class Reserva < ApplicationRecord
   end
 
 
+  def solapa_con?(hora_ini, hora_fin)
+    if(
+      self.start_time >= hora_ini && self.start_time < hora_fin ||
+      self.end_time   > hora_ini && self.end_time   <= hora_fin ||
+      self.start_time <= hora_ini && self.end_time   >= hora_fin
+    )
+      true
+    else
+      false
+    end
+  end
+
+  def contenido_en(hora_ini, hora_fin)
+    false unless self.start_time >= hora_ini && self.end_time <= hora_fin
+  end
+
   private
+
+  def cumple_horario_apertura
+    horario_apertura = [self.start_time.change(hour: HORA_APERTURA), self.end_time.change(hour: HORA_CIERRE)]
+    errors.add(:horario_de_apertura, "El horario debe estar entre #{HORA_APERTURA} y #{HORA_CIERRE}") unless self.contenido_en(*horario_apertura)
+  end
 
   def check_bloqueos
     bloqueos = Reserva.where(bloqueo: true)
@@ -44,11 +68,11 @@ class Reserva < ApplicationRecord
     end
   end
 
-  def end_post_start
+  def termina_dsp_d_q_empiece
     errors.add(:hora_de_finalizacion, 'Debe ser posterior a la hora de comienzo') unless start_time < end_time
   end
 
-  def end_start_mismo_dia
+  def empieza_termina_mismo_dia
     s = start_time
     e = end_time
     errors.add(:dia_de_finalizacion, 'Debe finalizar el mismo día en que comienza') unless s.day == e.day && s.month == e.month && s.year == e.year
