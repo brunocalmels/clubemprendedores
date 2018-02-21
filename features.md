@@ -1,7 +1,13 @@
+# BUGS
+- [ ] Me dejó crear una reserva en un rango que estaba bloqueado.
+- [ ] Para los usuarios que no son Admin, aparece el checkbox de Bloquear.
+
 # IN PROGRESS
-- [ ] Quiero poder ver una lista de mis reservas para administrarlas fácilmente.
 
 # TO BE STARTED
+- [ ] Máximo: 30 vacantes.
+- [ ] Se debe hacer la validación para que no se pueda hacer una reserva si no hay lugares.
+- [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
 
 # DONE
 - [x] Como usuario, me puedo registrar con mi email y una contraseña para poder tener acceso a mis datos y a las funcionalidades del sistema.
@@ -18,6 +24,10 @@
 - [x] Quiero poder elegir la hora cliqueando en ella en vez de tener que ponerla en el formulario.
 - [x] Quiero poder entrar a mi reserva desde la vista del día.
 - [x] Como admin, quiero establecer una hora de inicio y una de fin para las actividades diarias en el club.
+- [x] Quiero poder ver una lista de mis reservas para administrarlas fácilmente.
 
 # BACKLOG
-- [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
+- [ ] Como Admin, quiero que las reservas del tipo "Eventos/capacitaciones" tengan que tener mi aprobación.
+- [ ] Como Admin, quiero que en la vista del día se vean qué eventos son bloqueantes, para que el usuario sepa en qué rangos no va a poder reservar.
+- [ ] Como Admin, quiero que los usuarios puedan reservar junto con la sala, laptops (hasta 8) (con aprobación mía).
+- [ ] Como Admin, quiero que los usuarios puedan reservar junto con la sala, una impresora 3D (con aprobación mía).
