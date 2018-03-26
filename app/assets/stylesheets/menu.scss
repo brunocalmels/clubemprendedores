@@ -14,8 +14,11 @@ body > nav > div > div.navbar-header {
   }
 }
 
-nav.navbar a {
-  font-size: 16px;
+nav.navbar {
+  margin-bottom: 0px;
+  a {
+    font-size: 16px;
+  }
 }
 a.navbar-brand,
 #navbar-collapsable > ul.nav.navbar-nav.navbar-right > li > a,
@@ -28,6 +31,10 @@ body > nav > div > div.navbar-header > a {
   color: white !important;
 }
 
+
+#menu > li > a {
+  font-weight: lighter;
+}
 #menu > li.active > a {
   background-color: $verde;
   border-bottom: 6px solid $naranja;

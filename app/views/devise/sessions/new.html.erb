@@ -1,4 +1,4 @@
-<h2>Log in</h2>
+<h2>Ingresá</h2>
 
 <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
@@ -13,7 +13,7 @@
 
   <% if devise_mapping.rememberable? -%>
     <div class="field">
-      <%= f.check_box :remember_me, label: "recordarme" %>
+      <%= f.check_box :remember_me, label: "Recordarme" %>
       <!-- <%= f.label :recordarme %> -->
     </div>
   <% end -%>

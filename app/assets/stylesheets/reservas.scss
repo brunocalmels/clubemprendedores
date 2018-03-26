@@ -37,9 +37,11 @@ span.vacantes {
 }
 
 div.nueva_reserva {
+  width: 80%;
+  background-color: $blanco;
   border: 1px solid $gris_boton;
   border-radius: 5px;
-  margin: 30px 0;
+  margin: 30px auto;
   padding: 10px 20px;
 }
 

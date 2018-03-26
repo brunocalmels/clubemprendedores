@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :reservas
+  has_many :reservas, dependent: :destroy
 
   validates :nombre, presence: true
   validates :apellido, presence: true

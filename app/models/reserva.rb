@@ -1,7 +1,7 @@
 class Reserva < ApplicationRecord
   belongs_to :user, optional: false
 
-  has_many :invitados
+  has_many :invitados, dependent: :destroy
   accepts_nested_attributes_for :invitados, reject_if: proc { |attributes| attributes[:nombre].blank? or attributes[:apellido].blank? }, allow_destroy: true
 
   validates :start_time, presence: true

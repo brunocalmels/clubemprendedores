@@ -26,6 +26,12 @@
  // TODO: Hacer que id_tipo e id_num tengan clases de forms.scss para que entren en una linea
  // @import "forms";
 
+html {
+  // background-image: url( asset_path('') );
+  background-color: #ccc;
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(255,255,255,.5) 1px, rgba(255,255,255,.5) 9px);
+}
+
 body {
    display: flex;
    flex-direction: column;
@@ -33,15 +39,25 @@ body {
    align-items: center;
    text-align: center;
    border: 1px solid $borde-body;
-   border-radius: 10px;
+  //  border-radius: 10px;
    max-width: 80%;
    margin: 20px auto 20px auto;
   //  padding: 0px 10px 10px 10px;
 }
  #main-body {
+  //  .encabezado {
+     padding-top: 20px;
+     width: 100%;
+     background-image: url( asset_path('club_emprendedores_fondo.jpg') );
+     background-size: cover;
+  //  }
    p {
-   font-family: 'Filson';
-   font-size: 12pt;
+     font-family: 'Helvetica Neue';
+     font-weight: normal;
+     font-size: 12pt;
+     &.notice {
+       font-weight: lighter;
+     }
    }
  }
 
@@ -51,7 +67,8 @@ body {
 }
 
 .no_logueado {
-  background-color: $naranja;
+  font-weight: bold;
+  background-color: $azul-oscuro;
   padding: 10px 15px;
   border-radius: 10px;
   display: inline-block;
@@ -59,8 +76,9 @@ body {
   color: $blanco;
   font-size: 110%;
   & a {
-    font-family: Titillium;
-    color: $rojo;
+    font-family: 'Titillium';
+    font-weight: bold;
+    color: $gris_bordes;
   }
 }
 

@@ -9,46 +9,46 @@
   </div>
 
   <div class="field">
-    <%= f.label :nombre %><br />
-    <%= f.text_field :nombre, required: true%>
+    <!-- <%= f.label :nombre %><br /> -->
+    <%= f.text_field :nombre, required: true, label: "Nombre"%>
   </div>
 
   <div class="field">
-    <%= f.label :apellido %><br />
-    <%= f.text_field :apellido, required: true%>
+    <!-- <%= f.label :apellido %><br /> -->
+    <%= f.text_field :apellido, required: true, labe: 'Apellido'%>
   </div>
 
   <div class="field">
-    <%= f.label :id_tipo %><br />
-    <%= f.select :id_tipo, TIPOS_ID.each_with_index.map{ |k,i| [k,i] }, required: true %>
+    <!-- <%= f.label :id_tipo %><br /> -->
+    <%= f.select :id_tipo, TIPOS_ID.each_with_index.map{ |k,i| [k,i] }, required: true, label: "Tipo de identificación" %>
   </div>
 
   <div class="field">
-    <%= f.label :número %><br />
-    <%= f.number_field :id_num, required: true%>
+    <!-- <%= f.label :número %><br /> -->
+    <%= f.number_field :id_num, required: true, label: "Número"%>
   </div>
 
   <div class="field">
-    <%= f.label :teléfono %><br />
-    <%= f.number_field :telefono %>
+    <!-- <%= f.label :teléfono %><br /> -->
+    <%= f.number_field :telefono , label: "Número"%>
   </div>
 
   <div class="field">
-    <%= f.label :institución_o_emprendimiento %><br />
-    <%= f.text_field :institucion, required: true %>
+    <!-- <%= f.label :institución_o_emprendimiento %><br /> -->
+    <%= f.text_field :institucion, required: true, label: "Institución o emprendimiento"%>
   </div>
 
   <div class="field">
-    <%= f.label :contraseña %>
+    <!-- <%= f.label :contraseña %> -->
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> caracteres como mínimo)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", label: "Contraseña" %>
   </div>
 
   <div class="field">
-    <%= f.label :confirmar_contraseña %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <!-- <%= f.label :confirmar_contraseña %><br /> -->
+    <%= f.password_field :password_confirmation, autocomplete: "off", label: "Confirmá la contraseña" %>
   </div>
 
   <div class="actions">

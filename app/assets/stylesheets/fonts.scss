@@ -1,8 +1,13 @@
 @font-face {
   font-family: 'Titillium';
-  src: font-url( asset_path('TitilliumWeb-SemiBold.eot'));
-  src: font-url( asset_path('TitilliumWeb-SemiBold.ttf')) format('truetype');
+  src: font-url( asset_path('TitilliumWeb-Bold_2.ttf')) format('truetype');
   font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Titillium';
+  src: font-url( asset_path('TitilliumWeb-Regular_6.ttf')) format('truetype');
+  font-weight: lighter;
   font-style: normal;
 }
 
@@ -12,16 +17,28 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'Filson';
+  src: font-url( asset_path('Filson-W01-Bold_5.ttf')) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
 
 @font-face {
-  font-family: 'Geometos';
-  src: font-url( asset_path('Geometos.ttf')) format('truetype');
+  font-family: 'Helvetica Neue';
+  src: font-url( asset_path('HELVETICANEUELTSTD-MD.otf')) format('truetype');
   font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Helvetica Neue';
+  src: font-url( asset_path('HelveticaNeueLTStd-Lt.otf')) format('truetype');
+  font-weight: lighter;
   font-style: normal;
 }
 
 * {
-  font-family: 'Filson';
+  font-family: 'Helvetica Neue';
   font-size: 12pt;
 }
 
@@ -41,5 +58,6 @@ a.navbar-brand,
 }
 
 body > nav > div > div.navbar-header a {
-  font-family: 'Geometos';
+  font-family: 'Filson';
+  font-weight: bold;
 }

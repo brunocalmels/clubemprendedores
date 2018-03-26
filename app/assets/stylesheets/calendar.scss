@@ -60,14 +60,22 @@
 
 .simple-calendar td.day {
   // position: relative;
+  font-weight: bold;
+  color: $naranja;
+  font-size: 150%;
   .lugares_disponibles {
   //   position: absolute;
   //   bottom: 10px;
   //   left: calc(20%);
   margin-top: 2em;
     a {
-      color: $verde;
-      font-style: italic;
+      color: $gris_boton;
+      font-weight: normal;
     }
   }
+}
+
+
+.table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #f9f9f9;
 }

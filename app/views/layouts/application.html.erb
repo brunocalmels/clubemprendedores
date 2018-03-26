@@ -13,14 +13,14 @@
     <%= render 'shared/menu' %>
 
     <div id="main-body">
+      <!-- <div class="encabezado"> -->
+        <%= render 'shared/user_status' %>
+        <%# Para notificaciones flash de Devise %>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      <!-- </div> -->
 
-    <%= render 'shared/user_status' %>
-
-    <%# Para notificaciones flash de Devise %>
-     <p class="notice"><%= notice %></p>
-     <p class="alert"><%= alert %></p>
-
-    <%= yield %>
-  </div>
+      <%= yield %>
+    </div>
   </body>
 </html>
