@@ -19,6 +19,9 @@ class Reserva < ApplicationRecord
   # Que no haya reservas bloqueantes ese mismo día
   validate :check_bloqueos
 
+  # Que no haya más del máximo permitido de ocupaciones
+  validate :max_ocupaciones
+
   def fecha
     start_time.strftime('%-d/%-m')
   end
@@ -36,8 +39,8 @@ class Reserva < ApplicationRecord
 
   def solapa_con?(hora_ini, hora_fin)
     if(
-      self.start_time >= hora_ini && self.start_time < hora_fin ||
-      self.end_time   > hora_ini && self.end_time   <= hora_fin ||
+      self.start_time >= hora_ini && self.start_time < hora_fin  ||
+      self.end_time   > hora_ini  && self.end_time   <= hora_fin ||
       self.start_time <= hora_ini && self.end_time   >= hora_fin
     )
       true
@@ -52,6 +55,12 @@ class Reserva < ApplicationRecord
 
   private
 
+  def max_ocupaciones
+    if self.ocupaciones > MAX_OCUPACIONES
+      errors.add(:invitaciones, "No puede haber más de #{MAX_OCUPACIONES} lugares ocupados.")
+    end
+  end
+
   def cumple_horario_apertura
     horario_apertura = [self.start_time.change(hour: HORA_APERTURA), self.end_time.change(hour: HORA_CIERRE)]
     errors.add(:horario_de_apertura, "El horario debe estar entre #{HORA_APERTURA} hs y #{HORA_CIERRE} hs") unless self.contenido_en(*horario_apertura)
@@ -59,12 +68,10 @@ class Reserva < ApplicationRecord
 
   def check_bloqueos
     bloqueos = Reserva.where(bloqueo: true)
-    bloqueos_del_dia = []
     bloqueos.each do |bloqueo|
       if(
-        self.start_time > bloqueo.start_time && self.start_time < bloqueo.end_time ||
-        self.end_time   > bloqueo.start_time && self.end_time   < bloqueo.end_time ||
-        self.start_time < bloqueo.start_time && self.end_time   > bloqueo.end_time
+        self.start_time <  bloqueo.end_time   && self.start_time > bloqueo.start_time ||
+        self.start_time <= bloqueo.start_time && self.end_time   > bloqueo.start_time
         )
         errors.add(:bloqueado, "El horario de #{bloqueo.start_time} a #{bloqueo.end_time} está reservado por un administrador.")
       end

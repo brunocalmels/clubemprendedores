@@ -7,5 +7,11 @@ FactoryGirl.define do
     finalidad { FINALIDADES.sample }
 
     user
+
+    factory :reserva_bloqueante do
+      user { admins.sample }
+      bloqueo true
+    end
+
   end
 end

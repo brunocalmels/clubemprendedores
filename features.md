@@ -1,15 +1,13 @@
 # BUGS
-- [ ] Me dejó crear una reserva en un rango que estaba bloqueado.
-- [ ] Para los usuarios que no son Admin, aparece el checkbox de Bloquear.
 
 # IN PROGRESS
 
 # TO BE STARTED
-- [ ] Máximo: 30 vacantes.
 - [ ] Se debe hacer la validación para que no se pueda hacer una reserva si no hay lugares.
 - [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
 
 # DONE
+- [x] Máximo: 30 vacantes.
 - [x] Como usuario, me puedo registrar con mi email y una contraseña para poder tener acceso a mis datos y a las funcionalidades del sistema.
 - [x] Como administrador, quiero que los usuarios tengan que informar nombre y apellido, DNI/CUIT/CUIL, emprendimiento/institución, email y teléfono para poder conocerlos en caso de necesitar esa información.
 - [x] Como usuario, quiero reservar el club para mí para usar las instalaciones.

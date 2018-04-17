@@ -30,22 +30,33 @@ class ReservasController < ApplicationController
   def create
     @reserva = Reserva.new(reserva_params)
     @reserva.user = current_user
-    if current_user.admin?
-      invitados_anon = params[:invitados_anon].to_i
-      if invitados_anon > 0 && invitados_anon <= 30
-        invitados_anon.times do |invitado_anon|
-          @reserva.invitados.new(anonimo: true)
-        end
-      end
-    end
 
-    respond_to do |format|
-      if @reserva.save
-        format.html { redirect_to @reserva, notice: 'La reserva se creó correctamente.' }
-        format.json { render :show, status: :created, location: @reserva }
-      else
-        format.html { render :new }
+    # Chequea que no teanga más reservas que el máximo
+    if reserva_params[:invitados_attributes].to_h.count > MAX_OCUPACIONES
+      @reserva.errors.add(:invitaciones, "No puede haber más de #{MAX_OCUPACIONES} lugares ocupados.")
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @reserva.errors, status: :unprocessable_entity }
+      end
+    else
+      respond_to do |format|
+        if @reserva.save
+          if current_user.admin?
+            invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
+            if invitados_anon > 0
+              invitados_anon.times do |invitado_anon|
+                @reserva.invitados.create(anonimo: true)
+              end
+            end
+          end
+          @reserva.save
+
+          format.html { redirect_to @reserva, notice: 'La reserva se creó correctamente.' }
+          format.json { render :show, status: :created, location: @reserva }
+        else
+          format.html { render :new, status: :unprocessable_entity }
+          format.json { render json: @reserva.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -54,24 +65,40 @@ class ReservasController < ApplicationController
   # PATCH/PUT /reservas/1.json
   def update
     if current_user.admin?
-      invitados_anon = params[:invitados_anon].to_i
-      if invitados_anon >= 0 && invitados_anon <= 30
+      invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
+      if invitados_anon > 0
         @reserva.invitados.delete_all
         invitados_anon.times do |invitado_anon|
-          @reserva.invitados.new(anonimo: true)
+          @reserva.invitados.create(anonimo: true)
         end
       end
     end
 
     # Chequear que solo puedan editar reservas los dueños
-
-    respond_to do |format|
-      if @reserva.update(reserva_params)
-        format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
-        format.json { render :show, status: :ok, location: @reserva }
+    if current_user == @reserva.user || current_user.admin?
+      if reserva_params[:invitados_attributes].to_h.count > MAX_OCUPACIONES
+        @reserva.errors.add(:invitaciones, "No puede haber más de #{MAX_OCUPACIONES} lugares ocupados.")
+        respond_to do |format|
+          format.html { render :edit, status: :unprocessable_entity
+           }
+          format.json { render json: @reserva.errors, status: :unprocessable_entity }
+        end
       else
-        format.html { render :edit }
-        format.json { render json: @reserva.errors, status: :unprocessable_entity }
+        respond_to do |format|
+          if @reserva.update(reserva_params)
+            format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
+            format.json { render :show, status: :ok, location: @reserva }
+          else
+            format.html { render :edit, status: :unprocessable_entity
+             }
+            format.json { render json: @reserva.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'No tiene los permisos necesarios', status: :unauthorized }
+        format.json { render :show, status: :unauthorized, location: @reserva }
       end
     end
   end
@@ -102,6 +129,6 @@ class ReservasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def reserva_params
-    params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, invitados_attributes: %i[id nombre apellido dni email _destroy])
+    params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, invitados_attributes: %i[id nombre apellido dni email _destroy])
   end
 end

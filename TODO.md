@@ -1,6 +1,6 @@
 # TODO
-- [ ] Añadir la condición 'destroy' para la relación entre invitaciones y reservas.
-- [ ] Arreglar los tests.
+- [x] Añadir la condición 'destroy' para la relación entre invitaciones y reservas.
+- [x] Arreglar los tests.
 
 # ESTILO
 - [ ] Arreglar los otros formularios (sessions, registrations)

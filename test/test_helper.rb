@@ -22,8 +22,7 @@ end
 
 # Para Capybara
 class ActionDispatch::IntegrationTest
-  # include Devise::Test::ControllerHelpers
-  # include Devise::Test::IntegrationHelpers
+  include Devise::Test::IntegrationHelpers
 
 #   # Make the Capybara DSL available in all integration tests
 #   include Capybara::DSL

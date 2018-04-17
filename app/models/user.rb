@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  scope :admins, -> { where(admin: true) }
+
   has_many :reservas, dependent: :destroy
 
   validates :nombre, presence: true

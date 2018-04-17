@@ -23,13 +23,15 @@
     <%= form.select :finalidad, FINALIDADES, label: "Finalidad" %>
   </div>
 
-  <div class="field" id="bloquear">
-    <h4>Bloquear reservas</h4>
-    <%= form.check_box :bloqueo, label: "Bloquear" %>
-      <div class="">
-        <i>Para no permitir que los usuarios hagan reservas durante este horario.</i>
-      </div>
-  </div>
+  <% if current_user.admin? %>
+    <div class="field" id="bloquear">
+      <h4>Bloquear reservas</h4>
+      <%= form.check_box :bloqueo, label: "Bloquear" %>
+        <div class="">
+          <i>Para no permitir que los usuarios hagan reservas durante este horario.</i>
+        </div>
+    </div>
+  <% end %>
 
   <div class="field" id="invitados">
     <h4>Invitados</h4>
