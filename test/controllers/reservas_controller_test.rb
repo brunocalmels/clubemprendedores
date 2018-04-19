@@ -24,11 +24,50 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "no se puede hacer una reserva si se juntan más de #{MAX_OCUPACIONES} personas (coinciden exactamente)" do
+    @reserva = create(:reserva, user: @admin, start_time: DateTime.now.middle_of_day, end_time: DateTime.now.middle_of_day + 3.hours)
+    MAX_OCUPACIONES.times do |i|
+      @reserva.invitados.create(nombre: "Invitado #{i}")
+    end
+    sign_in @user
+
+    # Tiempos idénticos
+    assert_no_difference('Reserva.count') do
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample } }, as: @admin
+    end
+    assert_response :unprocessable_entity
+
+    # Solapa por izquierda
+    assert_no_difference('Reserva.count') do
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time - 1.hour, finalidad: FINALIDADES.sample } }, as: @admin
+    end
+    assert_response :unprocessable_entity
+
+    # Solapa por derecha
+    assert_no_difference('Reserva.count') do
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time + 2.hours, start_time: @reserva.start_time, finalidad: FINALIDADES.sample } }, as: @admin
+    end
+    assert_response :unprocessable_entity
+
+    # Contiene
+    assert_no_difference('Reserva.count') do
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time + 1.hour, start_time: @reserva.start_time - 2.hours, finalidad: FINALIDADES.sample } }, as: @admin
+    end
+    assert_response :unprocessable_entity
+
+    # Es contenido
+    assert_no_difference('Reserva.count') do
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time - 1.hour, start_time: @reserva.start_time + 1.hour, finalidad: FINALIDADES.sample } }, as: @admin
+    end
+    assert_response :unprocessable_entity
+  end
+
   test "se crea una reserva con invitaciones anónimas" do
     sign_in @admin
     assert_difference('Reserva.count', 1) do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample }, invitados_anon: 10 }, as: @admin
     end
+    assert_response :redirect
   end
 
   test "no puede haber más ocupaciones anónimas que las máximas" do

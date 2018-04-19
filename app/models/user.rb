@@ -14,4 +14,8 @@ class User < ApplicationRecord
   validates :id_num, presence: true
   validates :institucion, presence: true
 
+  def nombre_completo
+    nombre + " " + apellido
+  end
+
 end
