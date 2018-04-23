@@ -33,6 +33,8 @@
     </div>
   <% end %>
 
+  <%= hidden_field_tag :invitados_grupo_reserva_id, '0' %>
+
   <div class="field" id="invitados">
     <h4>Invitados</h4>
     <!-- Si es admin, no necesita dar los datos de los invitados -->
@@ -42,9 +44,21 @@
       <%= form.fields_for :invitados do |invitado_form| %>
         <%= render 'invitado_fields', f: invitado_form %>
       <% end %>
-      <div clas='links'>
+      <div class='links'>
         <%= link_to_add_association 'Agregar invitado', form, :invitados %>
       </div>
+
+      <div class="grupos">
+        <a>Invitados anteriores</a>
+        <div id="grupos-list">
+          <% @grupos.each do |grupo| %>
+            <a class='nombre_grupo' data-reservaId=<%= grupo[:reserva_id] %> data-nombres=<%= grupo[:nombres] %>>
+              <%= grupo[:nombres] %>
+            </a>
+          <% end %>
+        </div>
+      </div>
+
     <% end %>
   </div>
 

@@ -17,9 +17,12 @@ class ReservasController < ApplicationController
   def new
     @date = params[:date] || Time.zone.now
     @reserva = Reserva.new(start_time: @date, end_time: @date)
-
-    # TODO: Ver si esto se puede hacer en un solo where
     @reservas = Reserva.del_dia(@reserva)
+    @grupos = current_user.reservas.order('created_at DESC').last(3).map { |reserva| {
+      nombres: reserva.nombre_invitados,
+      reserva_id: reserva.id
+      }
+    }
   end
 
   # GET /reservas/1/edit
@@ -30,6 +33,8 @@ class ReservasController < ApplicationController
   def create
     @reserva = Reserva.new(reserva_params)
     @reserva.user = current_user
+
+    # TODO: Chequear si invitados_grupo_reserva_id != 0 y tomar los invitados de la reserva correspondiente
 
     # Chequea que no teanga más reservas que el máximo
     if reserva_params[:invitados_attributes].to_h.count > MAX_OCUPACIONES
@@ -129,6 +134,6 @@ class ReservasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def reserva_params
-    params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, invitados_attributes: %i[id nombre apellido dni email _destroy])
+    params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, :invitados_grupo_reserva_id, invitados_attributes: %i[id nombre apellido dni email _destroy])
   end
 end

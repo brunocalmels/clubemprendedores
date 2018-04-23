@@ -1,9 +1,12 @@
 # BUGS
 
+# HACIENDO
+Cambiar en models/reserva.rb para que @grupos sea un Hash con nombre y numero
+
 # IN PROGRESS
+- [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
 
 # TO BE STARTED
-- [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
 
 # DONE
 - [x] Se debe hacer la validación para que no se pueda hacer una reserva si no hay lugares.

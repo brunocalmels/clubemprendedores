@@ -38,6 +38,17 @@ class Reserva < ApplicationRecord
     invitados.count + 1
   end
 
+  def nombre_invitados(cuantos = 3)
+    invitados.empty?? '' :
+    if invitados.count > 2
+      invitados.order(id: :desc).limit(cuantos).pluck(:nombre).join(', ') + '...'
+    elsif invitados.count > 1
+      invitados.order(id: :desc).all.pluck(:nombre).join(' y ')
+    else
+      invitados.order(id: :desc).first.nombre
+    end
+  end
+
 
   def solapa_con?(hora_ini, hora_fin)
     if(

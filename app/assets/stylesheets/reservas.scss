@@ -57,6 +57,12 @@ form div.field {
   color: $rojo;
 }
 
+.grupos {
+  #grupos-list {
+    display: none;
+  }
+}
+
 .elegido {
   animation: beat 1s ease-out 1;
 }
