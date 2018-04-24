@@ -22,6 +22,24 @@
   font-size: 110%;
 }
 
+a.add_fields {
+  margin-top: 10px;
+}
+
+a.invitados_anteriores {
+  border: 1px solid $gris_boton;
+  margin-top: 10px;
+  color: $gris_boton;
+}
+
+.nested-fields {
+  margin: 20px 40px;
+  border: 1px solid $gris_barra;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: $gris_clarito;
+}
+
 a {
   padding: 0.3em;
 }

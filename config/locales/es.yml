@@ -20,6 +20,14 @@ es:
           attributes:
             user:
               required: Se requiere de un usuario para el turno.
+        invitado:
+          attributes:
+            dni:
+              blank: Se requiere el número de DNI del invitado.
+            apellido:
+              blank: Se requiere el apellido del invitado.
+            nombre:
+              blank: Se requiere el nombre del invitado.
   date:
     abbr_day_names:
     - dom

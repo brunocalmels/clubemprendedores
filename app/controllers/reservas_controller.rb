@@ -26,15 +26,20 @@ class ReservasController < ApplicationController
   end
 
   # GET /reservas/1/edit
-  def edit; end
+  def edit
+    @reservas = Reserva.del_dia(@reserva)
+    @grupos = current_user.reservas.order('created_at DESC').last(3).map { |reserva| {
+      nombres: reserva.nombre_invitados,
+      reserva_id: reserva.id
+      }
+    }
+  end
 
   # POST /reservas
   # POST /reservas.json
   def create
     @reserva = Reserva.new(reserva_params)
     @reserva.user = current_user
-
-    # TODO: Chequear si invitados_grupo_reserva_id != 0 y tomar los invitados de la reserva correspondiente
 
     # Chequea que no teanga más reservas que el máximo
     if reserva_params[:invitados_attributes].to_h.count > MAX_OCUPACIONES
@@ -55,6 +60,13 @@ class ReservasController < ApplicationController
             end
           end
           @reserva.save
+
+          # Copia invitados de reserva a copiar
+          if !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0  && reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id])
+            reserva_repe.invitados.each do |invitado|
+              @reserva.invitados << invitado.dup
+            end
+          end
 
           format.html { redirect_to @reserva, notice: 'La reserva se creó correctamente.' }
           format.json { render :show, status: :created, location: @reserva }

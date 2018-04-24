@@ -13,15 +13,35 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     }
   end
 
-  # test "should get index" do
-  #   get reservas_url
-  #   assert_response :success
-  # end
-  #
   test "should get new" do
     sign_in @admin
     get new_reserva_url
     assert_response :success
+  end
+
+
+  test "se puede crear reservas con invitados y después repetirlos en otra reserva" do
+    sign_in @user
+    @invitados = Hash.new
+    [MAX_OCUPACIONES-1, 3].min.times do |i|
+      @invitados[i.to_s] = @invitado
+    end
+    assert_difference('Reserva.count', 1) do
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample, invitados_attributes: @invitados } }, as: @user
+    end
+    assert_response :redirect
+
+    @reserva_repe = assigns :reserva
+    assert_difference('Reserva.count', 1) do
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time + 3.hours, start_time: @reserva.start_time + 3.hours, finalidad: FINALIDADES.sample }, invitados_grupo_reserva_id: @reserva_repe.id }, as: @user
+    end
+    assert_response :redirect
+    @reserva2 = assigns :reserva
+    # Chequea que los invitados sean iguales en todos sus atributos (aunque no en ids)
+    @reserva2.invitados.each do |invitado|
+      assert @reserva_repe.invitados.where(nombre: invitado.nombre, apellido: invitado.apellido, email: invitado.email, dni: invitado.dni).count > 0
+    end
+
   end
 
   test "no se puede hacer una reserva si se juntan más de #{MAX_OCUPACIONES} personas (coinciden exactamente)" do
@@ -74,18 +94,6 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     sign_in @admin
     assert_difference('Reserva.count') do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample }, invitados_anon: MAX_OCUPACIONES + 1 }, as: @admin
-    end
-    assert_response :redirect
-  end
-
-  test "se puede crear reservas con invitados" do
-    sign_in @user
-    @invitados = Hash.new
-    [MAX_OCUPACIONES-1, 3].min.times do |i|
-      @invitados[i.to_s] = @invitado
-    end
-    assert_difference('Reserva.count', 1) do
-      post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample, invitados_attributes: @invitados } }, as: @user
     end
     assert_response :redirect
   end
