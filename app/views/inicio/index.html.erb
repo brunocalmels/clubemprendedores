@@ -1,6 +1,6 @@
 <%= month_calendar(attribute: :start_time, end_attribute: :end_time, events: @reservas) do |date, reservas| %>
 
-  <% if current_user  %>
+  <% if current_user && date >= DateTime.yesterday %>
     <%= link_to(date.strftime('%e %b'), new_reserva_url(date: date))%>
   <% else %>
     <%= date.strftime('%e %b') %>
@@ -37,8 +37,10 @@
   <% end %>
 
   <!-- Lugares disponibles -->
-  <div class="lugares_disponibles">
-    <%= link_to '¡Reservá tu lugar!', new_reserva_url(date: date) %>
-  </div>
+  <% if date >= DateTime.yesterday %>
+    <div class="lugares_disponibles">
+      <%= link_to '¡Reservá tu lugar!', new_reserva_url(date: date) %>
+    </div>
+  <% end %>
 
 <% end %>
