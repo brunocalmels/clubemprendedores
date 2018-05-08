@@ -49,17 +49,18 @@ class ReservasController < ApplicationController
         format.json { render json: @reserva.errors, status: :unprocessable_entity }
       end
     else
+      byebug
       respond_to do |format|
         if @reserva.save
           if current_user.admin?
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
+            @reserva.save
             if invitados_anon > 0
               invitados_anon.times do |invitado_anon|
                 @reserva.invitados.create(anonimo: true)
               end
             end
           end
-          @reserva.save
 
           # Copia invitados de reserva a copiar
           if !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0  && reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id])
@@ -85,6 +86,7 @@ class ReservasController < ApplicationController
       invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
       if invitados_anon > 0
         @reserva.invitados.delete_all
+        byebug
         invitados_anon.times do |invitado_anon|
           @reserva.invitados.create(anonimo: true)
         end

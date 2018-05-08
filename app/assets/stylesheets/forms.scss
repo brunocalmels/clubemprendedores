@@ -53,3 +53,7 @@ select {
   margin-right: auto;
   margin-left: auto;
 }
+
+input[name='invitados_anon'] {
+  max-width: 70px;
+}

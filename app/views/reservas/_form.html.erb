@@ -52,7 +52,12 @@
 
     <!-- Si es admin, no necesita dar los datos de los invitados -->
     <% if current_user.admin? %>
-      <%= number_field_tag :invitados_anon, 0, min: 0, max: MAX_OCUPACIONES %>
+    <div class="field">
+      <div class="form-group">
+        <label for="invitados_anon">Invitados anónimos</label>
+        <%= number_field_tag :invitados_anon, 0, min: 0, max: MAX_OCUPACIONES, class: 'form-control'%>
+      </div>
+    </div>
     <% else %>
       <%= form.fields_for :invitados do |invitado_form| %>
         <%= render 'invitado_fields', f: invitado_form %>
