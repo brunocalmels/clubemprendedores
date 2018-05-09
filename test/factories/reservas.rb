@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :reserva do
 
     # Entre hoy y dentro de una semana, entre las 8:00 y las 21:00

@@ -9,8 +9,8 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
-  # FactoryGirl
-  include FactoryGirl::Syntax::Methods
+  # FactoryBot
+  include FactoryBot::Syntax::Methods
 
   # Devise
   # include Devise::Test::ControllerHelpers

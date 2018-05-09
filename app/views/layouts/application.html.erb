@@ -10,17 +10,26 @@
 
   <body>
 
-    <%= render 'shared/menu' %>
+    <div id="body-wrapper">
 
-    <div id="main-body">
-      <!-- <div class="encabezado"> -->
+      <%= render 'shared/menu' %>
+
+      <div id="main-body">
+        <!-- <div class="encabezado"> -->
         <%= render 'shared/user_status' %>
-        <%# Para notificaciones flash de Devise %>
-        <p class="notice"><%= notice %></p>
-        <p class="alert"><%= alert %></p>
-      <!-- </div> -->
 
-      <%= yield %>
+        <!-- Notificaciones de Devise -->
+        <% if !notice.nil? %>
+          <p class="alert alert-success"><%= notice %></p>
+        <% end %>
+        <% if !alert.nil? %>
+          <p class="alert alert-danger"><%= alert %></p>
+        <% end %>
+
+        <%= yield %>
+      </div>
+      <div id="push"></div>
     </div>
+    <%= render 'shared/footer' %>
   </body>
 </html>

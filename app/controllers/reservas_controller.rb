@@ -28,9 +28,9 @@ class ReservasController < ApplicationController
   # GET /reservas/1/edit
   def edit
     @reservas = Reserva.del_dia(@reserva)
-    @grupos = current_user.reservas.order('created_at DESC').last(3).map { |reserva| {
-      nombres: reserva.nombre_invitados,
-      reserva_id: reserva.id
+    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map { |reserva| {
+        nombres: reserva.nombre_invitados,
+        reserva_id: reserva.id
       }
     }
   end
@@ -41,7 +41,7 @@ class ReservasController < ApplicationController
     @reserva = Reserva.new(reserva_params)
     @reserva.user = current_user
 
-    # Chequea que no teanga más reservas que el máximo
+    # Chequea que no tenga más reservas que el máximo
     if reserva_params[:invitados_attributes].to_h.count > MAX_OCUPACIONES
       @reserva.errors.add(:invitaciones, "No puede haber más de #{MAX_OCUPACIONES} lugares ocupados.")
       respond_to do |format|
@@ -67,6 +67,8 @@ class ReservasController < ApplicationController
               @reserva.invitados << invitado.dup
             end
           end
+
+          byebug
 
           format.html { redirect_to @reserva, notice: 'La reserva se creó correctamente.' }
           format.json { render :show, status: :created, location: @reserva }

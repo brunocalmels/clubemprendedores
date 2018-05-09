@@ -14,18 +14,17 @@
  *= require_self
  *= require rails_bootstrap_forms
  */
- // Custom bootstrap variables must be set or imported *before* bootstrap.
- @import "bootstrap-sprockets";
- @import "bootstrap";
- @import "colors";
- @import "fonts";
- @import "forms";
- @import "menu";
- @import "calendar";
-
- // TODO: Hacer que id_tipo e id_num tengan clases de forms.scss para que entren en una linea
- // @import "forms";
-
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "colors";
+@import "fonts";
+@import "forms";
+@import "menu";
+@import "heights";
+@import "calendar";
+// TODO: Hacer que id_tipo e id_num tengan clases de forms.scss para que entren en una linea
+// @import "forms";
 html {
   // background-image: url( asset_path('') );
   background-color: #ccc;
@@ -33,33 +32,42 @@ html {
 }
 
 body {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   text-align: center;
-   border: 1px solid $borde-body;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid $borde-body;
   //  border-radius: 10px;
-   max-width: 80%;
-   margin: 20px auto 20px auto;
+  max-width: 80%;
+  margin: 20px auto;
   //  padding: 0px 10px 10px 10px;
 }
- #main-body {
+
+#body-wrapper {
+  width: 100%;
+  margin: 0 auto $minus-min-footer-height;
+  min-height: 100%;
+}
+
+#main-body {
   //  .encabezado {
-     padding-top: 20px;
-     width: 100%;
-     background-image: url( asset_path('club_emprendedores_fondo.jpg') );
-     background-size: cover;
+  padding-top: 20px;
+  width: 100%;
+  background-image: url(asset_path('club_emprendedores_fondo.jpg'));
+  background-size: cover;
   //  }
-   p {
-     font-family: 'Helvetica Neue';
-     font-weight: normal;
-     font-size: 12pt;
-     &.notice {
-       font-weight: lighter;
-     }
-   }
- }
+  p {
+    font-family: 'Helvetica Neue';
+    font-weight: normal;
+    font-size: 12pt;
+
+    &.notice {
+      font-weight: lighter;
+    }
+  }
+}
 
 .alert {
   padding: 5px 15px;
@@ -75,6 +83,7 @@ body {
   font-family: Titillium;
   color: $blanco;
   font-size: 110%;
+
   & a {
     font-family: 'Titillium';
     font-weight: bold;
@@ -86,8 +95,10 @@ body {
   background-color: $amarillo;
   border: 1px solid $gris_boton;
   padding: 10px 15px;
+
   ul {
     list-style: none;
+
     li {
       color: $rojo;
     }

@@ -1,7 +1,11 @@
 <!-- <p id="notice"><%= notice %></p> -->
 
-<h1>Reservas</h1>
+<div id="reservas-index">
 
-  <%= render @reservas %>
+  <h1>Reservas</h1>
 
-<%= link_to 'Nueva reserva', new_reserva_path, class: 'btn btn-default' %>
+    <%= render @reservas %>
+
+  <%= link_to 'Nueva reserva', new_reserva_path, class: 'btn btn-default' %>
+
+</div>

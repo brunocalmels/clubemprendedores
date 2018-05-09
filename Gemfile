@@ -43,7 +43,7 @@ gem "haml"
 gem 'rails_bootstrap_navbar'
 gem 'bootstrap_form'
 gem "cocoon"
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 gem 'faker'
 
 group :development, :test do

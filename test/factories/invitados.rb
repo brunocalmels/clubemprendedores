@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :invitado do
     nombre   { Faker::Name.first_name }
     apellido { Faker::Name.last_name }

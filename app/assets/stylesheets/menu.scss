@@ -14,6 +14,13 @@ body > nav > div > div.navbar-header {
   }
 }
 
+// "Club Emprendedor"
+#body-wrapper > nav > div > div.navbar-header > a {
+  color: $colorado;
+  font-size: 16pt;
+  font-family: 'Helvetica Neue';
+}
+
 nav.navbar {
   margin-bottom: 0px;
   a {
