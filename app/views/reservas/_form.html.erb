@@ -36,18 +36,20 @@
 
   <div class="field" id="invitados">
     <h4>Invitados</h4>
-    <% unless @reserva.persisted? %>
-    <%= hidden_field_tag :invitados_grupo_reserva_id, '0' %>
-    <div class="grupos">
-      <a class='btn invitados_anteriores'>Repetir invitados anteriores</a>
-      <div id="grupos-list">
-        <% !@grupos.nil? && @grupos.each do |grupo| %>
-        <a class='nombre_grupo' data-reservaId=<%= grupo[:reserva_id] %> data-nombres=<%= grupo[:nombres] %>>
-          <%= grupo[:nombres] %>
-        </a>
-        <% end %>
-      </div>
-    </div>
+    <% unless @reserva.persisted?  %>
+      <% if !@grupos.nil? && !@grupos.empty? %>
+        <%= hidden_field_tag :invitados_grupo_reserva_id, '0' %>
+        <div class="grupos">
+          <a class='btn invitados_anteriores'>Repetir invitados anteriores</a>
+          <div id="grupos-list">
+            <% !@grupos.nil? && @grupos.each do |grupo| %>
+            <a class='nombre_grupo' data-reservaId=<%= grupo[:reserva_id] %> data-nombres=<%= grupo[:nombres] %>>
+              <%= grupo[:nombres] %>
+            </a>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
     <% end %>
 
     <!-- Si es admin, no necesita dar los datos de los invitados -->

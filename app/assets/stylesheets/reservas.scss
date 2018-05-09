@@ -60,11 +60,28 @@ form div.field {
 .grupos {
   #grupos-list {
     display: none;
+    margin-top: 10px;
+    a {
+      padding: 10px 10px 5px 10px;
+      color: $gris_boton;
+      border: 1px solid $gris_bordes;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
   }
 }
 
 .elegido {
   animation: beat 1s ease-out 1;
+  &.nombre_grupo {
+    font-weight: bold;
+    border: 1px solid $gris_barra;
+    border-radius: 5px;
+    color: $gris_clarito !important;
+    background-color: $gris_barra;
+  }
 }
 @keyframes beat {
   33% {

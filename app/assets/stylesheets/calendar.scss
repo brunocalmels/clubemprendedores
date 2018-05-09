@@ -88,3 +88,11 @@
 .table-striped > tbody > tr:nth-of-type(even) {
   background-color: #f9f9f9;
 }
+
+td.past a {
+  cursor: text;
+  &:hover {
+    background-color: rgba(0,0,0,0);
+    text-decoration: none;
+  }
+}

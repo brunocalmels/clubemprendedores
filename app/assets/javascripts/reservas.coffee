@@ -25,6 +25,8 @@ $(document).on 'turbolinks:load', ->
     anchor = $('#invitados > .links > a.add_fields')
     if anchor.length > 0
       anchor[0].remove()
+    $('#invitados > div.grupos > a').hide()
+    $('#invitados > h4').text('Invitados anteriores')
 
   # Si se agregan a mano, ya no se pueden buscar anteriores
   $('#invitados > .links > a.add_fields').on "click", ->
@@ -34,8 +36,7 @@ $(document).on 'turbolinks:load', ->
 
   # Carga el Id de la reserva cuyos invitados se repetirán
   $('.nombre_grupo').on "click", (event) ->
-    $('nombre_grupo').each (el) ->
-      el.removeClass('elegido')
+    $('.nombre_grupo').removeClass('elegido')
     event.target.classList.add('elegido')
-    console.log(event.target.dataset.reservaid)
+    # console.log(event.target.dataset.reservaid)
     $('#invitados_grupo_reserva_id')[0].value = event.target.dataset.reservaid

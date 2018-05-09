@@ -18,9 +18,9 @@ class ReservasController < ApplicationController
     @date = params[:date] || Time.zone.now
     @reserva = Reserva.new(start_time: @date, end_time: @date)
     @reservas = Reserva.del_dia(@reserva)
-    @grupos = current_user.reservas.order('created_at DESC').last(3).map { |reserva| {
-      nombres: reserva.nombre_invitados,
-      reserva_id: reserva.id
+    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map { |reserva| {
+        nombres: reserva.nombre_invitados,
+        reserva_id: reserva.id
       }
     }
   end
@@ -49,7 +49,6 @@ class ReservasController < ApplicationController
         format.json { render json: @reserva.errors, status: :unprocessable_entity }
       end
     else
-      byebug
       respond_to do |format|
         if @reserva.save
           if current_user.admin?
@@ -86,7 +85,6 @@ class ReservasController < ApplicationController
       invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
       if invitados_anon > 0
         @reserva.invitados.delete_all
-        byebug
         invitados_anon.times do |invitado_anon|
           @reserva.invitados.create(anonimo: true)
         end

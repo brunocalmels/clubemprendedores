@@ -5,6 +5,8 @@ class Reserva < ApplicationRecord
 
   scope :del_dia, ->(reserva) { where('extract(day from start_time) = ?', reserva.start_time.day).where('extract(month from start_time) = ?', reserva.start_time.month).where('extract(year from start_time) = ?', reserva.start_time.year) }
 
+  scope :no_anonimas, -> { includes(:invitados).references(:invitados).where('invitados.anonimo = FALSE') }
+
   validates :start_time, presence: true
   validates :end_time, presence: true
   validates :finalidad, inclusion: { in: FINALIDADES }
@@ -39,13 +41,16 @@ class Reserva < ApplicationRecord
   end
 
   def nombre_invitados(cuantos = 3)
-    invitados.empty?? '' :
-    if invitados.count > 2
-      invitados.order(id: :desc).limit(cuantos).pluck(:nombre).join(', ') + '...'
-    elsif invitados.count > 1
-      invitados.order(id: :desc).all.pluck(:nombre).join(' y ')
+    if invitados.no_anonimos.empty?
+      ''
     else
-      invitados.order(id: :desc).first.nombre
+      if invitados.no_anonimos.count > 2
+        invitados.no_anonimos.order(id: :desc).limit(cuantos).pluck(:nombre).join(', ') + '...'
+      elsif invitados.no_anonimos.count > 1
+        invitados.no_anonimos.order(id: :desc).all.pluck(:nombre).join(' y ')
+      else
+        invitados.no_anonimos.order(id: :desc).first.nombre
+      end
     end
   end
 

@@ -42,6 +42,6 @@
 
 <% if puede_editar?(@reserva) %>
   <%= link_to('Editar', edit_reserva_path(@reserva)) %> |
-  <%= link_to('Borrar', reserva_path(@reserva), method: :delete) %> |
+  <%= link_to('Borrar', reserva_path(@reserva), method: :delete, data: { confirm: '¿Estás seguro de borrar la reserva?' } ) %> |
 <% end %>
 <%= link_to 'Volver', new_reserva_path(date: @reserva.start_time) %>
