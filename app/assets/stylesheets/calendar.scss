@@ -81,8 +81,13 @@
 }
 
 .datos-reserva,
-.datos-reserva span.reserva_hora {
-  font-size: 11pt;
+.datos-reserva {
+  a.reserva {
+    cursor: pointer;
+  }
+  span.reserva_hora {
+    font-size: 11pt;
+  }
 }
 
 .table-striped > tbody > tr:nth-of-type(even) {

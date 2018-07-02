@@ -10,7 +10,7 @@
   <div class="datos-reserva">
     <!-- Si puede editar las reservas -->
     <% if reserva.user == current_user || !current_user.nil? && current_user.admin? %>
-      <%= link_to reserva do %>
+      <%= link_to reserva, class: 'reserva' do %>
         <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
         <% if reserva.invitados.any? %>
           + <%= reserva.invitados.count %> invitados

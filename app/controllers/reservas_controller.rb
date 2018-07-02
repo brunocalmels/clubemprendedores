@@ -1,4 +1,5 @@
 class ReservasController < ApplicationController
+  include ReservasHelper
   before_action :set_reserva, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[edit new destroy update create index]
   before_action :bloquear_solo_admins, only: %i[create update]
@@ -16,13 +17,8 @@ class ReservasController < ApplicationController
   # GET /reservas/new
   def new
     @date = params[:date] || Time.zone.now
-    @reserva = Reserva.new(start_time: @date, end_time: @date)
-    @reservas = Reserva.del_dia(@reserva)
-    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map { |reserva| {
-        nombres: reserva.nombre_invitados,
-        reserva_id: reserva.id
-      }
-    }
+    @reserva = Reserva.new(start_time: horario_apertura(@date), end_time: horario_apertura(@date) + 1.hour)
+    buscar_reservas_dia
   end
 
   # GET /reservas/1/edit
@@ -67,13 +63,14 @@ class ReservasController < ApplicationController
               @reserva.invitados << invitado.dup
             end
           end
-
-          byebug
-
           format.html { redirect_to @reserva, notice: 'La reserva se creó correctamente.' }
           format.json { render :show, status: :created, location: @reserva }
         else
-          format.html { render :new, status: :unprocessable_entity }
+          format.html {
+            @date = @reserva.start_time
+            buscar_reservas_dia
+            render :new, status: :unprocessable_entity
+          }
           format.json { render json: @reserva.errors, status: :unprocessable_entity }
         end
       end
@@ -134,6 +131,16 @@ class ReservasController < ApplicationController
   end
 
   private
+
+  # Usado para buscar las reservas de ese día en new y create.
+  def buscar_reservas_dia
+    @reservas = Reserva.del_dia(@reserva)
+    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map { |reserva| {
+        nombres: reserva.nombre_invitados,
+        reserva_id: reserva.id
+      }
+    }
+  end
 
   def bloquear_solo_admins
     if !current_user.admin?

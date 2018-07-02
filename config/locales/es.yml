@@ -10,24 +10,36 @@ es:
           has_one: No se puede eliminar el registro porque existe un %{record} dependiente
           has_many: No se puede eliminar el registro porque existen %{record} dependientes
       models:
+        emprendimiento:
+          attributes:
+            descripcion:
+              blank: La descripción no puede estar en blanco.
+            nombre:
+              blank: El nombre no puede estar en blanco.
+            razon_social:
+              taken: Esa razón social ya ha sido registrada.
         user:
           attributes:
+            current_password:
+              blank: Introducí tu contraseña actual para guardar los cambios.
             id_tipo:
               blank: Debe incluir un tipo de identificación.
             email:
               taken: Ese email ya se encuentra registrado.
+            password:
+              too_short: La contraseña es demasiado corta.
+            password_confirmation:
+              confirmation: Las contraseñas no coinciden.
+        institucion:
+          attributes:
+            servicios:
+              inclusion: Los servicios deben estar incluidos en la lista de servicios provista.
+            email:
+              invalid: El email es inválido.
         reserva:
           attributes:
             user:
               required: Se requiere de un usuario para el turno.
-        invitado:
-          attributes:
-            dni:
-              blank: Se requiere el número de DNI del invitado.
-            apellido:
-              blank: Se requiere el apellido del invitado.
-            nombre:
-              blank: Se requiere el nombre del invitado.
   date:
     abbr_day_names:
     - dom
@@ -273,6 +285,11 @@ es:
       updated: "Tu contraseña fue modificada correctamente. Has iniciado sesión."
       updated_not_active: "Tu contraseña fue modificada correctamente."
     registrations:
+      user:
+        ya_ingresado: "Surgió un problema ingresando con %{kind}. Ese email ya ha sido registrado con otro medio (por email y contraseña o por otra red social)."
+        error: "Surgió un problema ingresando con %{kind}. Por favor registrate o intentá ingresando más tarde."
+        default_error: "Surgió un problema ingresando. Por favor registrate o intentá ingresando más tarde."
+        success: "Bienvenido! Te has registrado correctamente con %{kind}."
       destroyed: "Adiós, tu cuenta ha sido eliminada. Esperamos verte de vuelta pronto!"
       signed_up: "Bienvenido! Te has registrado correctamente."
       signed_up_but_inactive: "Te has registrado correctamente, pero tu cuenta aun no ha sido activada."
