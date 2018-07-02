@@ -47,6 +47,7 @@ class ReservasController < ApplicationController
     else
       respond_to do |format|
         if @reserva.save
+        AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
           if current_user.admin?
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
             @reserva.save
@@ -102,6 +103,7 @@ class ReservasController < ApplicationController
       else
         respond_to do |format|
           if @reserva.update(reserva_params)
+            AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
             format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
             format.json { render :show, status: :ok, location: @reserva }
           else
