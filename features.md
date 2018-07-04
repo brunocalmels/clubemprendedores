@@ -1,14 +1,14 @@
 # BUGS
 
 # HACIENDO
-Cambiar en models/reserva.rb para que @grupos sea un Hash con nombre y numero
 
 # IN PROGRESS
-- [ ] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
 
 # TO BE STARTED
+- [ ] Como Admin, quiero que los usuarios tengan que estar de acuerdo con los términos y condiciones del contrato para poder reservar el Club.
 
 # DONE
+- [x] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
 - [x] Se debe hacer la validación para que no se pueda hacer una reserva si no hay lugares.
 - [x] Máximo: 30 vacantes.
 - [x] Como usuario, me puedo registrar con mi email y una contraseña para poder tener acceso a mis datos y a las funcionalidades del sistema.
