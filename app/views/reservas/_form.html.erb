@@ -71,7 +71,12 @@
     <% end %>
   </div>
 
+  <div class="field" id="condiciones">
+    <%= check_box_tag :condiciones %>
+    <p>He leído y acepto el <%= link_to "Reglamento de Uso y Condiciones", "/condiciones_club_emprendedor.pdf", target: :blank %></p>
+  </div>
+
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Crear reserva', disabled: true, id: 'boton_crear_reserva' %>
   </div>
 <% end %>

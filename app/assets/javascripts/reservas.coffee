@@ -40,3 +40,12 @@ $(document).on 'turbolinks:load', ->
     event.target.classList.add('elegido')
     # console.log(event.target.dataset.reservaid)
     $('#invitados_grupo_reserva_id')[0].value = event.target.dataset.reservaid
+
+
+
+  # Habilita el botón de Crear Reserva sólo cuando se aceptaron las condiciones
+  $('#condiciones').on "click", (event) ->
+    if (event.target.checked)
+      $('#boton_crear_reserva').attr('disabled', false)
+    else
+      $('#boton_crear_reserva').attr('disabled', true)
