@@ -16,8 +16,12 @@ class ReservasController < ApplicationController
 
   # GET /reservas/new
   def new
-    @date = params[:date] || Time.zone.now
-    @reserva = Reserva.new(start_time: horario_apertura(@date), end_time: horario_apertura(@date) + 1.hour)
+    if params[:date]
+      @date = params[:date] || Time.zone.now
+      @reserva = Reserva.new(start_time: horario_apertura(@date), end_time: horario_apertura(@date) + 1.hour)
+    else
+      @reserva = Reserva.new(start_time: Time.zone.today.noon, end_time: Time.zone.today.noon + 1.hour)
+    end
     buscar_reservas_dia
   end
 
