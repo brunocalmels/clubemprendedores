@@ -1,13 +1,18 @@
 class ReservasController < ApplicationController
   include ReservasHelper
   before_action :set_reserva, only: %i[show edit update destroy]
-  before_action :authenticate_user!, only: %i[edit new destroy update create index]
+  before_action :authenticate_user!, only: %i[edit new destroy update create index esperando_aprobacion]
   before_action :bloquear_solo_admins, only: %i[create update]
+  before_action :assure_admin!, only: %i[esperando_aprobacion]
 
   # GET /reservas
   # GET /reservas.json
   def index
-    @reservas = current_user.reservas
+    if user_signed_in? && current_user.admin?
+      @reservas = Reserva.all
+    else
+      @reservas = current_user.reservas
+    end
   end
 
   # GET /reservas/1
@@ -22,6 +27,7 @@ class ReservasController < ApplicationController
     else
       @reserva = Reserva.new(start_time: Time.zone.today.noon, end_time: Time.zone.today.noon + 1.hour)
     end
+    @reserva.user = current_user
     buscar_reservas_dia
   end
 
@@ -39,6 +45,7 @@ class ReservasController < ApplicationController
   # POST /reservas.json
   def create
     @reserva = Reserva.new(reserva_params)
+    set_aprobacion(@reserva)
     @reserva.user = current_user
 
     # Chequea que no tenga más reservas que el máximo
@@ -51,7 +58,11 @@ class ReservasController < ApplicationController
     else
       respond_to do |format|
         if @reserva.save
-        AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+          if @reserva.aprobado
+            AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+          else
+            AdminMailer.with(subject: "Reserva de turno - Necesita aprobación", text: "#{@reserva.user.nombre_completo} ha reservado el Club. La reserva requiere de aprobación por parte de un administrador.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+          end
           if current_user.admin?
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
             @reserva.save
@@ -136,7 +147,28 @@ class ReservasController < ApplicationController
     end
   end
 
+  # GET /reservas/esperando_aprobacion
+  # GET /reservas/esperando_aprobacion.json
+  def esperando_aprobacion
+    @reservas = Reserva.esperando_aprobacion
+    respond_to do |format|
+      format.html {
+        params[:title] = "Reservas esperando aprobación"
+        render :index
+      }
+      format.json { render json: @reservas }
+    end
+  end
+
   private
+
+  # Setea la aprobaación por defecto o no, según las políticas
+  def set_aprobacion(reserva)
+    # Si es de eventos/capacitacion, no se aprueba por defecto
+    if reserva.finalidad == 'Eventos/capacitaciones'
+      reserva.aprobado = false
+    end
+  end
 
   # Usado para buscar las reservas de ese día en new y create.
   def buscar_reservas_dia
@@ -161,6 +193,10 @@ class ReservasController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def reserva_params
-    params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, :invitados_grupo_reserva_id, invitados_attributes: %i[id nombre apellido dni email _destroy])
+    if current_user.admin?
+      params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, :invitados_grupo_reserva_id, :aprobado, invitados_attributes: %i[id nombre apellido dni email _destroy])
+    else
+      params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, :invitados_grupo_reserva_id, invitados_attributes: %i[id nombre apellido dni email _destroy])
+    end
   end
 end

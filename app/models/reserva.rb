@@ -1,11 +1,15 @@
 class Reserva < ApplicationRecord
   belongs_to :user, optional: false
   has_many :invitados, dependent: :destroy
-  accepts_nested_attributes_for :invitados, reject_if: proc { |attributes| attributes[:nombre].blank? or attributes[:apellido].blank? }, allow_destroy: true
+  accepts_nested_attributes_for :invitados, reject_if: proc { |attributes| attributes[:nombre].blank? || attributes[:apellido].blank? }, allow_destroy: true
+
+  default_scope { order(start_time: :asc) }
 
   scope :del_dia, ->(reserva) { where('extract(day from start_time) = ?', reserva.start_time.day).where('extract(month from start_time) = ?', reserva.start_time.month).where('extract(year from start_time) = ?', reserva.start_time.year) }
 
   scope :no_anonimas, -> { includes(:invitados).references(:invitados).where('invitados.anonimo = FALSE') }
+
+  scope :esperando_aprobacion, -> { where(aprobado: false) }
 
   validates :start_time, presence: true
   validates :end_time, presence: true
@@ -29,9 +33,11 @@ class Reserva < ApplicationRecord
   def fecha
     start_time.strftime('%-d/%-m')
   end
+
   def hora_comienzo
     start_time.strftime('%k:%M')
   end
+
   def hora_fin
     end_time.strftime('%k:%M')
   end
@@ -54,12 +60,11 @@ class Reserva < ApplicationRecord
     end
   end
 
-
   def solapa_con?(hora_ini, hora_fin)
-    if(
+    if
       start_time <  hora_fin && start_time > hora_ini ||
       start_time <= hora_ini && end_time   > hora_ini
-    )
+
       true
     else
       false
@@ -75,7 +80,7 @@ class Reserva < ApplicationRecord
   def max_ocupaciones
     Reserva.del_dia(self).each do |otra_reserva|
       if otra_reserva != self && solapa_con?(otra_reserva.start_time, otra_reserva.end_time) && ocupaciones + otra_reserva.ocupaciones > MAX_OCUPACIONES
-          errors.add(:ocupaciones, "El turno excede la cantidad de lugares porque ya hay otro turno de #{otra_reserva.user.nombre_completo} con #{otra_reserva.ocupaciones} ocupaciones con el que éste se solapa.")
+        errors.add(:ocupaciones, "El turno excede la cantidad de lugares porque ya hay otro turno de #{otra_reserva.user.nombre_completo} con #{otra_reserva.ocupaciones} ocupaciones con el que éste se solapa.")
       end
     end
   end
@@ -92,7 +97,7 @@ class Reserva < ApplicationRecord
   end
 
   def check_bloqueos
-    if !user.admin?
+    unless user.admin?
       bloqueos = Reserva.del_dia(self).where(bloqueo: true)
       bloqueos.each do |bloqueo|
         if bloqueo != self && solapa_con?(bloqueo.start_time, bloqueo.end_time)
@@ -111,5 +116,4 @@ class Reserva < ApplicationRecord
     e = end_time
     errors.add(:dia_de_finalizacion, 'Debe finalizar el mismo día en que comienza') unless s.day == e.day && s.month == e.month && s.year == e.year
   end
-
 end

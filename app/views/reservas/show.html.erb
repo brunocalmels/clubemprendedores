@@ -9,6 +9,11 @@
 </p>
 
 <p>
+  <strong>Aprobada:</strong>
+  <%= @reserva.aprobado?? "Sí" : "No" %>
+</p>
+
+<p>
   <strong>Comienza:</strong>
   <%= @reserva.start_time.strftime('%e %b %H:%M hs') %>
 </p>

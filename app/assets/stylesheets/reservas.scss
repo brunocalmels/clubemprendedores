@@ -36,6 +36,10 @@ span.vacantes {
   float: right;
 }
 
+span.esperando_aprobacion {
+  font-style: italic;
+}
+
 div.nueva_reserva {
   width: 80%;
   background-color: $blanco;

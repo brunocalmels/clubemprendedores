@@ -11,6 +11,13 @@
     </div>
   <% end %>
 
+  <% if current_user.admin? %>
+  <h3><%= @reserva.user.nombre_completo %></h3>
+  <div class="field" id="aprobado">
+    <%= form.check_box :aprobado, label: "Aprobada" %>
+  </div>
+  <% end %>
+
   <div class="field">
     <%= form.datetime_select :start_time, id: :reserva_start_time, label: "Empieza" %>
   </div>
@@ -21,6 +28,7 @@
 
   <div class="field" id="finalidad">
     <%= form.select :finalidad, FINALIDADES, label: "Finalidad" %>
+    <p>Los turnos para <b>Eventos/capacitaciones</b> deberán ser aprobados por un administrador.</p>
   </div>
 
   <% if current_user.admin? %>
@@ -71,12 +79,18 @@
     <% end %>
   </div>
 
-  <div class="field" id="condiciones">
-    <%= check_box_tag :condiciones %>
-    <p>He leído y acepto el <%= link_to "Reglamento de Uso y Condiciones", "/condiciones_club_emprendedor.pdf", target: :blank %></p>
-  </div>
+  <% unless @reserva.persisted?  %>
+    <div class="field" id="condiciones">
+      <%= check_box_tag :condiciones %>
+      <p>He leído y acepto el <%= link_to "Reglamento de Uso y Condiciones", "/condiciones_club_emprendedor.pdf", target: :blank %></p>
+    </div>
+  <% end %>
 
   <div class="actions">
-    <%= form.submit 'Crear reserva', disabled: true, id: 'boton_crear_reserva' %>
+    <% if @reserva.persisted? %>
+      <%= form.submit 'Crear reserva', id: 'boton_crear_reserva' %>
+    <% else %>
+      <%= form.submit 'Crear reserva', disabled: true, id: 'boton_crear_reserva' %>
+    <% end %>
   </div>
 <% end %>

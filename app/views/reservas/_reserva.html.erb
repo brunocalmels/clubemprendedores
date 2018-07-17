@@ -12,4 +12,5 @@
     (<%= pluralize(reserva.ocupaciones, 'lugar')%>)
     <!-- <% if reserva.invitados.count > 0 %>
     <% end %> -->
+    <span class='esperando_aprobacion'> <%= !reserva.aprobado?? "Esperando aprobración" : nil %></span>
 </div>

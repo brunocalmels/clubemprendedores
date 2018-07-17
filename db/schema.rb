@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171120175548) do
+ActiveRecord::Schema.define(version: 20180716145249) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20171120175548) do
     t.bigint "user_id"
     t.boolean "bloqueo", default: false
     t.string "finalidad"
+    t.boolean "aprobado", default: true
     t.index ["user_id"], name: "index_reservas_on_user_id"
   end
 

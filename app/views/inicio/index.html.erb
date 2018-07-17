@@ -7,6 +7,16 @@
   <% end %>
 
   <% reservas.each do |reserva| %>
+
+  <!-- Si la reserva no esta aprobada y no es admin o el dueno, no mostrar -->
+  <%
+  if !reserva.aprobado
+    if current_user.nil? || (!current_user.admin? && current_user != reserva.user)
+      next
+    end
+  end
+  %>
+
   <div class="datos-reserva">
     <!-- Si puede editar las reservas -->
     <% if reserva.user == current_user || !current_user.nil? && current_user.admin? %>
@@ -21,6 +31,9 @@
         <span class="reserva_hora">
           <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
         </span>
+        <% if !reserva.aprobado %>
+          <span class="esperando_aprobacion">Esperando aprobación</span>
+        <% end %>
       <% end %>
 
     <!-- Si no puede editar las reservas -->

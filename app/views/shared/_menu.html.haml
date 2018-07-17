@@ -22,6 +22,11 @@
           -# = navbar_dropdown_divider
           -# = navbar_item "Salir", destroy_user_session_path
         = navbar_item "Mis reservas", '/reservas'
+      - if current_user.present? && current_user.admin?
+        = navbar_dropdown "Admin" do
+          = navbar_dropdown_header "Administrador"
+          = navbar_item "Esperando aprobación", "/reservas/esperando_aprobacion"
+
     = navbar_group align: 'right' do
       - if current_user.present?
         = navbar_item "Salir", destroy_user_session_url, {}, { 'data-method': :delete }
