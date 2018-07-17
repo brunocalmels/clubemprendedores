@@ -1,11 +1,11 @@
 # BUGS
 
 # IN PROGRESS
-- [ ] Como Admin, quiero tener que aprobar los turnos que se piden para capacitación.
 
 # TO BE STARTED
 
 # DONE
+- [x] Como Admin, quiero tener que aprobar los turnos que se piden para capacitación.
 - [x] Como Admin, quiero que los usuarios tengan que estar de acuerdo con los términos y condiciones del contrato para poder reservar el Club.
 - [x] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
 - [x] Se debe hacer la validación para que no se pueda hacer una reserva si no hay lugares.
