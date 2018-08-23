@@ -9,7 +9,7 @@
 require 'factory_bot_rails'
 
 p 'Creando admin Maxi'
-maxi = User.create(admin: true, email: 'mgrande@cpymeadeneu.com.ar', password: 'maxclubemp', nombre: 'Maxi', apellido: 'Grande', id_tipo: 0, id_num: 123456789, institucion: 'Club Emprendedor')
+maxi = User.create(admin: true, email: 'mgrande@adeneu.com.ar', password: 'maxclubemp', nombre: 'Maxi', apellido: 'Grande', id_tipo: 0, id_num: 123456789, institucion: 'Club Emprendedor')
 p 'Creando turnos bloqueantes'
 3.times do
   reserva = FactoryBot.build(:reserva, user: maxi, bloqueo: true)
@@ -23,8 +23,13 @@ p 'Creando turnos bloqueantes'
   end
 end
 
+p 'Creando usuarios Lu, Gabo, Rober'
+User.create(admin: true, email: 'lmarquisio@adeneu.com.ar', password: '123456', nombre: 'Lucila', apellido: 'Marquisio', id_tipo: 0, id_num: 123456789, institucion: 'Club Emprendedor')
+User.create(admin: true, email: 'gcarnelli@adeneu.com.ar', password: '123456', nombre: 'Gabriel', apellido: 'Carnelli', id_tipo: 0, id_num: 123456789, institucion: 'Club Emprendedor')
+User.create(admin: true, email: 'rcamino@adeneu.com.ar', password: '123456', nombre: 'Roberto', apellido: 'Camino', id_tipo: 0, id_num: 123456789, institucion: 'Club Emprendedor')
+
 p 'Creando usuario Bruno'
-User.create!(email: 'brunocalmels@gmail.com', password:'123456', nombre: 'Bruno', apellido: 'Calmels', id_tipo: 0, id_num: 32974644, institucion: 'Macher IT')
+User.create!(email: 'brunocalmels@gmail.com', password:'bruclubemp', nombre: 'Bruno', apellido: 'Calmels', id_tipo: 0, id_num: 32974644, institucion: 'Macher IT')
 
 p 'Creando 10 usuarios'
 p '...con una reserva cada uno'

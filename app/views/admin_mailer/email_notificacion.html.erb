@@ -1,11 +1,17 @@
-Notificaciones del Club Emprendedor
-==================================
-
-<%= @text %>
-
-<% if @link %>
-  Se lo puede ver en el siguiente enlace:
-  <%= @link %>
-<% end %>
-
-¡Saludos!
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+  </head>
+  <body>
+    <h1>Notificaciones del Club Emprendedor</h1>
+    <p>
+      <%= @text %>
+    </p>
+    <% if @link %>
+      Se lo puede ver en el siguiente enlace:
+      <%= @link %>
+    <% end %>
+    <p>¡Saludos!</p>
+  </body>
+</html>

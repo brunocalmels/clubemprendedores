@@ -58,12 +58,13 @@ class ReservasController < ApplicationController
     else
       respond_to do |format|
         if @reserva.save
-          if @reserva.aprobado
-            AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+          if !current_user.admin?
+            if @reserva.aprobado
+              AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+            else
+              AdminMailer.with(subject: "Reserva de turno - Necesita aprobación", text: "#{@reserva.user.nombre_completo} ha reservado el Club. La reserva requiere de aprobación por parte de un administrador.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+            end
           else
-            AdminMailer.with(subject: "Reserva de turno - Necesita aprobación", text: "#{@reserva.user.nombre_completo} ha reservado el Club. La reserva requiere de aprobación por parte de un administrador.", link: reserva_url(@reserva)).email_notificacion.deliver_later
-          end
-          if current_user.admin?
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
             @reserva.save
             if invitados_anon > 0
@@ -117,8 +118,20 @@ class ReservasController < ApplicationController
         end
       else
         respond_to do |format|
+          if !current_user.admin?
+            set_aprobacion(@reserva)
+          end
+
+          por_aprobar = !@reserva.aprobado
           if @reserva.update(reserva_params)
-            AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+            if !current_user.admin?
+              AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+            else
+              if por_aprobar && @reserva.aprobado
+                AdminMailer.with(to: @reserva.user.email, subject: "Turno aprobado", text: "#{current_user.nombre_completo} ha aprobado tu reserva en el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+
+              end
+            end
             format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
             format.json { render :show, status: :ok, location: @reserva }
           else
