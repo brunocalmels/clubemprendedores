@@ -207,9 +207,9 @@ class ReservasController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def reserva_params
     if current_user.admin?
-      params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, :invitados_grupo_reserva_id, :aprobado, invitados_attributes: %i[id nombre apellido dni email _destroy])
+      params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, :invitados_grupo_reserva_id, :nombre, :descripcion, :aprobado, invitados_attributes: %i[id nombre apellido dni email _destroy])
     else
-      params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, :invitados_grupo_reserva_id, invitados_attributes: %i[id nombre apellido dni email _destroy])
+      params.require(:reserva).permit(:end_time, :start_time, :bloqueo, :finalidad, :bloqueo, :invitados_grupo_reserva_id, :nombre, :descripcion, invitados_attributes: %i[id nombre apellido dni email _destroy])
     end
   end
 end

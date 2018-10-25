@@ -40,6 +40,14 @@ es:
           attributes:
             user:
               required: Se requiere de un usuario para el turno.
+            descripcion:
+              blank: Requerida.
+              too_short: Mínimo 10 caracteres.
+              too_long: Máximo 200 caracteres.
+            nombre:
+              blank: Requerido.
+              too_short: Mínimo 10 caracteres.
+              too_long: Máximo 40 caracteres.
   date:
     abbr_day_names:
     - dom

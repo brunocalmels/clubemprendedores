@@ -27,6 +27,15 @@
   <%= @reserva.finalidad %>
 </p>
 
+<p>
+  <strong>Nombre:</strong>
+  <%= @reserva.nombre %>
+</p>
+<p>
+  <strong>Descripción:</strong>
+  <%= @reserva.descripcion %>
+</p>
+
 <% if current_user.present? && current_user.admin? %>
 <p>
   <strong>Bloquea:</strong>

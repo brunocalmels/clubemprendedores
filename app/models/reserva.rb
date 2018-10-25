@@ -15,6 +15,11 @@ class Reserva < ApplicationRecord
   validates :end_time, presence: true
   validates :finalidad, inclusion: { in: FINALIDADES }
 
+  # Si es capacitacion, que tenga nombre y descripcion con las longs correctas
+  validates :nombre, :descripcion, presence: true, if: Proc.new { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
+  validates :nombre, length: { minimum: 4, maximum: 40 }, if: Proc.new { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
+  validates :descripcion, length: { minimum: 10, maximum: 200 }, if: Proc.new { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
+
   # Que termine después de que empiece
   validate :termina_dsp_d_q_empiece
   # Que termine el mismo día que empieza

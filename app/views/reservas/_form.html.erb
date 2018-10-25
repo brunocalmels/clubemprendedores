@@ -31,6 +31,14 @@
     <p>Los turnos para <b>Eventos/capacitaciones</b> deberán ser aprobados por un administrador.</p>
   </div>
 
+  <div class="field" id="nombre">
+    <%= form.text_field :nombre, label: "Nombre (* requerido para Eventos/capacitaciones)" %>
+  </div>
+
+  <div class="field" id="descripcion">
+    <%= form.text_field :descripcion, label: "Descripción (* requerida para Eventos/capacitaciones)" %>
+  </div>
+
   <% if current_user.admin? %>
     <div class="field" id="bloquear">
       <h4>Bloquear reservas</h4>
