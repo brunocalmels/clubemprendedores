@@ -9,11 +9,11 @@
 - [ ] Email: Que lleguen fecha y hora de inicio y fin, además del nombre del usuario.
 - [ ] Capacitaciones/eventos: Que no se necesite cargar los datos de los invitados, sino el número total solamente.
 - [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
-- [ ] Cambiar todos los mails @cpymeadeneu a @adeneu
 - [ ] Hacer el horario de apertura dependiente del día de la semana. Martes y Jueves es hasta las 16.
 
 
 # DONE
+- [x] Cambiar todos los mails @cpymeadeneu a @adeneu
 - [x] Como Admin, quiero tener que aprobar los turnos que se piden para capacitación.
 - [x] Como Admin, quiero que los usuarios tengan que estar de acuerdo con los términos y condiciones del contrato para poder reservar el Club.
 - [x] Como usuario, quiero poder repetir los grupos de personas de reservas previas.
