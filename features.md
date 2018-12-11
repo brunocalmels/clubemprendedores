@@ -2,7 +2,7 @@
 
 
 # IN PROGRESS
-
+- [ ] Como usuario normal, quiero ver el nombre y la descripción de una reserva.
 
 # TO BE STARTED
 - [ ] Calendario: Para eventos/capacitaciones, que se muestre el nombre de la reserva en lugar del del usuario.
