@@ -42,4 +42,15 @@ p '...con una reserva cada uno'
       FactoryBot.create(:invitado, reserva: reserva)
     end
   end
+end 
+
+p 'Creando eventos'
+10.times do
+  reserva = FactoryBot.build(:reserva, user: maxi, finalidad: 'Eventos/capacitaciones', nombre: 'Capacitación App', descripcion: 'Vamos a capacitar a los usuarios en el uso de la app')
+  reserva.save
+  if reserva.persisted?
+    rand(0..5).times do
+      FactoryBot.create(:invitado, reserva: reserva)
+    end
+  end
 end

@@ -2,10 +2,8 @@
 
 
 # IN PROGRESS
-- [ ] Como usuario normal, quiero ver el nombre y la descripción de una reserva.
 
 # TO BE STARTED
-- [ ] Calendario: Para eventos/capacitaciones, que se muestre el nombre de la reserva en lugar del del usuario.
 - [ ] Email: Que lleguen fecha y hora de inicio y fin, además del nombre del usuario.
 - [ ] Capacitaciones/eventos: Que no se necesite cargar los datos de los invitados, sino el número total solamente.
 - [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
@@ -13,6 +11,8 @@
 
 
 # DONE
+- [x] Calendario: Para eventos/capacitaciones, que se muestre el nombre de la reserva en lugar del del usuario.
+- [x] Como usuario normal, quiero ver el nombre y la descripción de una reserva.
 - [x] Cambiar todos los mails @cpymeadeneu a @adeneu
 - [x] Como Admin, quiero tener que aprobar los turnos que se piden para capacitación.
 - [x] Como Admin, quiero que los usuarios tengan que estar de acuerdo con los términos y condiciones del contrato para poder reservar el Club.
