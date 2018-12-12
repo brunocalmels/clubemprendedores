@@ -60,9 +60,9 @@ class ReservasController < ApplicationController
         if @reserva.save
           if !current_user.admin?
             if @reserva.aprobado
-              AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+              AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{reserva.end_time.strftime('%e %b %H:%M hs')}", link: reserva_url(@reserva)).email_notificacion.deliver_later
             else
-              AdminMailer.with(subject: "Reserva de turno - Necesita aprobación", text: "#{@reserva.user.nombre_completo} ha reservado el Club. La reserva requiere de aprobación por parte de un administrador.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+              AdminMailer.with(subject: "Reserva de turno - Necesita aprobación", text: "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{reserva.end_time.strftime('%e %b %H:%M hs')}. La reserva requiere de aprobación por parte de un administrador.", link: reserva_url(@reserva)).email_notificacion.deliver_later
             end
           else
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
