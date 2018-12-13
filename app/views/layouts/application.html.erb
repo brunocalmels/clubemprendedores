@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Club Emprendedores</title>
-    <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+<head>
+  <title>Club Emprendedores</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <%= csrf_meta_tags %>
 
-  <body>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-    <div id="body-wrapper">
+<body>
 
-      <%= render 'shared/menu' %>
+  <div id="body-wrapper">
 
-      <div id="main-body">
-        <!-- <div class="encabezado"> -->
-        <%= render 'shared/user_status' %>
+    <%= render 'shared/menu' %>
 
-        <!-- Notificaciones de Devise -->
-        <% if !notice.nil? %>
-          <p class="alert alert-success"><%= notice %></p>
-        <% end %>
-        <% if !alert.nil? %>
-          <p class="alert alert-danger"><%= alert %></p>
-        <% end %>
+    <div id="main-body">
+      <!-- <div class="encabezado"> -->
+      <%= render 'shared/user_status' %>
 
-        <%= yield %>
-      </div>
-      <div id="push"></div>
+      <!-- Notificaciones de Devise -->
+      <% if !notice.nil? %>
+      <p class="alert alert-success">
+        <%= notice %>
+      </p>
+      <% end %>
+      <% if !alert.nil? %>
+      <p class="alert alert-danger">
+        <%= alert %>
+      </p>
+      <% end %>
+
+      <%= yield %>
     </div>
-    <%= render 'shared/footer' %>
-  </body>
+    <div id="push"></div>
+  </div>
+  <%= render 'shared/footer' %>
+</body>
+
 </html>
