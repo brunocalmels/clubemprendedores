@@ -49,41 +49,45 @@
     </div>
   <% end %>
 
-
-  <div class="field" id="invitados">
-    <h4>Invitados</h4>
-    <% unless @reserva.persisted?  %>
-      <% if !@grupos.nil? && !@grupos.empty? %>
-        <%= hidden_field_tag :invitados_grupo_reserva_id, '0' %>
-        <div class="grupos">
-          <a class='btn invitados_anteriores'>Repetir invitados anteriores</a>
-          <div id="grupos-list">
-            <% !@grupos.nil? && @grupos.each do |grupo| %>
-            <a class='nombre_grupo' data-reservaId=<%= grupo[:reserva_id] %> data-nombres=<%= grupo[:nombres] %>>
-              <%= grupo[:nombres] %>
-            </a>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-
-    <!-- Si es admin, no necesita dar los datos de los invitados -->
-    <% if current_user.admin? %>
-    <div class="field">
+    <!-- Si es admin o es una capacitación/evento, no necesita dar los datos de los invitados -->
+    <div class="field" id="invitados_anonimos"
+      <%= @reserva.finalidad != "Eventos/capacitaciones" ? 'style=display:none' : "" %>
+    >
       <div class="form-group">
         <label for="invitados_anon">Invitados anónimos</label>
         <%= number_field_tag :invitados_anon, 0, min: 0, max: MAX_OCUPACIONES, class: 'form-control'%>
       </div>
     </div>
-    <% else %>
+
+    <!-- Si es admin no se necesita declarar los invitados -->
+    <% unless current_user.admin? %> 
+      <div class="field" id="invitados"
+        <%= @reserva.finalidad == "Eventos/capacitaciones" ? 'style=display:none' : "" %>
+      >
+        <h4>Invitados</h4>
+        <% unless @reserva.persisted?  %>
+          <% if !@grupos.nil? && !@grupos.empty? %>
+            <%= hidden_field_tag :invitados_grupo_reserva_id, '0' %>
+            <div class="grupos">
+              <a class='btn invitados_anteriores'>Repetir invitados anteriores</a>
+              <div id="grupos-list">
+                <% !@grupos.nil? && @grupos.each do |grupo| %>
+                <a class='nombre_grupo' data-reservaId=<%= grupo[:reserva_id] %> data-nombres=<%= grupo[:nombres] %>>
+                  <%= grupo[:nombres] %>
+                </a>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+
+      <p>Necesitás llenar datos de tus invitados</p>
       <%= form.fields_for :invitados do |invitado_form| %>
         <%= render 'invitado_fields', f: invitado_form %>
       <% end %>
       <div class='links'>
         <%= link_to_add_association 'Agregar invitado', form, :invitados, class: 'btn btn-info' %>
       </div>
-
     <% end %>
   </div>
 
@@ -96,7 +100,7 @@
 
   <div class="actions">
     <% if @reserva.persisted? %>
-      <%= form.submit 'Crear reserva', id: 'boton_crear_reserva' %>
+      <%= form.submit 'Guardar cambios', id: 'boton_crear_reserva' %>
     <% else %>
       <%= form.submit 'Crear reserva', disabled: true, id: 'boton_crear_reserva' %>
     <% end %>

@@ -62,9 +62,10 @@ class ReservasController < ApplicationController
             if @reserva.aprobado
               AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{reserva.end_time.strftime('%e %b %H:%M hs')}", link: reserva_url(@reserva)).email_notificacion.deliver_later
             else
-              AdminMailer.with(subject: "Reserva de turno - Necesita aprobación", text: "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{reserva.end_time.strftime('%e %b %H:%M hs')}. La reserva requiere de aprobación por parte de un administrador.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+              AdminMailer.with(subject: "Reserva de turno - Necesita aprobación", text: "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{@reserva.end_time.strftime('%e %b %H:%M hs')}. La reserva requiere de aprobación por parte de un administrador.", link: reserva_url(@reserva)).email_notificacion.deliver_later
             end
-          else
+          end
+          if @reserva.finalidad == "Eventos/capacitaciones" || current_user.admin?
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
             @reserva.save
             if invitados_anon > 0
@@ -72,10 +73,9 @@ class ReservasController < ApplicationController
                 @reserva.invitados.create(anonimo: true)
               end
             end
-          end
 
           # Copia invitados de reserva a copiar
-          if !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0  && reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id])
+          elsif !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0  && reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id])
             reserva_repe.invitados.each do |invitado|
               @reserva.invitados << invitado.dup
             end
@@ -97,18 +97,23 @@ class ReservasController < ApplicationController
   # PATCH/PUT /reservas/1
   # PATCH/PUT /reservas/1.json
   def update
-    if current_user.admin?
-      invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
-      if invitados_anon > 0
-        @reserva.invitados.delete_all
-        invitados_anon.times do |invitado_anon|
-          @reserva.invitados.create(anonimo: true)
-        end
-      end
-    end
-
     # Chequear que solo puedan editar reservas los dueños
     if current_user == @reserva.user || current_user.admin?
+
+      # Arregla invitados anonimos
+      if reserva_params[:finalidad] == "Eventos/capacitaciones" || current_user.admin?
+        invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
+        if invitados_anon > 0
+          @reserva.invitados.delete_all
+          invitados_anon.times do |invitado_anon|
+            @reserva.invitados.create(anonimo: true)
+          end
+          # Remueve parametros de invitados declarados
+          params.require(:reserva).delete(:invitados_attributes)
+        end
+      end
+
+      # Chequea numero de usuarios
       if reserva_params[:invitados_attributes].to_h.count > MAX_OCUPACIONES
         @reserva.errors.add(:invitaciones, "No puede haber más de #{MAX_OCUPACIONES} lugares ocupados.")
         respond_to do |format|
@@ -118,18 +123,24 @@ class ReservasController < ApplicationController
         end
       else
         respond_to do |format|
+          # Setea aprobación
           if !current_user.admin?
             set_aprobacion(@reserva)
           end
-
           por_aprobar = !@reserva.aprobado
+          
           if @reserva.update(reserva_params)
+            # Arregla invitados previamente anonimos ahora declarados
+            @reserva.invitados.each do |inv|
+              inv.update anonimo: false
+            end 
+
+            # Avisa a admins  
             if !current_user.admin?
               AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
             else
               if por_aprobar && @reserva.aprobado
                 AdminMailer.with(to: @reserva.user.email, subject: "Turno aprobado", text: "#{current_user.nombre_completo} ha aprobado tu reserva en el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
-
               end
             end
             format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }

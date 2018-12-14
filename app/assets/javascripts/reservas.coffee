@@ -3,6 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'turbolinks:load', ->
+
+  # Selección de hora con un click
   $(".franja_horaria").on "click", (event) ->
     hora_inicio = this.dataset.horaInicio
     hora_fin = this.dataset.horaFin
@@ -42,10 +44,22 @@ $(document).on 'turbolinks:load', ->
     $('#invitados_grupo_reserva_id')[0].value = event.target.dataset.reservaid
 
 
-
   # Habilita el botón de Crear Reserva sólo cuando se aceptaron las condiciones
   $('#condiciones').on "click", (event) ->
     if (event.target.checked)
       $('#boton_crear_reserva').attr('disabled', false)
     else
       $('#boton_crear_reserva').attr('disabled', true)
+
+
+  # De acuerdo al tipo de evento, cambia el tipo de invitados (anón o declarados)
+  $('select#reserva_finalidad').on "change", (event) ->
+    if (event.target.value == "Eventos/capacitaciones")
+      console.log('Evento/capacitacion')
+      $('#invitados_anonimos').show(500)
+      $('#invitados').hide(500)
+    else
+      console.log('Co-working')
+      $('#invitados').show(500)
+      $('#invitados_anonimos').hide(500)
+      $('#invitados_anonimos input#invitados_anon').val(0)

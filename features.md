@@ -4,12 +4,12 @@
 # IN PROGRESS
 
 # TO BE STARTED
-- [ ] Capacitaciones/eventos: Que no se necesite cargar los datos de los invitados, sino el número total solamente.
 - [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
 - [ ] Hacer el horario de apertura dependiente del día de la semana. Martes y Jueves es hasta las 16.
 
 
 # DONE
+- [x] Capacitaciones/eventos: Que no se necesite cargar los datos de los invitados, sino el número total solamente.
 - [x] Email: Que lleguen fecha y hora de inicio y fin, además del nombre del usuario.
 - [x] Calendario: Para eventos/capacitaciones, que se muestre el nombre de la reserva en lugar del del usuario.
 - [x] Como usuario normal, quiero ver el nombre y la descripción de una reserva.
