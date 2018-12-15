@@ -31,3 +31,51 @@
 #
 #  IndexTags:
 #    enabled: true # Generate a tags file with `ctags` each time HEAD changes
+
+
+gemfile: Gemfile
+
+PreCommit:
+  BundleCheck:
+    enabled: true
+
+  FixMe:
+    enabled: true
+    keywords: ["FIXME"]
+    exclude:
+      - .overcommit.yml
+
+  LocalPathsInGemfile:
+    enabled: true
+
+  RailsSchemaUpToDate:
+    enabled: false
+
+  RuboCop:
+    enabled: true
+    on_warn: fail
+
+  TrailingWhitespace:
+    enabled: true
+    exclude:
+      - "**/db/structure.sql"
+
+  YamlSyntax:
+    enabled: true
+
+PostCheckout:
+  ALL:
+    quiet: true
+
+CommitMsg:
+  CapitalizedSubject:
+    enabled: false
+
+  TrailingPeriod:
+    enabled: false
+
+  TextWidth:
+    enabled: true
+    description: 'Checking text width'
+    max_subject_width: 120
+    max_body_width: 144
