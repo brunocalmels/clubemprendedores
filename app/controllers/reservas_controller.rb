@@ -8,11 +8,11 @@ class ReservasController < ApplicationController
   # GET /reservas
   # GET /reservas.json
   def index
-    if user_signed_in? && current_user.admin?
-      @reservas = Reserva.all
-    else
-      @reservas = current_user.reservas
-    end
+    @reservas = if user_signed_in? && current_user.admin?
+                  Reserva.all
+                else
+                  current_user.reservas
+                end
   end
 
   # GET /reservas/1
@@ -34,11 +34,12 @@ class ReservasController < ApplicationController
   # GET /reservas/1/edit
   def edit
     @reservas = Reserva.del_dia(@reserva)
-    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map { |reserva| {
+    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map do |reserva|
+      {
         nombres: reserva.nombre_invitados,
         reserva_id: reserva.id
       }
-    }
+    end
   end
 
   # POST /reservas
@@ -49,7 +50,7 @@ class ReservasController < ApplicationController
     @reserva.user = current_user
 
     # Chequea que no tenga más reservas que el máximo
-    if reserva_params[:invitados_attributes].to_h.count > MAX_OCUPACIONES
+    if reserva_params[:invitados_attributes].to_h.size > MAX_OCUPACIONES
       @reserva.errors.add(:invitaciones, "No puede haber más de #{MAX_OCUPACIONES} lugares ocupados.")
       respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
@@ -58,7 +59,7 @@ class ReservasController < ApplicationController
     else
       respond_to do |format|
         if @reserva.save
-          if !current_user.admin?
+          unless current_user.admin?
             if @reserva.aprobado
               AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{@reserva.end_time.strftime('%e %b %H:%M hs')}", link: reserva_url(@reserva)).email_notificacion.deliver_later
             else
@@ -69,13 +70,13 @@ class ReservasController < ApplicationController
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
             @reserva.save
             if invitados_anon > 0
-              invitados_anon.times do |invitado_anon|
+              invitados_anon.times do |_invitado_anon|
                 @reserva.invitados.create(anonimo: true)
               end
             end
 
           # Copia invitados de reserva a copiar
-          elsif !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0  && reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id])
+          elsif !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0 && reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id])
             reserva_repe.invitados.each do |invitado|
               @reserva.invitados << invitado.dup
             end
@@ -83,11 +84,11 @@ class ReservasController < ApplicationController
           format.html { redirect_to @reserva, notice: 'La reserva se creó correctamente.' }
           format.json { render :show, status: :created, location: @reserva }
         else
-          format.html {
+          format.html do
             @date = @reserva.start_time
             buscar_reservas_dia
             render :new, status: :unprocessable_entity
-          }
+          end
           format.json { render json: @reserva.errors, status: :unprocessable_entity }
         end
       end
@@ -105,7 +106,7 @@ class ReservasController < ApplicationController
         invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
         if invitados_anon > 0
           @reserva.invitados.delete_all
-          invitados_anon.times do |invitado_anon|
+          invitados_anon.times do |_invitado_anon|
             @reserva.invitados.create(anonimo: true)
           end
           # Remueve parametros de invitados declarados
@@ -114,28 +115,27 @@ class ReservasController < ApplicationController
       end
 
       # Chequea numero de usuarios
-      if reserva_params[:invitados_attributes].to_h.count > MAX_OCUPACIONES
+      if reserva_params[:invitados_attributes].to_h.size > MAX_OCUPACIONES
         @reserva.errors.add(:invitaciones, "No puede haber más de #{MAX_OCUPACIONES} lugares ocupados.")
         respond_to do |format|
-          format.html { render :edit, status: :unprocessable_entity
-           }
+          format.html do
+            render :edit, status: :unprocessable_entity
+          end
           format.json { render json: @reserva.errors, status: :unprocessable_entity }
         end
       else
         respond_to do |format|
           # Setea aprobación
-          if !current_user.admin?
-            set_aprobacion(@reserva)
-          end
+          set_aprobacion(@reserva) unless current_user.admin?
           por_aprobar = !@reserva.aprobado
-          
+
           if @reserva.update(reserva_params)
             # Arregla invitados previamente anonimos ahora declarados
             @reserva.invitados.each do |inv|
               inv.update anonimo: false
-            end 
+            end
 
-            # Avisa a admins  
+            # Avisa a admins
             if !current_user.admin?
               AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
             else
@@ -146,8 +146,9 @@ class ReservasController < ApplicationController
             format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
             format.json { render :show, status: :ok, location: @reserva }
           else
-            format.html { render :edit, status: :unprocessable_entity
-             }
+            format.html do
+              render :edit, status: :unprocessable_entity
+            end
             format.json { render json: @reserva.errors, status: :unprocessable_entity }
           end
         end
@@ -176,10 +177,10 @@ class ReservasController < ApplicationController
   def esperando_aprobacion
     @reservas = Reserva.esperando_aprobacion
     respond_to do |format|
-      format.html {
+      format.html do
         params[:title] = "Reservas esperando aprobación"
         render :index
-      }
+      end
       format.json { render json: @reservas }
     end
   end
@@ -189,25 +190,22 @@ class ReservasController < ApplicationController
   # Setea la aprobaación por defecto o no, según las políticas
   def set_aprobacion(reserva)
     # Si es de eventos/capacitacion, no se aprueba por defecto
-    if reserva.finalidad == 'Eventos/capacitaciones'
-      reserva.aprobado = false
-    end
+    reserva.aprobado = false if reserva.finalidad == 'Eventos/capacitaciones'
   end
 
   # Usado para buscar las reservas de ese día en new y create.
   def buscar_reservas_dia
     @reservas = Reserva.del_dia(@reserva)
-    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map { |reserva| {
+    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map do |reserva|
+      {
         nombres: reserva.nombre_invitados,
         reserva_id: reserva.id
       }
-    }
+    end
   end
 
   def bloquear_solo_admins
-    if !current_user.admin?
-      params[:reserva][:bloqueo] = false
-    end
+    params[:reserva][:bloqueo] = false unless current_user.admin?
   end
 
   # Use callbacks to share common setup or constraints between actions.

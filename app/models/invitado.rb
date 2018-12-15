@@ -26,6 +26,5 @@ class Invitado < ApplicationRecord
 
   scope :no_anonimos, -> { where(anonimo: false) }
 
-  validates :nombre, :apellido, presence: true, unless: Proc.new { |invit| invit.anonimo?  }
-
+  validates :nombre, :apellido, presence: true, unless: proc { |invit| invit.anonimo? }
 end

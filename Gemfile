@@ -47,9 +47,7 @@ gem 'factory_bot_rails'
 gem 'faker'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 end
@@ -59,12 +57,13 @@ group :development do
   gem "awesome_print"
   gem "better_errors"
   gem "binding_of_caller"
+  gem "guard", ">= 2.2.2", require: false
+  gem "guard-livereload",  '~> 2.5.2', require: false
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem "overcommit", ">= 0.37.0", require: false
   gem "rack-livereload"
+  gem "rubocop", ">= 0.53.0", require: false
   gem 'web-console', '>= 3.3.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end

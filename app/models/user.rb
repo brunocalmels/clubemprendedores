@@ -52,5 +52,4 @@ class User < ApplicationRecord
   def nombre_completo
     nombre + " " + apellido
   end
-
 end

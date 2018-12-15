@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  root to: 'inicio#index'
+  root to: "inicio#index"
   devise_for :users, controllers: {
-    registrations: 'users/registrations'
+    registrations: "users/registrations"
   }
-  get 'reservas/esperando_aprobacion', to: 'reservas#esperando_aprobacion'
+  get "reservas/esperando_aprobacion", to: "reservas#esperando_aprobacion"
   resources :reservas
 end

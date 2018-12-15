@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class ReservasControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -6,10 +6,10 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     @admin = create(:admin)
     @user = create(:user)
     @invitado = {
-      nombre: 'Jorge',
-      apellido: 'Perez',
-      dni: '321654879',
-      email: 'algun@email.com'
+      nombre: "Jorge",
+      apellido: "Perez",
+      dni: "321654879",
+      email: "algun@email.com"
     }
   end
 
@@ -19,20 +19,19 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-
   test "se puede crear reservas con invitados y después repetirlos en otra reserva" do
     sign_in @user
-    @invitados = Hash.new
-    [MAX_OCUPACIONES-1, 3].min.times do |i|
+    @invitados = {}
+    [MAX_OCUPACIONES - 1, 3].min.times do |i|
       @invitados[i.to_s] = @invitado
     end
-    assert_difference('Reserva.count', 1) do
+    assert_difference("Reserva.count", 1) do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample, invitados_attributes: @invitados } }, as: @user
     end
     assert_response :redirect
 
     @reserva_repe = assigns :reserva
-    assert_difference('Reserva.count', 1) do
+    assert_difference("Reserva.count", 1) do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time + 3.hours, start_time: @reserva.start_time + 3.hours, finalidad: FINALIDADES.sample }, invitados_grupo_reserva_id: @reserva_repe.id }, as: @user
     end
     assert_response :redirect
@@ -41,42 +40,41 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     @reserva2.invitados.each do |invitado|
       assert @reserva_repe.invitados.where(nombre: invitado.nombre, apellido: invitado.apellido, email: invitado.email, dni: invitado.dni).count > 0
     end
-
   end
 
   test "no se puede hacer una reserva si se juntan más de #{MAX_OCUPACIONES} personas (coinciden exactamente)" do
     @reserva = create(:reserva, user: @admin, start_time: DateTime.now.middle_of_day, end_time: DateTime.now.middle_of_day + 3.hours)
     MAX_OCUPACIONES.times do |i|
-      @reserva.invitados.create(nombre: "Invitado", apellido: "#{i}")
+      @reserva.invitados.create(nombre: "Invitado", apellido: i.to_s)
     end
     sign_in @user
 
     # Tiempos idénticos
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample } }, as: @admin
     end
     assert_response :unprocessable_entity
 
     # Solapa por izquierda
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time - 1.hour, finalidad: FINALIDADES.sample } }, as: @admin
     end
     assert_response :unprocessable_entity
 
     # Solapa por derecha
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time + 2.hours, start_time: @reserva.start_time, finalidad: FINALIDADES.sample } }, as: @admin
     end
     assert_response :unprocessable_entity
 
     # Contiene
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time + 1.hour, start_time: @reserva.start_time - 2.hours, finalidad: FINALIDADES.sample } }, as: @admin
     end
     assert_response :unprocessable_entity
 
     # Es contenido
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time - 1.hour, start_time: @reserva.start_time + 1.hour, finalidad: FINALIDADES.sample } }, as: @admin
     end
     assert_response :unprocessable_entity
@@ -84,7 +82,7 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
 
   test "se crea una reserva con invitaciones anónimas" do
     sign_in @admin
-    assert_difference('Reserva.count', 1) do
+    assert_difference("Reserva.count", 1) do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample }, invitados_anon: 10 }, as: @admin
     end
     assert_response :redirect
@@ -92,7 +90,7 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
 
   test "no puede haber más ocupaciones anónimas que las máximas" do
     sign_in @admin
-    assert_difference('Reserva.count') do
+    assert_difference("Reserva.count") do
       post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample }, invitados_anon: MAX_OCUPACIONES + 1 }, as: @admin
     end
     assert_response :redirect
@@ -100,12 +98,12 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
 
   test "no se puede reservas con más ocupaciones que las máximas" do
     sign_in @user
-    @invitados = Hash.new
-    (MAX_OCUPACIONES+1).times do |i|
+    @invitados = {}
+    (MAX_OCUPACIONES + 1).times do |i|
       @invitados[i.to_s] = @invitado
     end
-    assert_no_difference('Reserva.count') do
-      post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample, invitados_attributes: @invitados  } }, as: @user
+    assert_no_difference("Reserva.count") do
+      post reservas_url, params: { reserva: { end_time: @reserva.end_time, start_time: @reserva.start_time, finalidad: FINALIDADES.sample, invitados_attributes: @invitados } }, as: @user
     end
     assert_response :unprocessable_entity
   end
@@ -113,11 +111,11 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
   test "no se puede editar un turno para que tenga más invitados que los max" do
     sign_in @user
     @reserva = create(:reserva, user: @user)
-    @invitados = Hash.new
-    (MAX_OCUPACIONES+1).times do |i|
+    @invitados = {}
+    (MAX_OCUPACIONES + 1).times do |i|
       @invitados[i.to_s] = @invitado
     end
-    assert_no_difference('@reserva.invitados.count') do
+    assert_no_difference("@reserva.invitados.count") do
       patch reserva_url(@reserva), params: { reserva: { invitados_attributes: @invitados } }
     end
     assert_response :unprocessable_entity
@@ -126,13 +124,13 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
   test "no se puede crear un turno que se pise con uno bloqueante" do
     sign_in @user
     comienzo_bloq = DateTime.now.middle_of_day
-    fin_bloq = comienzo_bloq + 4.hour
+    fin_bloq = comienzo_bloq + 4.hours
     create(:reserva_bloqueante, start_time: comienzo_bloq, end_time: fin_bloq, user: @admin)
 
     # Pasa porque se hace antes
-    comienzo = comienzo_bloq - 3.hour
-    fin = comienzo + 2.hour
-    assert_difference('Reserva.count', 1) do
+    comienzo = comienzo_bloq - 3.hours
+    fin = comienzo + 2.hours
+    assert_difference("Reserva.count", 1) do
       post reservas_url, params: { reserva: { start_time: comienzo, end_time: fin, user: @user, finalidad: FINALIDADES.sample } }
     end
     assert_response :redirect
@@ -140,21 +138,21 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     # Pasa porque se hace después
     comienzo = fin_bloq + 1.hour
     fin = comienzo + 1.hour
-    assert_difference('Reserva.count', 1) do
+    assert_difference("Reserva.count", 1) do
       post reservas_url, params: { reserva: { start_time: comienzo, end_time: fin, user: @user, finalidad: FINALIDADES.sample } }
     end
     assert_response :redirect
 
     # Exactamente la misma hora
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { start_time: comienzo_bloq, end_time: fin_bloq, user: @user, finalidad: FINALIDADES.sample } }
     end
     assert_response :unprocessable_entity
 
     # Empieza antes y termina en el medio
     comienzo = comienzo_bloq - 1.hour
-    fin = comienzo + 2.hour
-    assert_no_difference('Reserva.count') do
+    fin = comienzo + 2.hours
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { start_time: comienzo, end_time: fin, user: @user, finalidad: FINALIDADES.sample } }
     end
     assert_response :unprocessable_entity
@@ -162,15 +160,15 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     # Empieza y termina en el medio
     comienzo = comienzo_bloq + 1.hour
     fin = comienzo + 1.hour
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { start_time: comienzo, end_time: fin, user: @user, finalidad: FINALIDADES.sample } }
     end
     assert_response :unprocessable_entity
 
     # Empieza en el medio y termina después
     comienzo = comienzo_bloq + 1.hour
-    fin = comienzo + 4.hour
-    assert_no_difference('Reserva.count') do
+    fin = comienzo + 4.hours
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { start_time: comienzo, end_time: fin, user: @user, finalidad: FINALIDADES.sample } }
     end
     assert_response :unprocessable_entity
@@ -178,7 +176,7 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     # Empieza en el medio y termina justo igual
     comienzo = comienzo_bloq + 1.hour
     fin = fin_bloq
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { start_time: comienzo, end_time: fin, user: @user, finalidad: FINALIDADES.sample } }
     end
     assert_response :unprocessable_entity
@@ -186,7 +184,7 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     # Empieza justo igual y termina en el medio
     comienzo = comienzo_bloq
     fin = comienzo + 1.hour
-    assert_no_difference('Reserva.count') do
+    assert_no_difference("Reserva.count") do
       post reservas_url, params: { reserva: { start_time: comienzo, end_time: fin, user: @user, finalidad: FINALIDADES.sample } }
     end
     assert_response :unprocessable_entity
