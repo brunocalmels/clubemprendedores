@@ -25,34 +25,44 @@
         <% if reserva.finalidad == 'Eventos/capacitaciones' %>
           <%= "#{reserva.nombre}" %>
           <% if reserva.invitados.any? %>
-            + <%= reserva.invitados.count %> invitados
+            - <%= reserva.invitados.count %> inv.
           <% end %>
         <% else %>
           <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
           <% if reserva.invitados.any? %>
-            + <%= reserva.invitados.count %> invitados
+            + <%= reserva.invitados.count %> inv.
           <% end %>
         <% end %>
         <% if reserva.bloqueo? %>
-          <span class="bloquea">[Todo el Club]</span>
+          <span class="bloquea">[Todo]</span>
         <% end %>
         <span class="reserva_hora">
           <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
         </span>
         <% if !reserva.aprobado %>
-          <span class="esperando_aprobacion">Esperando aprobación</span>
+          <span class="esperando_aprobacion">Espera aprobación</span>
         <% end %>
       <% end %>
 
     <!-- Si no puede editar las reservas -->
     <% else %>
-      <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
-      <% if reserva.invitados.any? %>
-        + <%= reserva.invitados.count %> invitados
-      <% end %>
-      <span class="reserva_hora">
-        <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
-      </span>
+        <% if reserva.finalidad == 'Eventos/capacitaciones' %>
+          <%= "#{reserva.nombre}" %>
+          <% if reserva.invitados.any? %>
+            - <%= reserva.invitados.count %> inv.
+          <% end %>
+        <% else %>
+          <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
+          <% if reserva.invitados.any? %>
+            + <%= reserva.invitados.count %> inv.
+          <% end %>
+        <% end %>
+        <% if reserva.bloqueo? %>
+          <span class="bloquea">[Todo]</span>
+        <% end %>
+        <span class="reserva_hora">
+          <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
+        </span>
     <% end %> <!--Se puede editar las reservas -->
   </div>
   <% end %>

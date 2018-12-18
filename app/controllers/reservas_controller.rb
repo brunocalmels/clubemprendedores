@@ -225,10 +225,11 @@ class ReservasController < ApplicationController
 
   private
 
-  # Setea la aprobaación por defecto o no, según las políticas
+  # Setea la aprobación por defecto o no, según las políticas
   def decide_aprobacion(reserva)
     # Si es de eventos/capacitacion, no se aprueba por defecto
     reserva.aprobado = false if reserva.finalidad == 'Eventos/capacitaciones'
+    reserva.aprobado = true if current_user.admin?
   end
 
   # Usado para buscar las reservas de ese día en new y create.
