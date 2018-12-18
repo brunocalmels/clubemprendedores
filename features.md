@@ -1,5 +1,6 @@
 # BUGS
-
+- [ ] Ver 20/12: Hay actividades de Maxi pero no se muestran en el inicio.
+- [ ] Volver desde Reserva#show: Lleva al dia.
 
 # IN PROGRESS
 

@@ -25,10 +25,12 @@
 
 FactoryBot.define do
   factory :reserva do
-    # Entre hoy y dentro de una semana, entre las 8:00 y las 21:00
-    start_time { DateTime.now.middle_of_day + rand(0..7) * 24.hours + rand(-3..4).hour }
+    # Entre hoy y dentro de una semana, en horarios de apertura
+    start_time { Time.zone.parse("#{rand(HORA_APERTURA..HORA_CIERRE - 1)}:00:00") + rand(0..7) * 24.hours }
     end_time { start_time + 1.hour }
     finalidad { FINALIDADES.sample }
+    nombre { Faker::Music.album[0..RESERVA_NOMBRE_MAX - 1] }
+    descripcion { Faker::Seinfeld.quote[0..RESERVA_DESCRIPCION_MAX - 1] }
 
     user
 

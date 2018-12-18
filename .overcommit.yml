@@ -52,7 +52,7 @@ PreCommit:
     enabled: false
 
   RuboCop:
-    enabled: false
+    enabled: true
     on_warn: fail
 
   TrailingWhitespace:

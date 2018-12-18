@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class ReservasController < ApplicationController
   include ReservasHelper
   before_action :set_reserva, only: %i[show edit update destroy]
@@ -20,6 +21,7 @@ class ReservasController < ApplicationController
   def show; end
 
   # GET /reservas/new
+  # rubocop:disable Metrics/AbcSize
   def new
     if params[:date]
       @date = params[:date] || Time.zone.now
@@ -41,12 +43,17 @@ class ReservasController < ApplicationController
       }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   # POST /reservas
   # POST /reservas.json
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
   def create
     @reserva = Reserva.new(reserva_params)
-    set_aprobacion(@reserva)
+    decide_aprobacion(@reserva)
     @reserva.user = current_user
 
     # Chequea que no tenga más reservas que el máximo
@@ -59,24 +66,16 @@ class ReservasController < ApplicationController
     else
       respond_to do |format|
         if @reserva.save
-          unless current_user.admin?
-            if @reserva.aprobado
-              AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{@reserva.end_time.strftime('%e %b %H:%M hs')}", link: reserva_url(@reserva)).email_notificacion.deliver_later
-            else
-              AdminMailer.with(subject: "Reserva de turno - Necesita aprobación", text: "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{@reserva.end_time.strftime('%e %b %H:%M hs')}. La reserva requiere de aprobación por parte de un administrador.", link: reserva_url(@reserva)).email_notificacion.deliver_later
-            end
-          end
+          notice_admins_create
           if @reserva.finalidad == "Eventos/capacitaciones" || current_user.admin?
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
             @reserva.save
-            if invitados_anon > 0
-              invitados_anon.times do |_invitado_anon|
-                @reserva.invitados.create(anonimo: true)
-              end
+            invitados_anon.times do |_invitado_anon|
+              @reserva.invitados.create(anonimo: true)
             end
 
           # Copia invitados de reserva a copiar
-          elsif !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0 && reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id])
+          elsif !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0 && (reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id]))
             reserva_repe.invitados.each do |invitado|
               @reserva.invitados << invitado.dup
             end
@@ -94,9 +93,39 @@ class ReservasController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
+
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
+  def notice_admins_create
+    return if current_user.admin?
+
+    @link = reserva_url(@reserva)
+    if @reserva.aprobado
+      @subject = "Reserva de turno"
+      @text =  "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{@reserva.end_time.strftime('%e %b %H:%M hs')}"
+    else
+      @subject = "Reserva de turno - Necesita aprobación"
+      @text = "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{@reserva.end_time.strftime('%e %b %H:%M hs')}. La reserva requiere de aprobación por parte de un administrador."
+    end
+    AdminMailer.with(
+      subject: @subject,
+      text: @text,
+      link: @link
+    ).email_notificacion.deliver_later
+  end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 
   # PATCH/PUT /reservas/1
   # PATCH/PUT /reservas/1.json
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
   def update
     # Chequear que solo puedan editar reservas los dueños
     if current_user == @reserva.user || current_user.admin?
@@ -126,8 +155,8 @@ class ReservasController < ApplicationController
       else
         respond_to do |format|
           # Setea aprobación
-          set_aprobacion(@reserva) unless current_user.admin?
-          por_aprobar = !@reserva.aprobado
+          decide_aprobacion(@reserva) unless current_user.admin?
+          @por_aprobar = !@reserva.aprobado
 
           if @reserva.update(reserva_params)
             # Arregla invitados previamente anonimos ahora declarados
@@ -136,13 +165,8 @@ class ReservasController < ApplicationController
             end
 
             # Avisa a admins
-            if !current_user.admin?
-              AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
-            else
-              if por_aprobar && @reserva.aprobado
-                AdminMailer.with(to: @reserva.user.email, subject: "Turno aprobado", text: "#{current_user.nombre_completo} ha aprobado tu reserva en el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
-              end
-            end
+            notice_admins_update
+
             format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
             format.json { render :show, status: :ok, location: @reserva }
           else
@@ -160,6 +184,20 @@ class ReservasController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
+
+  # rubocop:disable Metrics/AbcSize
+  def notice_admins_update
+    if !current_user.admin?
+      AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+    elsif @por_aprobar && @reserva.aprobado
+      AdminMailer.with(to: @reserva.user.email, subject: "Turno aprobado", text: "#{current_user.nombre_completo} ha aprobado tu reserva en el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
 
   # DELETE /reservas/1
   # DELETE /reservas/1.json
@@ -188,7 +226,7 @@ class ReservasController < ApplicationController
   private
 
   # Setea la aprobaación por defecto o no, según las políticas
-  def set_aprobacion(reserva)
+  def decide_aprobacion(reserva)
     # Si es de eventos/capacitacion, no se aprueba por defecto
     reserva.aprobado = false if reserva.finalidad == 'Eventos/capacitaciones'
   end
@@ -222,3 +260,4 @@ class ReservasController < ApplicationController
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

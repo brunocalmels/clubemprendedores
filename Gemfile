@@ -44,7 +44,7 @@ gem 'rails_bootstrap_navbar'
 gem 'bootstrap_form'
 gem "cocoon"
 gem 'factory_bot_rails'
-gem 'faker'
+gem 'faker', "~> 1.9"
 
 group :development, :test do
   gem 'byebug'

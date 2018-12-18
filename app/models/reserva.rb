@@ -55,10 +55,10 @@ class Reserva < ApplicationRecord
             presence: true,
             if: proc { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
   validates :nombre,
-            length: { minimum: 4, maximum: 40 },
+            length: { minimum: RESERVA_NOMBRE_MIN, maximum: RESERVA_NOMBRE_MAX },
             if: proc { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
   validates :descripcion,
-            length: { minimum: 10, maximum: 200 },
+            length: { minimum: RESERVA_DESCRIPCION_MIN, maximum: RESERVA_DESCRIPCION_MAX },
             if: proc { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
 
   # Que termine después de que empiece
