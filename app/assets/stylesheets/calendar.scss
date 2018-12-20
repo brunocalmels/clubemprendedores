@@ -67,6 +67,11 @@
     font-weight: bold;
     // color: $naranja;
     font-size: 150%;
+    .cerrado {
+      p {
+        font-style: italic;
+      }
+    }
     .lugares_disponibles {
     //   position: absolute;
     //   bottom: 10px;

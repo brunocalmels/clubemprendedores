@@ -1,13 +1,16 @@
 <%= month_calendar(attribute: :start_time, end_attribute: :end_time, events: @reservas) do |date, reservas| %>
 
-  <% if current_user && date >= DateTime.yesterday + 1 %>
+  <% if
+    current_user &&
+    date >= DateTime.yesterday + 1 &&
+    !esta_cerrado?(date)
+  %>
     <%= link_to(date.strftime('%e %b'), new_reserva_url(date: date))%>
   <% else %>
     <%= date.strftime('%e %b') %>
   <% end %>
 
   <% reservas.each do |reserva| %>
-
   <!-- Si la reserva no esta aprobada y no es admin o el dueno, no mostrar -->
   <%
   if !reserva.aprobado
@@ -19,7 +22,6 @@
 
   <div class="datos-reserva">
     <!-- Si puede editar las reservas -->
-    <%# if reserva.user == current_user || !current_user.nil? && current_user.admin? %>
     <% if user_signed_in? %>
       <%= link_to reserva, class: 'reserva' do %>
         <% if reserva.finalidad == 'Eventos/capacitaciones' %>
@@ -67,8 +69,18 @@
   </div>
   <% end %>
 
+  <!-- Vacaciones -->
+  <% if esta_cerrado?(date) %>
+    <div class="cerrado">
+      <p>
+        Club cerrado
+      </p>
+    </div>
+  <% end %>
+
   <!-- Lugares disponibles -->
-  <% if date >= DateTime.yesterday + 1 %>
+  <% if date >= DateTime.yesterday + 1 &&
+    !esta_cerrado?(date) %>
     <div class="lugares_disponibles">
       <%= link_to '¡Reservá tu lugar!', new_reserva_url(date: date) %>
     </div>
