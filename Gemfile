@@ -45,6 +45,7 @@ gem 'bootstrap_form'
 gem "cocoon"
 gem 'factory_bot_rails'
 gem 'faker', "~> 1.9"
+gem "font-awesome-rails"
 
 group :development, :test do
   gem 'byebug'

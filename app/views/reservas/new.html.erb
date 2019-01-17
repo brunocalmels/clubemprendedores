@@ -1,52 +1,63 @@
-<h1>
-<%= @reserva.start_time.strftime('%e/%m') %>
-</h1>
-<h4>Reservas del día</h4>
-<div class="reservas_del_dia">
-    <% franjas_horarias(@date).each do |franja| %>
-      <% reservas_franja = [] %>
-      <% horas_franja = [@reserva.start_time.change(hour:franja[0]), @reserva.end_time.change(hour:franja[1])] %>
-      <% if @reservas.present? %>
-        <% @reservas.each do |reserva| %>
-          <% if reserva.solapa_con?(horas_franja[0], horas_franja[1]) %>
-            <% reservas_franja << reserva %>
+<div id="new_reserva_container">
+  <div class="uno_de_dos" id="franjas">
+    <div class="barra_titulo">
+      <h1>
+        <%= @reserva.start_time.strftime('%e/%m') %>
+      </h1>
+    </div>
+    <div class="reservas_del_dia">
+        <% franjas_horarias(@date).each do |franja| %>
+          <% reservas_franja = [] %>
+          <% horas_franja = [@reserva.start_time.change(hour:franja[0]), @reserva.end_time.change(hour:franja[1])] %>
+          <% if @reservas.present? %>
+            <% @reservas.each do |reserva| %>
+              <% if reserva.solapa_con?(horas_franja[0], horas_franja[1]) %>
+                <% reservas_franja << reserva %>
+              <% end %>
+            <% end %>
           <% end %>
+          </br>
+          <div class="franja_horaria"
+            data-hora-inicio=<%= horas_franja[0].strftime('%k')%>
+            data-hora-fin=<%= horas_franja[1].strftime('%k') %>
+            data-min-inicio=<%= horas_franja[0].strftime('%M')%>
+            data-min-fin=<%= horas_franja[1].strftime('%M') %>
+          >
+            <span class="reserva_hora">
+              <%= fa_icon "clock-o", class: "fa-2x" %>
+              <span class="hora">
+                <%= horas_franja[0].strftime('%k') %>
+              </span>
+              <span class="hs">
+                hs
+              </span>
+            </span>
+              <% ocupaciones = 0 %>
+              <% reservas_franja.each { |r| ocupaciones += r.ocupaciones } %>
+              <% if (vacantes = MAX_OCUPACIONES - ocupaciones) > 0 %>
+                <span class='vacantes hay_vacantes'>
+                  <%= pluralize(vacantes, "vacante", "vacantes") %>
+                </span>
+              <% else %>
+                <span class='vacantes sin_vacantes'>
+                  sin vacantes
+                </span>
+              <% end %>
+            <!-- <% if @reservas.present? %> -->
+            <%= render partial: 'reservas_franja', collection: reservas_franja, as: :reserva %>
+            <!-- <% else %>
+            <%= "No hay reservas" %>
+            <% end %> -->
+          </div>
         <% end %>
-      <% end %>
-      </br>
-      <div class="franja_horaria"
-        data-hora-inicio=<%= horas_franja[0].strftime('%k')%>
-        data-hora-fin=<%= horas_franja[1].strftime('%k') %>
-        data-min-inicio=<%= horas_franja[0].strftime('%M')%>
-        data-min-fin=<%= horas_franja[1].strftime('%M') %>
-      >
-        <span class="reserva_hora">
-          <%= "#{horas_franja[0].strftime('%k:%M')} hs - #{horas_franja[1].strftime('%k:%M')} hs" %>
-        </span>
-        <span class='vacantes'>
-          <% ocupaciones = 0 %>
-          <% reservas_franja.each { |r| ocupaciones += r.ocupaciones } %>
-          <% if (vacantes = MAX_OCUPACIONES - ocupaciones) > 0 %>
-            <span class='hay_vacantes'>
-              <%= pluralize(vacantes, "vacante", "vacantes") %>
-            </span>
-          <% else %>
-            <span class='sin_vacantes'>
-              sin vacantes
-            </span>
-          <% end %>
-        </span>
-        <!-- <% if @reservas.present? %> -->
-        <%= render partial: 'reservas_franja', collection: reservas_franja, as: :reserva %>
-        <!-- <% else %>
-        <%= "No hay reservas" %>
-        <% end %> -->
-      </div>
-    <% end %>
-</div>
+    </div>
+  </div>
 
-<div class="nueva_reserva">
-  <h1>Nueva Reserva</h1>
-  <%= render 'form', reserva: @reserva %>
-  <%= link_to 'Volver', root_path %>
+  <div class="uno_de_dos" id="nueva_reserva">
+    <div class="barra_titulo">
+      <h1>Nueva Reserva</h1>
+    </div>
+    <%= render 'form', reserva: @reserva %>
+    <%= link_to 'Volver', root_path %>
+</div>
 </div>
