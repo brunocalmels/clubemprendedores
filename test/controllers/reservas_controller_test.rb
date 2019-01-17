@@ -35,7 +35,8 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     [MAX_OCUPACIONES - 1, 3].min.times do |i|
       @invitados[i.to_s] = @invitado
     end
-    @start_time = Time.zone.parse("#{HORA_APERTURA + 1}:00:00")
+    @today = Time.zone.today
+    @start_time = Time.zone.parse("#{HORAS_APERTURA[@today.wday] + 1}:00:00")
     assert_difference("Reserva.count", 1) do
       post reservas_url, params: { reserva: { end_time: @start_time + 1.hour, start_time: @start_time, finalidad: "Co-Working", invitados_attributes: @invitados } }, as: @user
     end

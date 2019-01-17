@@ -1,15 +1,17 @@
 # BUGS
+
 - [ ] Ver 20/12: Hay actividades de Maxi pero no se muestran en el inicio.
 - [ ] Volver desde Reserva#show: Lleva al dia.
 
 # IN PROGRESS
 
 # TO BE STARTED
-- [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
-- [ ] Hacer el horario de apertura dependiente del día de la semana. Martes y Jueves es hasta las 16.
 
+- [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
 
 # DONE
+
+- [x] Hacer el horario de apertura dependiente del día de la semana. Martes y Jueves es hasta las 16.
 - [x] Capacitaciones/eventos: Que no se necesite cargar los datos de los invitados, sino el número total solamente.
 - [x] Email: Que lleguen fecha y hora de inicio y fin, además del nombre del usuario.
 - [x] Calendario: Para eventos/capacitaciones, que se muestre el nombre de la reserva en lugar del del usuario.
@@ -37,6 +39,7 @@
 - [x] Quiero poder ver una lista de mis reservas para administrarlas fácilmente.
 
 # BACKLOG
+
 - [ ] Como Admin, quiero que las reservas del tipo "Eventos/capacitaciones" tengan que tener mi aprobación.
 - [ ] Como Admin, quiero que en la vista del día se vean qué eventos son bloqueantes, para que el usuario sepa en qué rangos no va a poder reservar.
 - [ ] Como Admin, quiero que los usuarios puedan reservar junto con la sala, laptops (hasta 8) (con aprobación mía).

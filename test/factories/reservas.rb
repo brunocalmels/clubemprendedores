@@ -26,7 +26,10 @@
 FactoryBot.define do
   factory :reserva do
     # Entre hoy y dentro de una semana, en horarios de apertura
-    start_time { Time.zone.parse("#{rand(HORA_APERTURA..HORA_CIERRE - 1)}:00:00") + rand(0..7) * 24.hours }
+    transient do
+      day { Time.zone.today + (rand(0..7) * 24.hours) }
+    end
+    start_time { Time.zone.parse("#{rand(HORAS_APERTURA[day.wday]..HORAS_CIERRE[day.wday] - 1)}:00:00") }
     end_time { start_time + 1.hour }
     finalidad { FINALIDADES.sample }
     nombre { Faker::Music.album[0..RESERVA_NOMBRE_MAX - 1] }

@@ -22,7 +22,7 @@
 #
 #  fk_rails_...  (user_id => users.id)
 #
-
+# rubocop:disable Metrics/ClassLength
 class Reserva < ApplicationRecord
   belongs_to :user, optional: false
   has_many :invitados, dependent: :destroy
@@ -144,14 +144,19 @@ class Reserva < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def cumple_horario_apertura
-    horario_apertura = [start_time.change(hour: HORA_APERTURA), end_time.change(hour: HORA_CIERRE)]
+    horario_apertura = [
+      start_time.change(hour: HORAS_APERTURA[start_time.wday]),
+      end_time.change(hour: HORAS_CIERRE[start_time.wday])
+    ]
     unless contenido_en(*horario_apertura)
       errors.add(:horario_de_apertura,
-                 "El horario debe estar entre #{HORA_APERTURA} hs y
-                 #{HORA_CIERRE} hs")
+                 "El horario debe estar entre
+                 #{HORAS_APERTURA[start_time.wday]} hs y #{HORAS_CIERRE[start_time.wday]} hs")
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def check_bloqueos
     unless user.admin?
@@ -189,3 +194,4 @@ class Reserva < ApplicationRecord
     errors.add(:dia_de_finalizacion, "Debe finalizar el mismo día en que comienza")
   end
 end
+# rubocop:enable Metrics/ClassLength

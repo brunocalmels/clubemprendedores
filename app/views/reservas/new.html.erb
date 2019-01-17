@@ -3,7 +3,7 @@
 </h1>
 <h4>Reservas del día</h4>
 <div class="reservas_del_dia">
-    <% FRANJAS_HORARIAS.each do |franja| %>
+    <% franjas_horarias(@date).each do |franja| %>
       <% reservas_franja = [] %>
       <% horas_franja = [@reserva.start_time.change(hour:franja[0]), @reserva.end_time.change(hour:franja[1])] %>
       <% if @reservas.present? %>
