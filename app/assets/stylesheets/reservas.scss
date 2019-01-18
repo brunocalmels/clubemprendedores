@@ -64,6 +64,10 @@ span.esperando_aprobacion {
   justify-items: center;
 }
 
+form.new_reserva {
+  padding: 0px 20px;
+}
+
 .uno_de_dos {
   max-width: 45%;
   background-color: $blanco;
@@ -79,6 +83,7 @@ span.esperando_aprobacion {
     color: $blanco;
     background-color: $naranja;
     z-index: 2;
+    text-transform: uppercase;
   }
 
   @media (max-width: $bpMaxMedium) {
@@ -95,7 +100,15 @@ span.esperando_aprobacion {
   background-color: transparent;
 }
 
-#nueva_reserva {}
+#nueva_reserva {
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  // padding: 0;
+  border: none;
+  @include sombra_caja;
+  // background-color: transparent;
+}
 
 form div.field {
   margin-top: 30px;

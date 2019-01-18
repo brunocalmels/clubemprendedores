@@ -1,59 +1,113 @@
  @import "colors";
 
-.form-control {
-  max-width: 600px;
-  margin-right: auto;
-  margin-left: auto;
-}
+ .form-control {
+   max-width: 600px;
+   margin-right: auto;
+   margin-left: auto;
+ }
 
-.form-not-whole-row {
-  display: inline-block;
+ label {
 
-  &.small {
-    max-width: 6em;
-  }
-}
+   &,
+   &.control-label {
+     font-family: 'Titillium' !important;
+   }
+ }
 
-.btn-default {
-  background-color: $verde;
-  color: white;
-  font-weight: bold;
-  margin: 20px 10px 10px;
-  font-size: 110%;
-}
+ .field i,
+ .field p {
+   font-family: 'Titillium' !important;
+ }
 
-a.add_fields {
-  margin-top: 10px;
-}
+ .field#condiciones {
+   text-align: left;
+   margin-top: 0px;
 
-a.invitados_anteriores {
-  border: 1px solid $gris_boton;
-  margin-top: 10px;
-  color: $gris_boton;
-}
+   p,
+   input {
+     display: inline;
+   }
+ }
 
-.nested-fields {
-  margin: 20px 40px;
-  border: 1px solid $gris_barra;
-  padding: 20px;
-  border-radius: 10px;
-  background-color: $gris_clarito;
-}
+ .field#bloquear {
+   text-align: left;
 
-a {
-  padding: 0.3em;
-}
+   .checkbox {
+     text-align: left;
+     display: inline;
+   }
+ }
 
-a:hover, .btn-default:hover {
-  background-color: orange;
-}
+ p.tooltip_popup {
+   //  display: none;
+   display: inline-flex;
+   visibility: hidden;
+   padding: 10px;
+   border: 1px solid $gris_clarito;
+   color: $borde_body;
+   border-radius: 10px;
+   max-width: 300px;
+ }
 
-select {
-  max-width: 400px;
-  margin-right: auto;
-  margin-left: auto;
-}
+ .con_tooltip {
+   display: inline;
 
-input[name='invitados_anon'] {
-  max-width: 70px;
-}
+   &:hover {
+     .tooltip_popup {
+       visibility: visible;
+     }
+   }
+ }
+
+ .form-not-whole-row {
+   display: inline-block;
+
+   &.small {
+     max-width: 6em;
+   }
+ }
+
+ .btn-default {
+   background-color: $verde;
+   color: white;
+   font-weight: bold;
+   margin: 20px 10px 10px;
+   font-size: 110%;
+ }
+
+ a.add_fields {
+   margin-top: 10px;
+ }
+
+ a.invitados_anteriores {
+   border: 1px solid $gris_boton;
+   margin-top: 10px;
+   color: $gris_boton;
+ }
+
+ .nested-fields {
+   margin: 20px 40px;
+   border: 1px solid $gris_barra;
+   padding: 20px;
+   border-radius: 10px;
+   background-color: $gris_clarito;
+ }
+
+ a {
+   padding: 0.3em;
+ }
+
+ a:hover,
+ .btn-default:hover {
+   background-color: orange;
+ }
+
+ select {
+   max-width: 400px;
+   margin-right: auto;
+   margin-left: auto;
+ }
+
+ input[name='invitados_anon'] {
+   max-width: 70px;
+ }
