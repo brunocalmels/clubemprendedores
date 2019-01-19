@@ -29,7 +29,7 @@ FactoryBot.define do
     transient do
       day { Time.zone.today + (rand(0..7) * 24.hours) }
     end
-    start_time { Time.zone.parse("#{rand(HORAS_APERTURA[day.wday]..HORAS_CIERRE[day.wday] - 1)}:00:00") }
+    start_time { day.change(hour: rand(HORAS_APERTURA[day.wday]..HORAS_CIERRE[day.wday] - 1)) }
     end_time { start_time + 1.hour }
     finalidad { FINALIDADES.sample }
     nombre { Faker::Music.album[0..RESERVA_NOMBRE_MAX - 1] }
