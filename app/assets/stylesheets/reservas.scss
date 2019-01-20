@@ -5,6 +5,46 @@
 @import "heights";
 @import "mixins";
 
+.popup_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: visible;
+  transition: visibility 0.2s ease-in;
+  cursor: initial;
+
+  &.invisible {
+    visibility: hidden;
+  }
+
+  .reservas_del_dia_container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    border: 1px solid $gris_barra;
+    background-color: $gris_clarito;
+    min-height: 40vh;
+    min-width: 50vh;
+    @include sombra_caja;
+
+    .reservas_texto {
+      padding: 15px 20px;
+
+      h2 {
+        margin: 10px auto;
+
+      }
+    }
+  }
+}
+
 div.reservas_del_dia {
   text-align: left;
   display: flex;
@@ -28,13 +68,28 @@ div.reserva_del_dia {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 33.3333%;
+  width: 50%;
+
+  @media (min-width: $bpMaxMedium) {
+    width: 33.3333%;
+  }
+
+  @media (max-width: $bpMaxSmall) {
+    width: 25%;
+  }
+
   @include sombra_caja;
 
   &:nth-of-type(1),
   &:nth-of-type(2),
   &:nth-of-type(3) {
     border-top: none;
+  }
+
+  .fa-clock-o {
+    @media (max-width: 588px) {
+      display: none;
+    }
   }
 }
 
@@ -43,13 +98,22 @@ span.reserva_hora {
   font-size: 140%;
 
   span.hora {
-    font-size: 180%;
+    font-size: 120%;
+
+    @media (min-width: $bpMaxMedium) {
+      font-size: 180%;
+    }
   }
 
   span.hs {
     position: relative;
-    left: -9px;
-    font-size: 140%;
+    left: -6px;
+    font-size: 100%;
+
+    @media (min-width: $bpMaxMedium) {
+      left: -9px;
+      font-size: 140%;
+    }
   }
 }
 
@@ -62,6 +126,10 @@ span.esperando_aprobacion {
   flex-direction: row;
   align-content: center;
   justify-items: center;
+
+  @media (max-width: $bpMaxSmall) {
+    flex-direction: column;
+  }
 }
 
 form.new_reserva {
@@ -70,20 +138,21 @@ form.new_reserva {
 
 .uno_de_dos {
   max-width: 45%;
+  min-width: 40%;
   background-color: $blanco;
   border: 1px solid $gris_boton;
   border-radius: 5px;
-  margin: 30px auto;
+  margin: 30px 15px;
   // padding: 10px 20px;
 
   .barra_titulo {
     margin-top: 0px;
     @include sombra_caja;
-    // box-shadow: 0px 3px 7px #333;
     color: $blanco;
     background-color: $naranja;
     z-index: 2;
-    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 0px 0px;
   }
 
   @media (max-width: $bpMaxMedium) {
@@ -119,6 +188,11 @@ form div.field {
   text-transform: uppercase;
   padding: 6px 12px 2px;
   font-size: 85%;
+
+  @media (max-width: 588px) {
+    padding: 6px 5px 2px;
+    font-size: 50%;
+  }
 }
 
 .hay_vacantes {
@@ -174,5 +248,5 @@ form div.field {
 }
 
 #reservas-index {
-  margin: 40px;
+  padding: 40px;
 }

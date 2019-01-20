@@ -1,60 +1,79 @@
  @import "colors";
-nav.navbar {
-  background: $verde;
-  width: 100%;
-  padding: 20px 30px 0px 30px;
-  border-bottom: 2px solid $naranja;
-}
 
-body > nav > div > div.navbar-header {
-  width: 100%;
-  a {
-    font-size: 26pt;
-    text-transform: uppercase;
-  }
-}
+ nav.navbar {
+   background: $azul_fondo_menu;
+   width: 100%;
+   padding: 20px 30px 0px 30px;
+   border-bottom: 2px solid $naranja;
+ }
 
-// "Club Emprendedor"
-#body-wrapper > nav > div > div.navbar-header > a {
-  color: $colorado;
-  font-size: 16pt;
-  font-family: 'Helvetica Neue';
-}
+ body>nav>div>div.navbar-header {
+   width: 100%;
 
-nav.navbar {
-  margin-bottom: 0px;
-  a {
-    font-size: 16px;
-  }
-}
-a.navbar-brand,
-#navbar-collapsable > ul.nav.navbar-nav.navbar-right > li > a,
-#menu > li > a,
-#menu > p {
-  color: white;
-}
+   a {
+     font-size: 26pt;
+     text-transform: uppercase;
+   }
+ }
 
-body > nav > div > div.navbar-header > a {
-  color: white !important;
-}
+ // "Club Emprendedor"
+ #body-wrapper>nav>div>div.navbar-header>a {
+   color: $colorado;
+   font-size: 16pt;
+   font-family: 'Helvetica Neue';
+ }
+
+ nav.navbar {
+   margin-bottom: 0px;
+
+   a {
+     font-size: 16px;
+   }
+ }
+
+ a.navbar-brand,
+ #navbar-collapsable>ul.nav.navbar-nav.navbar-right>li>a,
+ #menu>li>a,
+ #menu>p {
+   color: white;
+ }
+
+ body>nav>div>div.navbar-header>a {
+   color: white !important;
+ }
 
 
-#menu > li > a {
-  font-weight: lighter;
-}
-#menu > li.active > a {
-  background-color: $verde;
-  border-bottom: 6px solid $naranja;
-}
+ #menu>li>a {
+   font-weight: lighter;
+ }
 
-.navbar-text {
-  color: $gris_boton !important;
-}
-.navbar-text {
-  margin-right: 0px;
-  margin-left: 0px;
+ #menu>li.active>a {
+   background-color: $azul_fondo_menu;
+   border-bottom: 6px solid $naranja;
+ }
 
-  &:last-of-type {
-    margin-right: 20px;
-  }
-}
+ .navbar-text {
+   color: $gris_boton !important;
+ }
+
+ .navbar-text {
+   margin-right: 0px;
+   margin-left: 0px;
+
+   &:last-of-type {
+     margin-right: 20px;
+   }
+ }
+
+ nav>div>ul>li>a {
+   background-color: transparent !important;
+   padding: 0px 15px !important;
+ }
+
+ .collapse.navbar-collapse {
+   margin-top: 48px;
+ }
+
+ .navbar li.dropdown.open a.dropdown-toggle {
+   background-color: $naranja;
+ }

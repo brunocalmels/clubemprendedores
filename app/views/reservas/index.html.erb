@@ -4,8 +4,10 @@
 
   <h1><%= params[:title] || "Reservas" %></h1>
 
+  <% unless @reservas.empty? %>
     <%= render @reservas %>
-
-  <%= link_to 'Nueva reserva', new_reserva_path, class: 'btn btn-default' %>
+  <% else %>
+    <p>No hay reservas</p>
+  <% end%>
 
 </div>

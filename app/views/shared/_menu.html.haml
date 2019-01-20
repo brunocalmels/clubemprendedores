@@ -1,34 +1,32 @@
 = navbar container: 'fluid' do
   -# = navbar_header brand: 'Club Emprendedor', brand_link: '/home'
 
-  = navbar_header brand: "Club Emprendedor", brand_link: '/'
+  = navbar_header
+  = navbar_group do
+    = navbar_item '/' do
+      = image_tag '/image/logo-club.png', height: 100, class: 'logo'
+  -# = navbar_header brand: image_tag '/image/logo-club.png', brand_link: '/'
 
   = navbar_collapse do
-    - if current_user.present?
-      = navbar_text "#{current_user.nombre}"
-      - if current_user.admin?
-        = navbar_text " (admin)"
     = navbar_group id: 'menu' do
 
       = navbar_item "Inicio", '/'
-      = navbar_item "Acerca del Club", 'http://idea.cpymeadeneu.com.ar/#club'
-      -# = navbar_item '/contacto' do
-      -#   -# %span.glyphicon.glyphicon-hand-right
-      -#   ¡Contactanos!
-      - if current_user.present?
-        = navbar_dropdown "Mi cuenta" do
-          = navbar_dropdown_header 'Mi cuenta'
-          = navbar_item "Editar perfil", edit_user_registration_url(current_user)
-          -# = navbar_dropdown_divider
-          -# = navbar_item "Salir", destroy_user_session_path
-        = navbar_item "Mis reservas", '/reservas'
+
+      = navbar_item "Mis reservas", '/reservas'
       - if current_user.present? && current_user.admin?
         = navbar_dropdown "Admin" do
           = navbar_dropdown_header "Administrador"
           = navbar_item "Esperando aprobación", "/reservas/esperando_aprobacion"
 
+      = navbar_item "Acerca del Club", 'http://idea.cpymeadeneu.com.ar/#club'
+
     = navbar_group align: 'right' do
       - if current_user.present?
-        = navbar_item "Salir", destroy_user_session_url, {}, { 'data-method': :delete }
+        = navbar_dropdown current_user.admin?? "#{current_user.nombre} (admin)" : "#{current_user.nombre} " do
+          -# = navbar_dropdown_header 'Mi cuenta 2'
+          = navbar_item "Editar perfil", edit_user_registration_url(current_user)
+          = navbar_dropdown_divider
+          = navbar_item "Salir", destroy_user_session_url, {}, { 'data-method': :delete }
+
       - else
         = navbar_item "Ingresar", new_user_session_path

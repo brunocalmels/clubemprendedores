@@ -24,7 +24,7 @@
             data-min-fin=<%= horas_franja[1].strftime('%M') %>
           >
             <span class="reserva_hora">
-              <%= fa_icon "clock-o", class: "fa-2x" %>
+              <%= fa_icon "clock-o", class: "fa-1_5x" %>
               <span class="hora">
                 <%= horas_franja[0].strftime('%k') %>
               </span>
@@ -44,7 +44,32 @@
                 </span>
               <% end %>
             <!-- <% if @reservas.present? %> -->
-            <%= render partial: 'reservas_franja', collection: reservas_franja, as: :reserva %>
+            <div class="popup_container invisible">
+              <div class="reservas_del_dia_container">
+                <div class="barra_titulo">
+                  <span class="reserva_hora">
+                    <%= fa_icon "clock-o", class: "fa-2x" %>
+                    <span class="hora">
+                      <%= horas_franja[0].strftime('%k') %>
+                    </span>
+                    <span class="hs">
+                      hs
+                    </span>
+                  </span>
+                </div>
+                <div class="reservas_texto">
+                  <h2>Reservas del día</h2>
+                  <% unless reservas_franja.empty? %>
+                    <%= render partial: 'reservas_franja', collection: reservas_franja, as: :reserva %>
+                  <% else %>
+                    <div class="reserva_del_dia">
+                      <strong>No hay reservas</strong>
+                    </div>
+                  <% end%>
+
+                </div>
+              </div>
+            </div>
             <!-- <% else %>
             <%= "No hay reservas" %>
             <% end %> -->
@@ -55,7 +80,7 @@
 
   <div class="uno_de_dos" id="nueva_reserva">
     <div class="barra_titulo">
-      <h1>Nueva Reserva</h1>
+      <h1>NUEVA RESERVA</h1>
     </div>
     <%= render 'form', reserva: @reserva %>
     <%= link_to 'Volver', root_path %>

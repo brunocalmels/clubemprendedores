@@ -1,21 +1,39 @@
 <div class="reserva_del_dia">
   <% if reserva.user == current_user %>
     <%= link_to edit_reserva_path(reserva) do %>
-      <%= reserva.finalidad %>
-      <%= reserva.user.nombre %>
-      <%= reserva.user.apellido %>
-      <% if reserva.invitados.count > 0 %>
-      + <%= reserva.invitados.count %>
-      <% end %>
+      <% if reserva.finalidad == 'Eventos/capacitaciones' %>
+          <strong>
+            <%= "#{reserva.nombre}" %>
+          </strong>
+          <% if reserva.invitados.any? %>
+            - <%= reserva.invitados.count %> inv.
+          <% end %>
+        <% else %>
+          <strong>
+            <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
+          </strong>
+          <% if reserva.invitados.any? %>
+            + <%= reserva.invitados.count %> inv.
+          <% end %>
+        <% end %>
       (<%= reserva.hora_comienzo %> hs -
       <%= reserva.hora_fin %> hs)
     <% end %>
   <% else %>
-    <%= reserva.finalidad %>
-    <%= reserva.user.nombre %>
-    <%= reserva.user.apellido %>
-    <% if reserva.invitados.count > 0 %>
-      + <%= reserva.invitados.count %>
+    <% if reserva.finalidad == 'Eventos/capacitaciones' %>
+      <strong>
+        <%= "#{reserva.nombre}" %>
+      </strong>
+      <% if reserva.invitados.any? %>
+        - <%= reserva.invitados.count %> inv.
+      <% end %>
+    <% else %>
+      <strong>
+      <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
+      </strong>
+      <% if reserva.invitados.any? %>
+        + <%= reserva.invitados.count %> inv.
+      <% end %>
     <% end %>
     (<%= reserva.hora_comienzo %> hs -
     <%= reserva.hora_fin %> hs)

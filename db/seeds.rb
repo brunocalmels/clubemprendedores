@@ -12,6 +12,7 @@ logger = Logger.new(STDOUT)
 
 logger.info "Creando admin Maxi"
 maxi = User.create(admin: true, email: "mgrande@adeneu.com.ar", password: "maxclubemp", nombre: "Maxi", apellido: "Grande", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")
+maxi.confirm
 logger.info "Creando turnos bloqueantes"
 3.times do
   reserva = FactoryBot.build(:reserva, user: maxi, bloqueo: true)

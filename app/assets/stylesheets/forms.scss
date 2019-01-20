@@ -14,14 +14,13 @@
    }
  }
 
- .field i,
  .field p {
    font-family: 'Titillium' !important;
  }
 
  .field#condiciones {
    text-align: left;
-   margin-top: 0px;
+   margin-top: 30px;
 
    p,
    input {
@@ -110,4 +109,9 @@
 
  input[name='invitados_anon'] {
    max-width: 70px;
+ }
+
+ form.edit_reserva,
+ form.edit_user {
+   margin: 0 10%;
  }
