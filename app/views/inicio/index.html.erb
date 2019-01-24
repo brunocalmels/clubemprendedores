@@ -5,9 +5,9 @@
     date >= DateTime.yesterday + 1 &&
     !esta_cerrado?(date)
   %>
-    <%= link_to(date.strftime('%e %b'), new_reserva_url(date: date))%>
+    <%= link_to("#{date.day} #{t('date.abbr_month_names')[date.month].capitalize}", new_reserva_url(date: date))%>
   <% else %>
-    <%= date.strftime('%e %b') %>
+    <%= "#{date.day} #{t('date.abbr_month_names')[date.month].capitalize}" %>
   <% end %>
 
   <% reservas.each do |reserva| %>
@@ -82,7 +82,7 @@
   <% if date >= DateTime.yesterday + 1 &&
     !esta_cerrado?(date) %>
     <div class="lugares_disponibles">
-      <%= link_to '¡Reservá tu lugar!', new_reserva_url(date: date) %>
+      <%= link_to '¡Reservá!', new_reserva_url(date: date) %>
     </div>
   <% end %>
 

@@ -1,27 +1,28 @@
 @import "colors";
+@import "heights";
 
-.simple-calendar > table > thead {
+.simple-calendar>table>thead {
   background-color: $gris_barra;
   color: white;
   text-transform: uppercase;
   margin-top: 20px;
   font-size: 14pt;
 
-  & > tr > th {
+  &>tr>th {
     text-align: center;
   }
 }
 
-.simple-calendar > div {
+.simple-calendar>div {
   margin-bottom: 20px;
 
-  & > a,
-  & > span {
+  &>a,
+  &>span {
     font-size: 18pt;
   }
 }
 
-.simple-calendar > div > a {
+.simple-calendar>div>a {
   border-radius: 3px;
   border: 1px solid #ddd;
   background-color: #ddd;
@@ -30,16 +31,28 @@
 }
 
 .simple-calendar td {
-  &, &.day > a:first-of-type {
-    font-size: 120%;
+
+  &,
+  &.day>a:first-of-type {
     font-weight: bold;
     color: $gris_boton;
+
+    @media (min-width: $bpMaxSmall) {
+      font-size: 120%;
+    }
   }
+
   .datos-reserva {
     font-weight: initial;
     color: initial;
+    display: none;
+
+    @media (min-width: $bpMaxSmall) {
+      display: block;
+    }
   }
 }
+
 // Bordes de la tabla
 .simple-calendar tr {
   td {
@@ -62,21 +75,24 @@
   &.past {
     background-color: #eeeeee;
   }
+
   &.day {
-    // position: relative;
     font-weight: bold;
-    // color: $naranja;
-    font-size: 150%;
+
     .cerrado {
       p {
         font-style: italic;
       }
     }
+
     .lugares_disponibles {
-    //   position: absolute;
-    //   bottom: 10px;
-    //   left: calc(20%);
-    margin-top: 2em;
+      margin-top: 2em;
+      display: none;
+
+      @media (min-width: $bpMaxSmall) {
+        display: block;
+      }
+
       a {
         color: $gris_boton;
         font-weight: normal;
@@ -90,19 +106,21 @@
   a.reserva {
     cursor: pointer;
   }
+
   span.reserva_hora {
     font-size: 11pt;
   }
 }
 
-.table-striped > tbody > tr:nth-of-type(even) {
+.table-striped>tbody>tr:nth-of-type(even) {
   background-color: #f9f9f9;
 }
 
 td.past a {
   cursor: text;
+
   &:hover {
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     text-decoration: none;
   }
 }
