@@ -1,0 +1,21 @@
+span.reserva_hora {
+  font-weight: bold; }
+
+span.bloquea {
+  font-weight: bold;
+  text-transform: uppercase; }
+
+span.calendar-title {
+  text-transform: capitalize;
+  background-color: #252D30;
+  color: white;
+  padding: 6px;
+  border-radius: 5px; }
+
+.calendar-heading a:first-child {
+  padding-left: 12px !important; }
+
+.calendar-heading a:last-child {
+  padding-right: 12px !important; }
+
+/*# sourceMappingURL=inicio-3a1461d1a8af3d6e44bb7fae78cd6f18.css.map*/

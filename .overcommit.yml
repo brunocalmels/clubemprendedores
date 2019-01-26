@@ -59,6 +59,8 @@ PreCommit:
     exclude:
       - "**/db/structure.sql"
       - "/public/assets/**"
+      - "/public/assets/packs/_/_/node_modules/font-awesome/fonts/**"
+      - "/**/*.svg"
 
   YamlSyntax:
     enabled: true

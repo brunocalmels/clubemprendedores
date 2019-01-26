@@ -1,0 +1,239 @@
+.popup_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.33333);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  visibility: visible;
+  -webkit-transition: visibility 0.2s ease-in;
+  transition: visibility 0.2s ease-in;
+  cursor: auto;
+  cursor: initial; }
+  .popup_container.invisible {
+    visibility: hidden; }
+  .popup_container .reservas_del_dia_container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    position: absolute;
+    border: 1px solid #313A41;
+    background-color: #f4f4f4;
+    min-height: 40vh;
+    min-width: 50vh;
+    -webkit-box-shadow: 0px 3px 7px #333;
+            box-shadow: 0px 3px 7px #333; }
+  .popup_container .reservas_del_dia_container .reservas_texto {
+      padding: 15px 20px; }
+  .popup_container .reservas_del_dia_container .reservas_texto h2 {
+        margin: 10px auto; }
+  div.reservas_del_dia {
+  text-align: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: left;
+      -ms-flex-pack: left;
+          justify-content: left; }
+  div.reserva_del_dia {
+  text-align: left;
+  font-family: 'Titillium'; }
+  .franja_horaria {
+  border: 1px solid #313A41;
+  padding: 10px;
+  background-color: white;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 50%;
+  -webkit-box-shadow: 0px 3px 7px #333;
+          box-shadow: 0px 3px 7px #333; }
+  @media (min-width: 1100px) {
+    .franja_horaria {
+      width: 33.3333%; } }
+  @media (max-width: 769px) {
+    .franja_horaria {
+      width: 25%; } }
+  .franja_horaria:nth-of-type(1), .franja_horaria:nth-of-type(2), .franja_horaria:nth-of-type(3) {
+    border-top: none; }
+  @media (max-width: 588px) {
+    .franja_horaria .fa-clock-o {
+      display: none; } }
+  span.reserva_hora {
+  font-weight: bold;
+  font-size: 140%; }
+  span.reserva_hora span.hora {
+    font-size: 120%; }
+  @media (min-width: 1100px) {
+      span.reserva_hora span.hora {
+        font-size: 180%; } }
+  span.reserva_hora span.hs {
+    position: relative;
+    left: -6px;
+    font-size: 100%; }
+  @media (min-width: 1100px) {
+      span.reserva_hora span.hs {
+        left: -9px;
+        font-size: 140%; } }
+  span.esperando_aprobacion {
+  font-style: italic; }
+  #new_reserva_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  justify-items: center; }
+  @media (max-width: 769px) {
+    #new_reserva_container {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column; } }
+  form.new_reserva {
+  padding: 0px 20px; }
+  .uno_de_dos {
+  max-width: 45%;
+  min-width: 40%;
+  background-color: white;
+  border: 1px solid #252D30;
+  border-radius: 5px;
+  margin: 30px 15px; }
+  .uno_de_dos .barra_titulo {
+    margin-top: 0px;
+    -webkit-box-shadow: 0px 3px 7px #333;
+            box-shadow: 0px 3px 7px #333;
+    color: white;
+    background-color: #EE8005;
+    z-index: 2;
+    text-align: center;
+    padding: 10px 0px 0px; }
+  @media (max-width: 1100px) {
+    .uno_de_dos {
+      max-width: 90%; } }
+  #franjas {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  padding: 0;
+  border: none;
+  background-color: transparent; }
+  #nueva_reserva {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  border: none;
+  -webkit-box-shadow: 0px 3px 7px #333;
+          box-shadow: 0px 3px 7px #333; }
+  form div.field {
+  margin-top: 30px; }
+  .vacantes {
+  color: white;
+  text-transform: uppercase;
+  padding: 6px 12px 2px;
+  font-size: 85%; }
+  @media (max-width: 588px) {
+    .vacantes {
+      padding: 6px 5px 2px;
+      font-size: 50%; } }
+  .hay_vacantes {
+  background-color: #165b91; }
+  .sin_vacantes {
+  background-color: #DB9600; }
+  .grupos #grupos-list {
+  display: none;
+  margin-top: 10px; }
+  .grupos #grupos-list a {
+    padding: 10px 10px 5px 10px;
+    color: #252D30;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 5px;
+    margin-left: 5px; }
+  .elegido {
+  -webkit-animation: beat 0.6s ease-out 1;
+          animation: beat 0.6s ease-out 1; }
+  .elegido.nombre_grupo {
+    font-weight: bold;
+    border: 1px solid #313A41;
+    border-radius: 5px;
+    color: #f4f4f4 !important;
+    background-color: #313A41; }
+  @-webkit-keyframes beat {
+  33% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+    background-color: #EE8005; }
+  67% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+  @keyframes beat {
+  33% {
+    -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+    background-color: #EE8005; }
+  67% {
+    -webkit-transform: scale(0.8);
+            transform: scale(0.8); }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1); } }
+  #reservas-index {
+  padding: 40px; }
+
+/*# sourceMappingURL=reservas-ef0a7f007f9bc8c4d8e990c0a5b48ce2.css.map*/

@@ -1,0 +1,6 @@
+@media all and (display-mode: standalone) {
+  html {
+    background-color: #ccc;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(216, 40, 40, .5) 1px, rgba(26, 58, 161, .5) 9px); } }
+
+/*# sourceMappingURL=pwa-b6fc103b17abc25c9ef9b93f039cb9f9.css.map*/

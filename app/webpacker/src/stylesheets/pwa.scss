@@ -1,0 +1,6 @@
+@media all and (display-mode: standalone) {
+    html {
+        background-color: #ccc;
+        background-image: repeating-linear-gradient(45deg, transparent, transparent 1px, rgba(216, 40, 40, 0.5) 1px, rgba(26, 58, 161, 0.5) 9px);
+    }
+}

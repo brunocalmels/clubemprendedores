@@ -1,0 +1,91 @@
+.form-control {
+  max-width: 600px;
+  margin-right: auto;
+  margin-left: auto; }
+
+label, label.control-label {
+  font-family: 'Titillium' !important; }
+
+.field p {
+  font-family: 'Titillium' !important; }
+
+.field#condiciones {
+  text-align: left;
+  margin-top: 30px; }
+
+.field#condiciones p,
+  .field#condiciones input {
+    display: inline; }
+
+.field#bloquear {
+  text-align: left; }
+
+.field#bloquear .checkbox {
+    text-align: left;
+    display: inline; }
+
+p.tooltip_popup {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  visibility: hidden;
+  padding: 10px;
+  border: 1px solid #f4f4f4;
+  color: #555;
+  border-radius: 10px;
+  max-width: 300px; }
+
+.con_tooltip {
+  display: inline; }
+
+.con_tooltip:hover .tooltip_popup {
+    visibility: visible; }
+
+.form-not-whole-row {
+  display: inline-block; }
+
+.form-not-whole-row.small {
+    max-width: 6em; }
+
+.btn-default {
+  background-color: #88AB13;
+  color: white;
+  font-weight: bold;
+  margin: 20px 10px 10px;
+  font-size: 110%; }
+
+a.add_fields {
+  margin-top: 10px; }
+
+a.invitados_anteriores {
+  border: 1px solid #252D30;
+  margin-top: 10px;
+  color: #252D30; }
+
+.nested-fields {
+  margin: 20px 40px;
+  border: 1px solid #313A41;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #f4f4f4; }
+
+a {
+  padding: 0.3em; }
+
+a:hover,
+.btn-default:hover {
+  background-color: orange; }
+
+select {
+  max-width: 400px;
+  margin-right: auto;
+  margin-left: auto; }
+
+input[name='invitados_anon'] {
+  max-width: 70px; }
+
+form.edit_reserva,
+form.edit_user {
+  margin: 0 10%; }
+
+/*# sourceMappingURL=forms-2036511214c6f86745b339adc75d56dd.css.map*/

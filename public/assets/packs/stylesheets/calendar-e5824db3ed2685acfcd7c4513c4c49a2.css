@@ -1,0 +1,75 @@
+.simple-calendar > table > thead {
+  background-color: #313A41;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 20px;
+  font-size: 14pt; }
+  .simple-calendar > table > thead > tr > th {
+    text-align: center; }
+  .simple-calendar > div {
+  margin-bottom: 20px; }
+  .simple-calendar > div > a,
+  .simple-calendar > div > span {
+    font-size: 18pt; }
+  .simple-calendar > div > a {
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  background-color: #ddd;
+  color: black;
+  padding: 2px 5px; }
+  .simple-calendar td,
+.simple-calendar td.day > a:first-of-type {
+  font-weight: bold;
+  color: #252D30; }
+  @media (min-width: 769px) {
+    .simple-calendar td,
+    .simple-calendar td.day > a:first-of-type {
+      font-size: 120%; } }
+  .simple-calendar td .datos-reserva {
+  font-weight: normal;
+  font-weight: initial;
+  color: #000;
+  color: initial;
+  display: none; }
+  @media (min-width: 769px) {
+    .simple-calendar td .datos-reserva {
+      display: block; } }
+  .simple-calendar tr td {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd; }
+  .simple-calendar tr td:first-child {
+  border-right: 1px solid #ddd;
+  border-left: none; }
+  .simple-calendar tr td:last-child {
+  border-left: 1px solid #ddd;
+  border-right: none; }
+  .simple-calendar td.past {
+  background-color: #eeeeee; }
+  .simple-calendar td.day {
+  font-weight: bold; }
+  .simple-calendar td.day .cerrado p {
+    font-style: italic; }
+  .simple-calendar td.day .lugares_disponibles {
+    margin-top: 2em;
+    display: none; }
+  @media (min-width: 769px) {
+      .simple-calendar td.day .lugares_disponibles {
+        display: block; } }
+  .simple-calendar td.day .lugares_disponibles a {
+      color: #252D30;
+      font-weight: normal; }
+  .datos-reserva a.reserva,
+.datos-reserva a.reserva {
+  cursor: pointer; }
+  .datos-reserva span.reserva_hora,
+.datos-reserva span.reserva_hora {
+  font-size: 11pt; }
+  .table-striped > tbody > tr:nth-of-type(even) {
+  background-color: #f9f9f9; }
+  td.past a {
+  cursor: text; }
+  td.past a:hover {
+    background-color: rgba(0, 0, 0, 0);
+    text-decoration: none; }
+
+/*# sourceMappingURL=calendar-e5824db3ed2685acfcd7c4513c4c49a2.css.map*/
