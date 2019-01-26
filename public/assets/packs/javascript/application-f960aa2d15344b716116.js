@@ -14016,7 +14016,7 @@ class ProgressiveWebApp {
   constructor(serviceWorkerPath = '/pwa-sw.js') {
     this._serviceWorkerPath = serviceWorkerPath;
     if (!navigator.serviceWorker.controller)
-      navigator.serviceWorker.register(this.serviceWorkerUrl, { scope: './' });
+      navigator.serviceWorker.register(this.serviceWorkerUrl, { scope: '/' });
   }
 
   get serviceWorkerPath() {

@@ -91,11 +91,7 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
-    em-websocket (0.5.1)
-      eventmachine (>= 0.12.9)
-      http_parser.rb (~> 0.6.0)
     erubi (1.7.0)
-    eventmachine (1.2.7)
     execjs (2.7.0)
     factory_bot (4.8.2)
       activesupport (>= 3.0.0)
@@ -120,16 +116,9 @@ GEM
       pry (>= 0.9.12)
       shellany (~> 0.0)
       thor (>= 0.18.1)
-    guard-compat (1.2.1)
-    guard-livereload (2.5.2)
-      em-websocket (~> 0.5)
-      guard (~> 2.8)
-      guard-compat (~> 1.0)
-      multi_json (~> 1.8)
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
-    http_parser.rb (0.6.0)
     i18n (0.9.1)
       concurrent-ruby (~> 1.0)
     iniparse (1.4.4)
@@ -155,8 +144,14 @@ GEM
     mini_mime (0.1.4)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
+    mozaic (2.0.1)
+      activesupport (>= 5.0)
+      nestive-rails (~> 1.0)
+      railties (>= 5.0)
     multi_json (1.12.2)
     nenv (0.3.0)
+    nestive-rails (1.0.1)
+      rails (>= 5.0)
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
@@ -177,8 +172,11 @@ GEM
       method_source (~> 0.9.0)
     public_suffix (3.0.0)
     puma (3.10.0)
+    pwa (4.0.4)
+      mozaic (~> 2)
+      railties (>= 5.0)
     rack (2.0.3)
-    rack-livereload (0.3.17)
+    rack-proxy (0.6.5)
       rack
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
@@ -279,6 +277,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webpacker (3.5.5)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -304,7 +306,6 @@ DEPENDENCIES
   faker (~> 1.9)
   font-awesome-rails
   guard (>= 2.2.2)
-  guard-livereload (~> 2.5.2)
   haml
   jbuilder (~> 2.5)
   jquery-rails
@@ -312,7 +313,7 @@ DEPENDENCIES
   overcommit (>= 0.37.0)
   pg (~> 0.18)
   puma (~> 3.7)
-  rack-livereload
+  pwa
   rails (~> 5.1.3)
   rails-controller-testing
   rails_bootstrap_navbar
@@ -326,6 +327,7 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webpacker (~> 3.5)
 
 BUNDLED WITH
-   1.17.2
+   2.0.1

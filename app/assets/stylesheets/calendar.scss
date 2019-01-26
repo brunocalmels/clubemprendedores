@@ -1,0 +1,126 @@
+@import "colors";
+@import "heights";
+
+.simple-calendar>table>thead {
+  background-color: $gris_barra;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 20px;
+  font-size: 14pt;
+
+  &>tr>th {
+    text-align: center;
+  }
+}
+
+.simple-calendar>div {
+  margin-bottom: 20px;
+
+  &>a,
+  &>span {
+    font-size: 18pt;
+  }
+}
+
+.simple-calendar>div>a {
+  border-radius: 3px;
+  border: 1px solid #ddd;
+  background-color: #ddd;
+  color: black;
+  padding: 2px 5px;
+}
+
+.simple-calendar td {
+
+  &,
+  &.day>a:first-of-type {
+    font-weight: bold;
+    color: $gris_boton;
+
+    @media (min-width: $bpMaxSmall) {
+      font-size: 120%;
+    }
+  }
+
+  .datos-reserva {
+    font-weight: initial;
+    color: initial;
+    display: none;
+
+    @media (min-width: $bpMaxSmall) {
+      display: block;
+    }
+  }
+}
+
+// Bordes de la tabla
+.simple-calendar tr {
+  td {
+    border-left: 1px solid $gris_bordes;
+    border-right: 1px solid $gris_bordes;
+  }
+
+  td:first-child {
+    border-right: 1px solid $gris_bordes;
+    border-left: none;
+  }
+
+  td:last-child {
+    border-left: 1px solid $gris_bordes;
+    border-right: none;
+  }
+}
+
+.simple-calendar td {
+  &.past {
+    background-color: #eeeeee;
+  }
+
+  &.day {
+    font-weight: bold;
+
+    .cerrado {
+      p {
+        font-style: italic;
+      }
+    }
+
+    .lugares_disponibles {
+      margin-top: 2em;
+      display: none;
+
+      @media (min-width: $bpMaxSmall) {
+        display: block;
+      }
+
+      a {
+        color: $gris_boton;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+.datos-reserva,
+.datos-reserva {
+  a.reserva {
+    cursor: pointer;
+  }
+
+  span.reserva_hora {
+    font-size: 11pt;
+  }
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+  background-color: #f9f9f9;
+}
+
+td.past a {
+  cursor: text;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0);
+    text-decoration: none;
+  }
+}

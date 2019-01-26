@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount Pwa::Engine, at: ""
+
   root to: "inicio#index"
   devise_for :users, controllers: {
     registrations: "users/registrations"

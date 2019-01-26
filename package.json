@@ -1,5 +1,19 @@
 {
   "name": "ClubIdea",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "3.5",
+    "bootstrap": "3.3.7",
+    "cocoon-rails": "^1.2.6",
+    "coffee-loader": "^0.9.0",
+    "coffeescript": "1.12.7",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "pwa-rails": "^4.0.5",
+    "rails-ujs": "^5.2.2",
+    "turbolinks": "^5.2.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "2.11.2"
+  }
 }

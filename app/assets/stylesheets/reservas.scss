@@ -1,0 +1,252 @@
+// Place all the styles related to the Reservas controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "colors";
+@import "heights";
+@import "mixins";
+
+.popup_container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100vw;
+  height: 100vh;
+  background-color: #0005;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  visibility: visible;
+  transition: visibility 0.2s ease-in;
+  cursor: initial;
+
+  &.invisible {
+    visibility: hidden;
+  }
+
+  .reservas_del_dia_container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    border: 1px solid $gris_barra;
+    background-color: $gris_clarito;
+    min-height: 40vh;
+    min-width: 50vh;
+    @include sombra_caja;
+
+    .reservas_texto {
+      padding: 15px 20px;
+
+      h2 {
+        margin: 10px auto;
+
+      }
+    }
+  }
+}
+
+div.reservas_del_dia {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  justify-content: left;
+}
+
+div.reserva_del_dia {
+  text-align: left;
+  font-family: 'Titillium';
+}
+
+.franja_horaria {
+  border: 1px solid $gris_barra;
+  padding: 10px;
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+
+  @media (min-width: $bpMaxMedium) {
+    width: 33.3333%;
+  }
+
+  @media (max-width: $bpMaxSmall) {
+    width: 25%;
+  }
+
+  @include sombra_caja;
+
+  &:nth-of-type(1),
+  &:nth-of-type(2),
+  &:nth-of-type(3) {
+    border-top: none;
+  }
+
+  .fa-clock-o {
+    @media (max-width: 588px) {
+      display: none;
+    }
+  }
+}
+
+span.reserva_hora {
+  font-weight: bold;
+  font-size: 140%;
+
+  span.hora {
+    font-size: 120%;
+
+    @media (min-width: $bpMaxMedium) {
+      font-size: 180%;
+    }
+  }
+
+  span.hs {
+    position: relative;
+    left: -6px;
+    font-size: 100%;
+
+    @media (min-width: $bpMaxMedium) {
+      left: -9px;
+      font-size: 140%;
+    }
+  }
+}
+
+span.esperando_aprobacion {
+  font-style: italic;
+}
+
+#new_reserva_container {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-items: center;
+
+  @media (max-width: $bpMaxSmall) {
+    flex-direction: column;
+  }
+}
+
+form.new_reserva {
+  padding: 0px 20px;
+}
+
+.uno_de_dos {
+  max-width: 45%;
+  min-width: 40%;
+  background-color: $blanco;
+  border: 1px solid $gris_boton;
+  border-radius: 5px;
+  margin: 30px 15px;
+  // padding: 10px 20px;
+
+  .barra_titulo {
+    margin-top: 0px;
+    @include sombra_caja;
+    color: $blanco;
+    background-color: $naranja;
+    z-index: 2;
+    text-align: center;
+    padding: 10px 0px 0px;
+  }
+
+  @media (max-width: $bpMaxMedium) {
+    max-width: 90%;
+  }
+}
+
+#franjas {
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+}
+
+#nueva_reserva {
+  display: flex;
+  flex-direction: column;
+  height: min-content;
+  // padding: 0;
+  border: none;
+  @include sombra_caja;
+  // background-color: transparent;
+}
+
+form div.field {
+  margin-top: 30px;
+}
+
+.vacantes {
+  color: $blanco;
+  text-transform: uppercase;
+  padding: 6px 12px 2px;
+  font-size: 85%;
+
+  @media (max-width: 588px) {
+    padding: 6px 5px 2px;
+    font-size: 50%;
+  }
+}
+
+.hay_vacantes {
+  background-color: $azul_label;
+}
+
+.sin_vacantes {
+  background-color: $naranja_label;
+}
+
+.grupos {
+  #grupos-list {
+    display: none;
+    margin-top: 10px;
+
+    a {
+      padding: 10px 10px 5px 10px;
+      color: $gris_boton;
+      border: 1px solid $gris_bordes;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.elegido {
+  animation: beat 0.6s ease-out 1;
+
+  &.nombre_grupo {
+    font-weight: bold;
+    border: 1px solid $gris_barra;
+    border-radius: 5px;
+    color: $gris_clarito !important;
+    background-color: $gris_barra;
+  }
+}
+
+@keyframes beat {
+  33% {
+    transform: scale(1.1);
+    background-color: $naranja;
+  }
+
+  67% {
+    transform: scale(.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+#reservas-index {
+  padding: 40px;
+}

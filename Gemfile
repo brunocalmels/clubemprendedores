@@ -46,6 +46,8 @@ gem "cocoon"
 gem 'factory_bot_rails'
 gem 'faker', "~> 1.9"
 gem "font-awesome-rails"
+gem 'pwa'
+gem 'webpacker', '~> 3.5'
 
 group :development, :test do
   gem 'byebug'
@@ -59,10 +61,10 @@ group :development do
   gem "better_errors"
   gem "binding_of_caller"
   gem "guard", ">= 2.2.2", require: false
-  gem "guard-livereload",  '~> 2.5.2', require: false
+  # gem "guard-livereload",  '~> 2.5.2', require: false
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem "overcommit", ">= 0.37.0", require: false
-  gem "rack-livereload"
+  # gem "rack-livereload"
   gem "rubocop", ">= 0.53.0", require: false
   gem 'web-console', '>= 3.3.0'
   gem 'spring'
