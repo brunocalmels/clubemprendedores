@@ -46,8 +46,8 @@ gem "cocoon"
 gem 'factory_bot_rails'
 gem 'faker', "~> 1.9"
 gem "font-awesome-rails"
-gem 'pwa'
 gem 'webpacker', '~> 3.5'
+gem 'serviceworker-rails'
 
 group :development, :test do
   gem 'byebug'

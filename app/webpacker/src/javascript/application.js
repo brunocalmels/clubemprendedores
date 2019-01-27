@@ -15,7 +15,6 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require cocoon
-//= require pwa-rails/src/index
 
 /* eslint no-console:0 */
 // This file is automatically compiled by Webpack, along with any other files
@@ -26,9 +25,11 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
+// import '../manifest.json'
 import './popups'
 import './reservas'
 import '../../images'
+import './serviceworker'
 import 'bootstrap/dist/js/bootstrap';
 import 'cocoon-rails/src/cocoon';
 import Rails from 'rails-ujs';
@@ -36,10 +37,3 @@ import Turbolinks from 'turbolinks';
 
 Rails.start();
 Turbolinks.start();
-
-import ProgressiveWebApp from "pwa-rails/src/index";
-
-document.addEventListener("turbolinks:load", () => {
-    const progressiveWebApp = new ProgressiveWebApp();
-    console.log(progressiveWebApp);
-});

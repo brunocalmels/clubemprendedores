@@ -1,11 +1,9 @@
 = navbar container: 'fluid' do
-  -# = navbar_header brand: 'Club Emprendedor', brand_link: '/home'
 
   = navbar_header
   = navbar_group do
     = navbar_item '/' do
-      = image_tag '/image/logo-club.png', height: 100, class: 'logo'
-  -# = navbar_header brand: image_tag '/image/logo-club.png', brand_link: '/'
+      = image_pack_tag 'images/logo-club.png', height: 100, class: 'logo'
 
   = navbar_collapse do
     = navbar_group id: 'menu' do
@@ -23,7 +21,6 @@
     = navbar_group align: 'right' do
       - if current_user.present?
         = navbar_dropdown current_user.admin?? "#{current_user.nombre} (admin)" : "#{current_user.nombre} " do
-          -# = navbar_dropdown_header 'Mi cuenta 2'
           = navbar_item "Editar perfil", edit_user_registration_url(current_user)
           = navbar_dropdown_divider
           = navbar_item "Salir", destroy_user_session_url, {}, { 'data-method': :delete }
