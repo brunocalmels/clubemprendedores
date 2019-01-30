@@ -7,6 +7,8 @@
 
 # TO BE STARTED
 
+- [ ] Agregar botón para Crear Reserva y volver a Reserva#new en el mismo día (reservas mucho para adelante)
+- [ ] Eventos/capacitaciones: Permitir que termine un día distinto del de comienzo
 - [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
 
 # DONE
