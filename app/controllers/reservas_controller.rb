@@ -64,6 +64,7 @@ class ReservasController < ApplicationController
         format.json { render json: @reserva.errors, status: :unprocessable_entity }
       end
     else
+      # rubocop:disable Metrics/BlockLength
       respond_to do |format|
         if @reserva.save
           notice_admins_create
@@ -73,14 +74,19 @@ class ReservasController < ApplicationController
             invitados_anon.times do |_invitado_anon|
               @reserva.invitados.create(anonimo: true)
             end
-
-          # Copia invitados de reserva a copiar
+            # Copia invitados de reserva a copiar
           elsif !params[:invitados_grupo_reserva_id].nil? && params[:invitados_grupo_reserva_id].to_i != 0 && (reserva_repe = Reserva.find(params[:invitados_grupo_reserva_id]))
             reserva_repe.invitados.each do |invitado|
               @reserva.invitados << invitado.dup
             end
           end
-          format.html { redirect_to @reserva, notice: 'La reserva se creó correctamente.' }
+          format.html do
+            if params[:y_nueva].nil?
+              redirect_to @reserva, notice: 'La reserva se creó correctamente.'
+            else
+              redirect_to new_reserva_path(date: @reserva.start_time), notice: 'La reserva se creó correctamente.'
+            end
+          end
           format.json { render :show, status: :created, location: @reserva }
         else
           format.html do
@@ -91,6 +97,7 @@ class ReservasController < ApplicationController
           format.json { render json: @reserva.errors, status: :unprocessable_entity }
         end
       end
+      # rubocop:enable Metrics/BlockLength
     end
   end
   # rubocop:enable Metrics/AbcSize

@@ -58,7 +58,7 @@ PreCommit:
     enabled: true
     exclude:
       - "**/db/structure.sql"
-      - "/public/assets/**"
+      - "/public/assets/**/**"
 
   YamlSyntax:
     enabled: true

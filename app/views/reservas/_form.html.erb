@@ -103,6 +103,10 @@
       <%= form.submit 'Guardar cambios', id: 'boton_crear_reserva' %>
     <% else %>
       <%= form.submit 'Crear reserva', disabled: true, id: 'boton_crear_reserva' %>
+      <div>
+        <%= check_box_tag :y_nueva , true %>
+        <label for="y_nueva">Nueva reserva después de guardar</label>
+      </div>
     <% end %>
   </div>
 <% end %>
