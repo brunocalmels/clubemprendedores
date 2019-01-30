@@ -7,12 +7,12 @@
 
 # TO BE STARTED
 
-- [ ] Agregar botón para Crear Reserva y volver a Reserva#new en el mismo día (reservas mucho para adelante)
 - [ ] Eventos/capacitaciones: Permitir que termine un día distinto del de comienzo
 - [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
 
 # DONE
 
+- [x] Agregar botón para Crear Reserva y volver a Reserva#new en el mismo día (reservas mucho para adelante)
 - [x] Hacer el horario de apertura dependiente del día de la semana. Martes y Jueves es hasta las 16.
 - [x] Capacitaciones/eventos: Que no se necesite cargar los datos de los invitados, sino el número total solamente.
 - [x] Email: Que lleguen fecha y hora de inicio y fin, además del nombre del usuario.
