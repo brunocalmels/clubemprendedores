@@ -7,7 +7,6 @@
 
 # TO BE STARTED
 
-- [ ] Eventos/capacitaciones: Permitir que termine un día distinto del de comienzo
 - [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
 
 # DONE
@@ -42,6 +41,7 @@
 
 # BACKLOG
 
+- [ ] Eventos/capacitaciones: Permitir que termine un día distinto del de comienzo
 - [ ] Como Admin, quiero que las reservas del tipo "Eventos/capacitaciones" tengan que tener mi aprobación.
 - [ ] Como Admin, quiero que en la vista del día se vean qué eventos son bloqueantes, para que el usuario sepa en qué rangos no va a poder reservar.
 - [ ] Como Admin, quiero que los usuarios puedan reservar junto con la sala, laptops (hasta 8) (con aprobación mía).
