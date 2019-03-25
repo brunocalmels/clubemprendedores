@@ -1,16 +1,18 @@
 # BUGS
 
-- [ ] Ver 20/12: Hay actividades de Maxi pero no se muestran en el inicio.
-- [ ] Volver desde Reserva#show: Lleva al dia.
-
 # IN PROGRESS
 
 # TO BE STARTED
 
+- [ ] Crear grupo para usuarios de Adeneu para que tengan distintos horarios de acceso al Club.
 - [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
+- [ ] Agregar "Reunion" a "Eventos/capacitaciones"
+- [ ] Admins pueden exportar un Excel con las reservas ordenadas cronologicamente.
 
 # DONE
 
+- [x] Volver desde Reserva#show: Lleva al dia.
+- [x] Ver 20/12: Hay actividades de Maxi pero no se muestran en el inicio.
 - [x] Agregar botón para Crear Reserva y volver a Reserva#new en el mismo día (reservas mucho para adelante)
 - [x] Hacer el horario de apertura dependiente del día de la semana. Martes y Jueves es hasta las 16.
 - [x] Capacitaciones/eventos: Que no se necesite cargar los datos de los invitados, sino el número total solamente.
