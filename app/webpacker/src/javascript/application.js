@@ -30,6 +30,7 @@ import './popups'
 import './reservas'
 import '../../images'
 import './serviceworker'
+import './serviceworker-companion'
 import 'bootstrap/dist/js/bootstrap';
 import 'cocoon-rails/src/cocoon';
 import Rails from 'rails-ujs';
