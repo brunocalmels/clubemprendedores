@@ -290,6 +290,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (>= 2.5.0)
+  autoprefixer-rails
   awesome_print
   better_errors
   binding_of_caller
@@ -328,4 +329,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.17.2
+   2.0.1
