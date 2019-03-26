@@ -8,11 +8,28 @@
       <th>Nombre</th>
       <th>Horas de apertura</th>
       <th>Horas de cierre</th>
+      <th>Usuarios</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
+      <tr>
+        <td>Default</td>
+        <td>
+          <% t('date.day_names').each_with_index do |dia, i| %>
+            <%= "#{dia.capitalize}:  #{HORAS_APERTURA[i]} hs" %> </br>
+          <% end%>
+        </td>
+        <td>
+          <% t('date.day_names').each_with_index do |dia, i| %>
+            <%= "#{dia.capitalize}:  #{HORAS_CIERRE[i]} hs" %> </br>
+          <% end%>
+        </td>
+        <td>
+          Todos los usuarios que no están en otro grupo.
+        </td>
+      </tr>
     <% !@grupos.nil? &&  @grupos.each do |grupo| %>
       <tr>
         <td><%= grupo.nombre %></td>
@@ -24,6 +41,11 @@
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
             <%= "#{dia.capitalize}:  #{grupo.end_times[i]} hs" %> </br>
+          <% end%>
+        </td>
+        <td>
+          <% grupo.users.each do |user| %>
+            <%= user.nombre_completo %> </br>
           <% end%>
         </td>
         <td><%# link_to 'Show', grupo %></td>

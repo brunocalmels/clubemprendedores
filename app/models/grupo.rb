@@ -11,5 +11,6 @@
 #
 
 class Grupo < ApplicationRecord
+  has_many :users, dependent: :nullify
   validates :nombre, presence: true
 end
