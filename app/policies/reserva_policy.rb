@@ -6,8 +6,8 @@ class ReservaPolicy < ApplicationPolicy
   end
 
   def update?
-    current_user.present? && (
-      current_user.admin? || current_user == reserva.user
+    user.present? && (
+      user.admin? || user == record.user
     )
   end
 end

@@ -144,18 +144,27 @@ class Reserva < ApplicationRecord
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   # rubocop:disable Metrics/AbcSize
   def cumple_horario_apertura
+    if user.grupo
+      horas_apertura_grupo = user.grupo.start_times
+      horas_cierre_grupo = user.grupo.end_times
+    else
+      horas_apertura_grupo = HORAS_APERTURA
+      horas_cierre_grupo = HORAS_CIERRE
+    end
     horario_apertura = [
-      start_time.change(hour: HORAS_APERTURA[start_time.wday]),
-      end_time.change(hour: HORAS_CIERRE[start_time.wday])
+      start_time.change(hour: horas_apertura_grupo[start_time.wday]),
+      end_time.change(hour: horas_cierre_grupo[start_time.wday])
     ]
     unless contenido_en(*horario_apertura)
       errors.add(:horario_de_apertura,
                  "El horario debe estar entre
-                 #{HORAS_APERTURA[start_time.wday]} hs y #{HORAS_CIERRE[start_time.wday]} hs")
+                 #{horas_apertura_grupo[start_time.wday]} hs y #{horas_cierre_grupo[start_time.wday]} hs")
     end
   end
+  # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/AbcSize
 
   def check_bloqueos

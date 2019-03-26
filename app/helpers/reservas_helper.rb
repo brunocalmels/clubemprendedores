@@ -26,14 +26,4 @@ module ReservasHelper
     dia = Time.zone.parse(dia + " 12:00:00") if dia.class == String
     (horas_apertura[dia.wday]..(horas_cierre[dia.wday] - 1)).map { |p| [p, p + 1] }
   end
-
-  # Asegura que solo un admin pueda acceder
-  def assure_admin!
-    return if current_user.admin?
-
-    respond_to do |format|
-      format.html { redirect_to(root_path) && (return false) }
-      format.json {}
-    end
-  end
 end

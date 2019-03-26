@@ -1,0 +1,25 @@
+@import "colors";
+
+table {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+thead>tr {
+  border-bottom: 1px solid $gris_barra;
+}
+
+th {
+  padding: 5px 10px;
+}
+
+tbody {
+  tr:not(:last-child) {
+    border-bottom: 1px solid $gris_barra;
+  }
+}
+
+td,
+th {
+  text-align: center !important;
+}
