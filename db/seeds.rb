@@ -10,6 +10,9 @@ require "factory_bot_rails"
 
 logger = Logger.new(STDOUT)
 
+logger.info "Creando grupo Adeneu"
+adeneu = Grupo.create(nombre: "Adeneu", start_times: HORAS_APERTURA_ADENEU, end_times: HORAS_CIERRE_ADENEU)
+
 logger.info "Creando admin Maxi"
 maxi = User.create(admin: true, email: "mgrande@adeneu.com.ar", password: "maxclubemp", nombre: "Maxi", apellido: "Grande", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")
 maxi.confirm
@@ -27,12 +30,12 @@ logger.info "Creando turnos bloqueantes"
 end
 
 logger.info "Creando usuarios Lu, Gabo, Rober"
-User.create(admin: true, email: "lmarquisio@adeneu.com.ar", password: "123456", nombre: "Lucila", apellido: "Marquisio", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")
-User.create(admin: true, email: "gcarnelli@adeneu.com.ar", password: "123456", nombre: "Gabriel", apellido: "Carnelli", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")
-User.create(admin: true, email: "rcamino@adeneu.com.ar", password: "123456", nombre: "Roberto", apellido: "Camino", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")
+User.create(admin: true, grupo: adeneu, email: "lmarquisio@adeneu.com.ar", password: "123456", nombre: "Lucila", apellido: "Marquisio", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")
+User.create(admin: true, grupo: adeneu, email: "gcarnelli@adeneu.com.ar", password: "123456", nombre: "Gabriel", apellido: "Carnelli", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")
+User.create(admin: true, grupo: adeneu, email: "rcamino@adeneu.com.ar", password: "123456", nombre: "Roberto", apellido: "Camino", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")
 
 logger.info "Creando usuario Bruno"
-User.create!(email: "brunocalmels@gmail.com", password: "bruclubemp", nombre: "Bruno", apellido: "Calmels", id_tipo: 0, id_num: 32_974_644, institucion: "Macher IT")
+User.create!(email: "brunocalmels@gmail.com", grupo: adeneu, password: "bruclubemp", nombre: "Bruno", apellido: "Calmels", id_tipo: 0, id_num: 32_974_644, institucion: "Macher IT", confirmed: true)
 
 logger.info "Creando 10 usuarios"
 logger.info "...con una reserva cada uno"

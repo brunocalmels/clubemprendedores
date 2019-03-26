@@ -26,11 +26,17 @@
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  grupo_id               :bigint(8)
 #
 # Indexes
 #
 #  index_users_on_email                 (email) UNIQUE
+#  index_users_on_grupo_id              (grupo_id)
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (grupo_id => grupos.id)
 #
 
 class User < ApplicationRecord
@@ -42,6 +48,7 @@ class User < ApplicationRecord
   scope :admins, -> { where(admin: true) }
 
   has_many :reservas, dependent: :destroy
+  belongs_to :grupo, optional: true
 
   validates :nombre, presence: true
   validates :apellido, presence: true
