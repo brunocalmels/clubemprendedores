@@ -69,7 +69,7 @@ class Reserva < ApplicationRecord
   # Que esté dentro de la franja horaria permitida
   validate :cumple_horario_apertura
 
-  # Que no haya reservas bloqueantes ese mismo día
+  # Que no haya reservas bloqueantes en ese mismo periodo
   validate :check_bloqueos
 
   # Que no haya más del máximo permitido de ocupaciones

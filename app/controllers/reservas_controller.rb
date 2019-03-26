@@ -55,6 +55,7 @@ class ReservasController < ApplicationController
     @reserva = Reserva.new(reserva_params)
     decide_aprobacion(@reserva)
     @reserva.user = current_user
+    @date = @reserva.start_time
 
     # Chequea que no tenga más reservas que el máximo
     if reserva_params[:invitados_attributes].to_h.size > MAX_OCUPACIONES

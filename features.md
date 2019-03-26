@@ -3,11 +3,11 @@
 # IN PROGRESS
 
 - [ ] Crear grupo para usuarios de Adeneu para que tengan distintos horarios de acceso al Club.
-  - [ ] Cambiar vistas para que muestren franja horaria correspondiente
-  - [ ] Crear Reserva.policy
+  - [ ] Controladores
 
 # TO BE STARTED
 
+- [ ] Mejorar animacion seleccion franja horaria
 - [ ] No se pueden editar Reservas ya pasadas.
 - [ ] Reemplazar el ruby-sass por la otra gem.
 - [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.

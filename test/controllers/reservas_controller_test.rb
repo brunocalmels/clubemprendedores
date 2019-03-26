@@ -1,4 +1,5 @@
 require "test_helper"
+require "reservas_helper"
 
 class ReservasControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -17,7 +18,7 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     sign_in @admin
-    get new_reserva_url
+    get new_reserva_url(date: @reserva.start_time)
     assert_response :success
   end
 
@@ -137,12 +138,12 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
 
   test "no se puede crear un turno que se pise con uno bloqueante" do
     sign_in @user
-    comienzo_bloq = Time.zone.now.middle_of_day
-    fin_bloq = comienzo_bloq + 4.hours
+    comienzo_bloq = Time.zone.now.beginning_of_day + HORAS_APERTURA[Time.zone.now.wday].hours + 3.hours
+    fin_bloq = comienzo_bloq + 2.hours
     create(:reserva_bloqueante, start_time: comienzo_bloq, end_time: fin_bloq, user: @admin, finalidad: FINALIDADES.sample, nombre: @reserva.nombre, descripcion: @reserva.descripcion)
 
     # Pasa porque se hace antes
-    comienzo = comienzo_bloq - 3.hours
+    comienzo = Time.zone.now.beginning_of_day + HORAS_APERTURA[Time.zone.now.wday].hours
     fin = comienzo + 2.hours
     assert_difference("Reserva.count", 1) do
       post reservas_url, params: { reserva: { start_time: comienzo, end_time: fin, user: @user, finalidad: FINALIDADES.sample, nombre: @reserva.nombre, descripcion: @reserva.descripcion } }, as: @user

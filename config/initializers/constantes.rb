@@ -3,9 +3,9 @@ FINALIDADES = ["Co-Working", "Eventos/capacitaciones"].freeze
 
 # DIAS         = [D,  L,  M,  M,  J,  V, S]
 HORAS_APERTURA = [0, 8, 8, 8, 8, 8, 8].freeze
-HORAS_CIERRE   = [0, 19, 16, 19, 16, 19, 14].freeze
+HORAS_CIERRE   = [24, 19, 16, 19, 16, 19, 14].freeze
 HORAS_APERTURA_ADENEU = [0, 8, 8, 8, 8, 8, 8].freeze
-HORAS_CIERRE_ADENEU   = [0, 20, 20, 20, 20, 20, 17].freeze
+HORAS_CIERRE_ADENEU   = [24, 20, 20, 20, 20, 20, 17].freeze
 
 MAX_OCUPACIONES = 30
 RESERVA_NOMBRE_MIN = 4

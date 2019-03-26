@@ -54,7 +54,7 @@
   </p>
 <% end %>
 
-<% if puede_editar?(@reserva) %>
+<% if policy(@reserva).update? %>
   <%= link_to('Editar', edit_reserva_path(@reserva)) %> |
   <%= link_to('Borrar', reserva_path(@reserva), method: :delete, data: { confirm: '¿Estás seguro de borrar la reserva?' } ) %> |
 <% end %>
