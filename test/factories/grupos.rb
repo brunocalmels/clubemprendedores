@@ -13,7 +13,7 @@
 FactoryBot.define do
   factory :grupo do
     nombre "MyString"
-    start_time "2019-03-26 16:50:00"
-    end_time "2019-03-26 16:50:00"
+    start_times "2019-03-26 16:50:00"
+    end_times "2019-03-26 16:50:00"
   end
 end

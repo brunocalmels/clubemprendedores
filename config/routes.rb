@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   }
   get "reservas/esperando_aprobacion", to: "reservas#esperando_aprobacion"
   resources :reservas
-  # resources :grupos
+  resources :grupos, only: %i[index]
 end

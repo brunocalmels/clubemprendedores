@@ -65,7 +65,6 @@ class ReservaTest < ActiveSupport::TestCase
     @hora_fin = @hora_cierre
     @hora_ini = @hora_apertura
     @reserva = FactoryBot.build(:reserva, start_time: @hora_ini, end_time: @hora_fin)
-    p @reserva.errors
     assert @reserva.valid?
   end
 end
