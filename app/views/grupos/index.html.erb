@@ -18,11 +18,13 @@
         <td>Default</td>
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
+            <% next if i == 0 %>
             <%= "#{dia.capitalize}:  #{HORAS_APERTURA[i]} hs" %> </br>
           <% end%>
         </td>
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
+            <% next if i == 0 %>
             <%= "#{dia.capitalize}:  #{HORAS_CIERRE[i]} hs" %> </br>
           <% end%>
         </td>
@@ -35,11 +37,13 @@
         <td><%= grupo.nombre %></td>
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
+            <% next if i == 0 %>
             <%= "#{dia.capitalize}:  #{grupo.start_times[i]} hs" %> </br>
           <% end%>
         </td>
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
+            <% next if i == 0 %>
             <%= "#{dia.capitalize}:  #{grupo.end_times[i]} hs" %> </br>
           <% end%>
         </td>
