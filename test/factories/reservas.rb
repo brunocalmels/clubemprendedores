@@ -33,7 +33,7 @@ FactoryBot.define do
     end_time { start_time + 1.hour }
     finalidad { FINALIDADES.sample }
     nombre { Faker::Music.album[0..RESERVA_NOMBRE_MAX - 1] }
-    descripcion { Faker::Seinfeld.quote[0..RESERVA_DESCRIPCION_MAX] }
+    descripcion { Faker::Seinfeld.quote[0..RESERVA_DESCRIPCION_MAX - 1] }
 
     user
 

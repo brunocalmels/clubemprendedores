@@ -1,0 +1,43 @@
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @user.nombre %>
+</p>
+
+<p>
+  <strong>Apellido:</strong>
+  <%= @user.apellido %>
+</p>
+
+<p>
+  <strong>Institución:</strong>
+  <%= @user.institucion %>
+</p>
+
+<p>
+  <strong>Admin:</strong>
+  <%= @user.admin?? "Sí" : "No" %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<p>
+  <strong>Teléfono:</strong>
+  <%= @user.telefono %>
+</p>
+
+<p>
+  <strong>Usuario creado:</strong>
+  <%= @user.created_at.strftime('%e %b %H:%M hs') %>
+</p>
+
+<p>
+  <strong>Último login:</strong>
+  <%= @user.last_sign_in_at&.strftime('%e %b %H:%M hs') %>
+</p>
+
+
+<%= link_to 'Volver', root_url %>

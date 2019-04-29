@@ -2,8 +2,15 @@
 
 <p>
   <strong>Usuario:</strong>
-  <%= @reserva.user.nombre %>
-  <%= @reserva.user.apellido %>
+  <% if policy(@reserva.user).show? %>
+    <%= link_to perfile_path(@reserva.user) do %>
+      <%= @reserva.user.nombre %>
+      <%= @reserva.user.apellido %>
+    <% end %>
+  <% else %>
+    <%= @reserva.user.nombre %>
+    <%= @reserva.user.apellido %>
+  <% end %>
   <i> de </i>
   <%= @reserva.user.institucion %>
 </p>

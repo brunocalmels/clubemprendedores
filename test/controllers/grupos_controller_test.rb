@@ -3,12 +3,19 @@ require "test_helper"
 class GruposControllerTest < ActionDispatch::IntegrationTest
   setup do
     @grupo = FactoryBot.create(:grupo)
+    @admin = create(:admin)
   end
 
-  test "should get index" do
+  test "should not get index" do
     get grupos_url
-    assert_response :success
+    assert_redirected_to root_url
   end
+
+  # test "should get index" do
+  #   sign_in @admin
+  #   get grupos_url
+  #   assert_response :success
+  # end
 
   # test "should get new" do
   #   get new_grupo_url

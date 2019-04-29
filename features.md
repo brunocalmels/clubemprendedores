@@ -2,20 +2,19 @@
 
 # IN PROGRESS
 
-- [ ] Crear grupo para usuarios de Adeneu para que tengan distintos horarios de acceso al Club.
-  - [ ] Controladores
+- [ ] Agregar "Reunion" a "Eventos/capacitaciones"
 
 # TO BE STARTED
 
 - [ ] Mejorar animacion seleccion franja horaria
 - [ ] No se pueden editar Reservas ya pasadas.
-- [ ] Reemplazar el ruby-sass por la otra gem.
-- [ ] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
-- [ ] Agregar "Reunion" a "Eventos/capacitaciones"
 - [ ] Admins pueden exportar un Excel con las reservas ordenadas cronologicamente.
+- [ ] Reemplazar el ruby-sass por la otra gem.
 
 # DONE
 
+- [x] Crear grupo para usuarios de Adeneu para que tengan distintos horarios de acceso al Club.
+- [x] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.
 - [x] Volver desde Reserva#show: Lleva al dia.
 - [x] Ver 20/12: Hay actividades de Maxi pero no se muestran en el inicio.
 - [x] Agregar botón para Crear Reserva y volver a Reserva#new en el mismo día (reservas mucho para adelante)
