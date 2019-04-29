@@ -1,7 +1,7 @@
 <div class="reserva_del_dia">
   <% if reserva.user == current_user %>
     <%= link_to edit_reserva_path(reserva) do %>
-      <% if reserva.finalidad == 'Eventos/capacitaciones' %>
+      <% if reserva.finalidad == 'Evento/capacitación/reunión' %>
           <strong>
             <%= "#{reserva.nombre}" %>
           </strong>
@@ -20,7 +20,7 @@
       <%= reserva.hora_fin %> hs)
     <% end %>
   <% else %>
-    <% if reserva.finalidad == 'Eventos/capacitaciones' %>
+    <% if reserva.finalidad == 'Evento/capacitación/reunión' %>
       <strong>
         <%= "#{reserva.nombre}" %>
       </strong>

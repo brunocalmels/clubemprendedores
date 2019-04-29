@@ -69,7 +69,7 @@ class ReservasController < ApplicationController
       respond_to do |format|
         if @reserva.save
           notice_admins_create
-          if @reserva.finalidad == "Eventos/capacitaciones" || current_user.admin?
+          if @reserva.finalidad == "Evento/capacitación/reunión" || current_user.admin?
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
             @reserva.save
             invitados_anon.times do |_invitado_anon|
@@ -139,7 +139,7 @@ class ReservasController < ApplicationController
     if current_user == @reserva.user || current_user.admin?
 
       # Arregla invitados anonimos
-      if reserva_params[:finalidad] == "Eventos/capacitaciones" || current_user.admin?
+      if reserva_params[:finalidad] == "Evento/capacitación/reunión" || current_user.admin?
         invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
         if invitados_anon > 0
           @reserva.invitados.delete_all
@@ -236,7 +236,7 @@ class ReservasController < ApplicationController
   # Setea la aprobación por defecto o no, según las políticas
   def decide_aprobacion(reserva)
     # Si es de eventos/capacitacion, no se aprueba por defecto
-    reserva.aprobado = false if reserva.finalidad == 'Eventos/capacitaciones'
+    reserva.aprobado = false if reserva.finalidad == 'Evento/capacitación/reunión'
     reserva.aprobado = true if current_user.admin?
   end
 

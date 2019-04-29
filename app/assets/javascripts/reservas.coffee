@@ -54,7 +54,7 @@ $(document).on 'turbolinks:load', ->
 
   # De acuerdo al tipo de evento, cambia el tipo de invitados (anón o declarados)
   $('select#reserva_finalidad').on "change", (event) ->
-    if (event.target.value == "Eventos/capacitaciones")
+    if (event.target.value == "Evento/capacitación/reunión")
       console.log('Evento/capacitacion')
       $('#invitados_anonimos').show(500)
       $('#invitados').hide(500)

@@ -52,7 +52,7 @@ end
 
 logger.info "Creando eventos"
 10.times do
-  reserva = FactoryBot.build(:reserva, user: maxi, finalidad: "Eventos/capacitaciones", nombre: "Capacitación App", descripcion: "Vamos a capacitar a los usuarios en el uso de la app")
+  reserva = FactoryBot.build(:reserva, user: maxi, finalidad: "Evento/capacitación/reunión", nombre: "Capacitación App", descripcion: "Vamos a capacitar a los usuarios en el uso de la app")
   reserva.save
   next unless reserva.persisted?
 

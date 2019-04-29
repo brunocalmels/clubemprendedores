@@ -53,13 +53,13 @@ class Reserva < ApplicationRecord
   # Si es capacitacion, que tenga nombre y descripcion con las longs correctas
   validates :nombre, :descripcion,
             presence: true,
-            if: proc { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
+            if: proc { |reserva| reserva.finalidad == "Evento/capacitación/reunión" }
   validates :nombre,
             length: { minimum: RESERVA_NOMBRE_MIN, maximum: RESERVA_NOMBRE_MAX },
-            if: proc { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
+            if: proc { |reserva| reserva.finalidad == "Evento/capacitación/reunión" }
   validates :descripcion,
             length: { minimum: RESERVA_DESCRIPCION_MIN, maximum: RESERVA_DESCRIPCION_MAX },
-            if: proc { |reserva| reserva.finalidad == "Eventos/capacitaciones" }
+            if: proc { |reserva| reserva.finalidad == "Evento/capacitación/reunión" }
 
   # Que termine después de que empiece
   validate :termina_dsp_d_q_empiece

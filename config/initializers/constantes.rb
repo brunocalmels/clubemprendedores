@@ -1,5 +1,5 @@
 TIPOS_ID = %w[DNI CUIL CUIT].freeze
-FINALIDADES = ["Co-Working", "Eventos/capacitaciones"].freeze
+FINALIDADES = ["Co-Working", "Evento/capacitación/reunión"].freeze
 
 # DIAS         = [D,  L,  M,  M,  J,  V, S]
 HORAS_APERTURA = [0, 8, 8, 8, 8, 8, 8].freeze

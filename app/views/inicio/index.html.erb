@@ -24,7 +24,7 @@
     <!-- Si puede editar las reservas -->
     <% if user_signed_in? %>
       <%= link_to reserva, class: 'reserva' do %>
-        <% if reserva.finalidad == 'Eventos/capacitaciones' %>
+        <% if reserva.finalidad == 'Evento/capacitación/reunión' %>
           <%= "#{reserva.nombre}" %>
           <% if reserva.invitados.any? %>
             - <%= reserva.invitados.count %> inv.
@@ -48,7 +48,7 @@
 
     <!-- Si no puede editar las reservas -->
     <% else %>
-        <% if reserva.finalidad == 'Eventos/capacitaciones' %>
+        <% if reserva.finalidad == 'Evento/capacitación/reunión' %>
           <%= "#{reserva.nombre}" %>
           <% if reserva.invitados.any? %>
             - <%= reserva.invitados.count %> inv.

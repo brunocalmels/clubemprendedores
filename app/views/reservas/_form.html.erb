@@ -28,15 +28,15 @@
 
   <div class="field" id="finalidad">
     <%= form.select :finalidad, FINALIDADES, label: "Finalidad" %>
-    <p>Los turnos para <b>Eventos/capacitaciones</b> deberán ser aprobados por un administrador.</p>
+    <p>Los turnos para <b>Evento/capacitación/reunión</b> deberán ser aprobados por un administrador.</p>
   </div>
 
   <div class="field" id="nombre">
-    <%= form.text_field :nombre, label: "Nombre (requerido para Eventos/capacitaciones)" %>
+    <%= form.text_field :nombre, label: "Nombre (requerido para Evento/capacitación/reunión)" %>
   </div>
 
   <div class="field" id="descripcion">
-    <%= form.text_field :descripcion, label: "Descripción (requerida para Eventos/capacitaciones)" %>
+    <%= form.text_field :descripcion, label: "Descripción (requerida para Evento/capacitación/reunión)" %>
   </div>
 
   <% if current_user.admin? %>
@@ -51,7 +51,7 @@
 
   <!-- Si es admin o es una capacitación/evento, no necesita dar los datos de los invitados -->
   <div class="field" id="invitados_anonimos"
-    <%= @reserva.finalidad != "Eventos/capacitaciones" ? 'style=display:none' : "" %>
+    <%= @reserva.finalidad != "Evento/capacitación/reunión" ? 'style=display:none' : "" %>
   >
     <div class="form-group">
       <label for="invitados_anon">Invitados anónimos</label>
@@ -62,7 +62,7 @@
   <!-- Si es admin no se necesita declarar los invitados -->
   <% unless current_user.admin? %>
     <div class="field" id="invitados"
-      <%= @reserva.finalidad == "Eventos/capacitaciones" ? 'style=display:none' : "" %>
+      <%= @reserva.finalidad == "Evento/capacitación/reunión" ? 'style=display:none' : "" %>
     >
       <h4>Invitados</h4>
       <% unless @reserva.persisted?  %>
