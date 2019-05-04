@@ -4,6 +4,7 @@
 
 # TO BE STARTED
 
+- [ ] Paginación en reservas#index
 - [ ] Mejorar animacion seleccion franja horaria
 - [ ] No se pueden editar Reservas ya pasadas.
 - [ ] Admins pueden exportar un Excel con las reservas ordenadas cronologicamente.
