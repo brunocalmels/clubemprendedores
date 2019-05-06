@@ -12,10 +12,15 @@
 
       = navbar_item "Inicio", '/'
 
-      = navbar_item "Mis reservas", '/reservas'
+      - if signed_in? and current_user.admin?
+        = navbar_item "Reservas", '/reservas'
+      - else
+        = navbar_item "Mis reservas", '/reservas'
+
       - if current_user.present? && current_user.admin?
         = navbar_dropdown "Admin" do
           = navbar_dropdown_header "Administrador"
+          = navbar_item "Exportar reservas", reservas_path(format: 'xls')
           = navbar_item "Esperando aprobación", "/reservas/esperando_aprobacion"
           = navbar_item "Grupos", "/grupos"
 

@@ -1,17 +1,17 @@
 # BUGS
 
 # IN PROGRESS
+- [ ] Paginación en reservas#index y que comience en el día de hoy
 
 # TO BE STARTED
 
-- [ ] Paginación en reservas#index
 - [ ] Mejorar animacion seleccion franja horaria
 - [ ] No se pueden editar Reservas ya pasadas.
-- [ ] Admins pueden exportar un Excel con las reservas ordenadas cronologicamente.
 - [ ] Reemplazar el ruby-sass por la otra gem.
 
 # DONE
 
+- [x] Admins pueden exportar un Excel con las reservas ordenadas cronologicamente.
 - [x] Agregar "Reunion" a "Evento/capacitación/reunión"
 - [x] Crear grupo para usuarios de Adeneu para que tengan distintos horarios de acceso al Club.
 - [x] Habilitar vista User#show para los admin, accesible desde el link en la Reserva#show.

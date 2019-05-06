@@ -14,6 +14,10 @@ class ReservasController < ApplicationController
                 else
                   current_user.reservas
                 end
+    respond_to do |format|
+      format.html {}
+      format.xls {}
+    end
   end
 
   # GET /reservas/1

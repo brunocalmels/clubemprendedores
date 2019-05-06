@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Reservas">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">Aprobada</Data></Cell>
+        <Cell><Data ss:Type="String">Inicio</Data></Cell>
+        <Cell><Data ss:Type="String">Fin</Data></Cell>
+        <Cell><Data ss:Type="String">Nombre</Data></Cell>
+        <Cell><Data ss:Type="String">Descripción</Data></Cell>
+        <Cell><Data ss:Type="String">Finalidad</Data></Cell>
+        <Cell><Data ss:Type="String">Asistentes</Data></Cell>
+        <Cell><Data ss:Type="String">URL reserva</Data></Cell>
+        <Cell><Data ss:Type="String">Usuario</Data></Cell>
+        <Cell><Data ss:Type="String">URL usuario</Data></Cell>
+      </Row>
+    <% @reservas.each do |reserva| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= reserva.aprobado?? "Sí" : "No" %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva.start_time.strftime('%e %b %H:%M hs') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva.end_time.strftime('%e %b %H:%M hs') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva.nombre %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva.descripcion %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva.finalidad %></Data></Cell>
+        <Cell><Data ss:Type="Number"><%= reserva.ocupaciones %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva_url(reserva) %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva.user.nombre_completo %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= perfile_url(reserva.user) %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>
