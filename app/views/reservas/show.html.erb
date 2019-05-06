@@ -62,7 +62,9 @@
 <% end %>
 
 <% if policy(@reserva).update? %>
-  <%= link_to('Editar', edit_reserva_path(@reserva)) %> |
+  <% if @reserva.start_time > Time.zone.now %>
+    <%= link_to('Editar', edit_reserva_path(@reserva)) %> |
+  <% end %>
   <%= link_to('Borrar', reserva_path(@reserva), method: :delete, data: { confirm: '¿Estás seguro de borrar la reserva?' } ) %> |
 <% end %>
 <%= link_to 'Volver', root_url %>

@@ -1,7 +1,6 @@
 # BUGS
 
 # IN PROGRESS
-- [x] No se pueden editar Reservas ya pasadas.
 
 # TO BE STARTED
 
@@ -10,6 +9,7 @@
 
 # DONE
 
+- [x] No se pueden editar Reservas ya pasadas.
 - [x] Paginación en reservas#index
 - [x] Admins pueden exportar un Excel con las reservas ordenadas cronologicamente.
 - [x] Agregar "Reunion" a "Evento/capacitación/reunión"

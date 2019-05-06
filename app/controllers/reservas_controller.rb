@@ -37,6 +37,7 @@ class ReservasController < ApplicationController
 
   # GET /reservas/1/edit
   def edit
+    redirect_to(@reserva) && return unless @reserva.start_time > Time.zone.now
     @reservas = Reserva.del_dia(@reserva)
     @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map do |reserva|
       {
