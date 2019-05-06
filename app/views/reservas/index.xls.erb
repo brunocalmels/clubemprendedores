@@ -21,8 +21,8 @@
     <% @reservas.each do |reserva| %>
       <Row>
         <Cell><Data ss:Type="String"><%= reserva.aprobado?? "Sí" : "No" %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= reserva.start_time.strftime('%e %b %H:%M hs') %></Data></Cell>
-        <Cell><Data ss:Type="String"><%= reserva.end_time.strftime('%e %b %H:%M hs') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva.start_time.strftime('%e %b de %Y - %H:%M hs') %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= reserva.end_time.strftime('%e %b de %Y - %H:%M hs') %></Data></Cell>
         <Cell><Data ss:Type="String"><%= reserva.nombre %></Data></Cell>
         <Cell><Data ss:Type="String"><%= reserva.descripcion %></Data></Cell>
         <Cell><Data ss:Type="String"><%= reserva.finalidad %></Data></Cell>
