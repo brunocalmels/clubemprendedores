@@ -77,7 +77,7 @@ class Reserva < ApplicationRecord
   validate :max_ocupaciones
 
   def fecha
-    start_time.strftime("%-d/%-m")
+    start_time.strftime("%-d/%-m/%-Y")
   end
 
   def hora_comienzo

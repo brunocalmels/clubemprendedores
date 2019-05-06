@@ -12,8 +12,8 @@ module ClubIdea
     config.load_defaults 5.1
 
     config.i18n.default_locale = :es
-
     config.time_zone = "Buenos Aires"
+    config.i18n.available_locales = %i[en es]
 
     # Para la precompilacion para Heroku
     config.assets.precompile << /\.(?:svg|eot|woff|ttf)$/

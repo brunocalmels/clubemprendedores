@@ -114,3 +114,11 @@ body {
 .fa-1_5x {
   font-size: 1.5em !important;
 }
+
+.pagination {
+  a {
+    color: $gris_barra;
+    border: 1px solid $gris_barra;
+    border-radius: 5px;
+  }
+}

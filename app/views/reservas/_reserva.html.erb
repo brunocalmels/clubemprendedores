@@ -9,7 +9,7 @@
     <%= reserva.finalidad %>
     <!-- <%= reserva.user.nombre %>
     <%= reserva.user.apellido %> -->
-    (<%= pluralize(reserva.ocupaciones, 'lugar')%>)
+    (<%= pluralize(reserva.ocupaciones, 'asistente')%>)
     <!-- <% if reserva.invitados.count > 0 %>
     <% end %> -->
     <span class='esperando_aprobacion'> <%= !reserva.aprobado?? "Esperando aprobración" : nil %></span>

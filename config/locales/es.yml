@@ -1,4 +1,11 @@
 es:
+  views:
+    pagination:
+      next: Sigiente
+      previous: Anterior
+      first: Primera
+      last: Última
+      truncate: ...
   simple_calendar:
     previous: Anterior
     next: Siguiente

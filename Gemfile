@@ -48,7 +48,7 @@ gem 'factory_bot_rails'
 gem 'faker', "~> 1.9"
 gem "font-awesome-rails"
 gem "pundit"
-# gem 'kaminari'
+gem 'kaminari'
 
 group :development, :test do
   gem 'byebug'

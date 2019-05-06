@@ -9,13 +9,11 @@ class ReservasController < ApplicationController
   # GET /reservas
   # GET /reservas.json
   def index
-    @reservas = if user_signed_in? && current_user.admin?
-                  Reserva.all
-                else
-                  current_user.reservas
-                end
+    @reservas = policy_scope(Reserva)
     respond_to do |format|
-      format.html {}
+      format.html do
+        @reservas = @reservas.page params[:page]
+      end
       format.xls {}
     end
   end

@@ -20,4 +20,5 @@ ActiveSupport::Inflector.inflections(:es) do |inflect|
   inflect.irregular "permitió", "permitieron"
   inflect.irregular "lugar", "lugares"
   inflect.irregular "perfil", "perfiles"
+  inflect.irregular "asistente", "asistentes"
 end
