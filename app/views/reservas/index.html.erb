@@ -12,4 +12,6 @@
 
 </div>
 
-<%= paginate @reservas %>
+  <% unless @reservas.empty? %>
+    <%= paginate @reservas %>
+  <% end %>
