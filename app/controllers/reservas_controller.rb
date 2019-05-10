@@ -228,6 +228,7 @@ class ReservasController < ApplicationController
     respond_to do |format|
       format.html do
         params[:title] = "Reservas esperando aprobación"
+        @reservas = @reservas.page params[:page]
         render :index
       end
       format.json { render json: @reservas }
