@@ -66,6 +66,9 @@ class Reserva < ApplicationRecord
   # Que termine el mismo día que empieza
   validate :empieza_termina_mismo_dia
 
+  # Que sea un día permitido
+  validate :cumple_dia
+
   # Que esté dentro de la franja horaria permitida
   validate :cumple_horario_apertura
 
@@ -141,6 +144,18 @@ class Reserva < ApplicationRecord
     if ocupaciones > MAX_OCUPACIONES
       errors.add(:invitaciones,
                  "No puede haber más de #{MAX_OCUPACIONES} lugares ocupados.")
+    end
+  end
+
+  def cumple_dia
+    dias_permitidos = if user.grupo
+                        user.grupo.dias_permitidos
+                      else
+                        DIAS_PERMITIDOS
+                      end
+    unless dias_permitidos[start_time.wday] == 1
+      errors.add(:dias_permitidos,
+                 "Dicho día no está permitido reservar")
     end
   end
 

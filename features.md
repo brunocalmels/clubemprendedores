@@ -6,6 +6,7 @@
 
 - [ ] Mejorar animacion seleccion franja horaria
 - [ ] Reemplazar el ruby-sass por la otra gem.
+- [ ] No permitir que se pueda reservar los sabados, salvo gente de Adeneu.
 
 # DONE
 

@@ -67,4 +67,25 @@ class ReservaTest < ActiveSupport::TestCase
     @reserva = FactoryBot.build(:reserva, start_time: @hora_ini, end_time: @hora_fin)
     assert @reserva.valid?
   end
+
+  test "un usuario sin grupo no puede crear una reserva un sábado" do
+    sabado = Date.parse('Sat')
+    hora_apertura = Time.zone.parse(sabado.to_s).change(hour: HORAS_APERTURA[sabado.wday])
+    hora_cierre = Time.zone.parse(sabado.to_s).change(hour: HORAS_CIERRE[sabado.wday])
+    reserva = FactoryBot.build(:reserva, start_time: hora_apertura, end_time: hora_cierre)
+    assert_not reserva.valid?
+  end
+
+  test "un usuario del grupo Adeneu no puede crear una reserva un sábado" do
+    adeneu = Grupo.create(nombre: "Adeneu",
+                          start_times: HORAS_APERTURA_ADENEU,
+                          end_times: HORAS_CIERRE_ADENEU,
+                          dias_permitidos: DIAS_PERMITIDOS_ADENEU)
+    @user.update grupo: adeneu
+    sabado = Date.parse('Sat')
+    hora_apertura = Time.zone.parse(sabado.to_s).change(hour: HORAS_APERTURA[sabado.wday])
+    hora_cierre = Time.zone.parse(sabado.to_s).change(hour: HORAS_CIERRE[sabado.wday])
+    reserva = FactoryBot.build(:reserva, user: @user, start_time: hora_apertura, end_time: hora_cierre)
+    assert reserva.valid?
+  end
 end

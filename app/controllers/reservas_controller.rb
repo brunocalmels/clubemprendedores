@@ -32,6 +32,7 @@ class ReservasController < ApplicationController
       @reserva = Reserva.new(start_time: Time.zone.today.noon, end_time: Time.zone.today.noon + 1.hour)
     end
     @reserva.user = current_user
+    assure_dia_permitido!
     buscar_reservas_dia
   end
 
@@ -253,6 +254,17 @@ class ReservasController < ApplicationController
         reserva_id: reserva.id
       }
     end
+  end
+
+  def assure_dia_permitido!
+    dias_permitidos = if current_user.grupo
+                        current_user.grupo.dias_permitidos
+                      else
+                        DIAS_PERMITIDOS
+                      end
+    return if dias_permitidos[@reserva.start_time.wday] == 1
+
+    redirect_to root_path, alert: "No puede hacer reservas ese día"
   end
 
   def bloquear_solo_admins

@@ -21,7 +21,7 @@
   %>
 
   <div class="datos-reserva">
-    <!-- Si puede editar las reservas -->
+    <!-- Si puede ver las reservas -->
     <% if user_signed_in? %>
       <%= link_to reserva, class: 'reserva' do %>
         <% if reserva.finalidad == 'Evento/capacitación/reunión' %>

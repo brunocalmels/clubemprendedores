@@ -11,7 +11,7 @@ require "factory_bot_rails"
 logger = Logger.new(STDOUT)
 
 logger.info "Creando grupo Adeneu"
-adeneu = Grupo.create(nombre: "Adeneu", start_times: HORAS_APERTURA_ADENEU, end_times: HORAS_CIERRE_ADENEU)
+adeneu = Grupo.create(nombre: "Adeneu", start_times: HORAS_APERTURA_ADENEU, end_times: HORAS_CIERRE_ADENEU, dias_permitidos: DIAS_PERMITIDOS_ADENEU)
 
 logger.info "Creando admin Maxi"
 maxi = User.create(admin: true, email: "mgrande@adeneu.com.ar", password: "maxclubemp", nombre: "Maxi", apellido: "Grande", id_tipo: 0, id_num: 123_456_789, institucion: "Club Emprendedor")

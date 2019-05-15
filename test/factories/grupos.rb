@@ -2,12 +2,13 @@
 #
 # Table name: grupos
 #
-#  id          :bigint(8)        not null, primary key
-#  end_times   :integer          default([]), is an Array
-#  nombre      :string           not null
-#  start_times :integer          default([]), is an Array
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id              :bigint(8)        not null, primary key
+#  dias_permitidos :integer          default([]), is an Array
+#  end_times       :integer          default([]), is an Array
+#  nombre          :string           not null
+#  start_times     :integer          default([]), is an Array
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
 #
 
 FactoryBot.define do
