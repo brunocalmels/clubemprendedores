@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     get "reservas/esperando_aprobacion", to: "reservas#esperando_aprobacion"
     resources :reservas
     resources :grupos, only: %i[index edit update]
+    put "grupos/:id/add_user", to: "grupos#add_user"
   end
 end

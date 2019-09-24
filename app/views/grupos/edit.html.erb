@@ -1,5 +1,15 @@
 <h1>Editing Grupo</h1>
 
+<h3>Usuarios</h3>
+<% @usuarios %>
+<%= @usuarios.join(', ') %>
+
+<h5>Agregar usuarios</h3>
+<%= form_with url: "add_user", method: :put, local: true do |uf| %>
+  <%= uf.collection_select(:user_id, @otros_usuarios, :id, :nombre_completo) %>
+  <%= uf.submit "Agregar" %>
+<% end %>
+
 <%= render 'form', grupo: @grupo %>
 
 <%# link_to 'Show', @grupo %>

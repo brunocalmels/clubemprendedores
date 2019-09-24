@@ -1,5 +1,5 @@
 class GruposController < ApplicationController
-  before_action :set_grupo, only: %i[show edit update]
+  before_action :set_grupo, only: %i[show edit update add_user]
   before_action :assure_admin!
 
   # GET /grupos
@@ -20,6 +20,8 @@ class GruposController < ApplicationController
 
   # GET /grupos/1/edit
   def edit
+    @usuarios = User.where(grupo: @grupo).all.map(&:nombre_completo)
+    @otros_usuarios = User.where.not(grupo: @grupo).or(User.where(grupo: [nil, ""]))
   end
 
   # # POST /grupos
@@ -38,8 +40,19 @@ class GruposController < ApplicationController
   #   end
   # end
 
+  # PATCH/PUT /grupos/:id/add_user/:user_id
+  def add_user
+    @user = User.find(params[:user_id])
+    respond_to do |format|
+      if @user.update grupo: @grupo
+        format.html { redirect_to edit_grupo_path(@grupo), notice: "Usuario añadido." }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
+
   # PATCH/PUT /grupos/1
-  # PATCH/PUT /grupos/1.json
   def update
     respond_to do |format|
       @grupo.nombre = params[:grupo][:nombre]
