@@ -124,7 +124,6 @@ class Reserva < ApplicationRecord
 
   private
 
-  # rubocop:disable AbcSize
   def max_ocupaciones
     Reserva.del_dia(self).each do |otra_reserva|
       next if otra_reserva == self
@@ -137,7 +136,6 @@ class Reserva < ApplicationRecord
                  ocupaciones con el que éste se solapa.")
     end
   end
-  # rubocop:enable AbcSize
 
   # rubocop:disable Style/GuardClause
   def max_ocupaciones_propias

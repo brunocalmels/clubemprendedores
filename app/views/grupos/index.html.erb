@@ -13,19 +13,23 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody id="grupos_index_table">
       <tr>
         <td>Default</td>
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
-            <% next if i == 0 %>
-            <%= "#{dia.capitalize}:  #{HORAS_APERTURA[i]} hs" %> </br>
+            <% if DIAS_PERMITIDOS[i] == 0 %>
+              <%= "#{dia.capitalize}:" %> Cerrado </br>
+            <% else %>
+              <%= "#{dia.capitalize}:  #{HORAS_APERTURA[i]} hs" %> </br>
+            <% end%>
           <% end%>
         </td>
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
-            <% next if i == 0 %>
-            <%= "#{dia.capitalize}:  #{HORAS_CIERRE[i]} hs" %> </br>
+            <% unless DIAS_PERMITIDOS[i] == 0 %>
+              <%= "#{dia.capitalize}:  #{HORAS_CIERRE[i]} hs" %> </br>
+            <% end%>
           <% end%>
         </td>
         <td>
@@ -37,14 +41,18 @@
         <td><%= grupo.nombre %></td>
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
-            <% next if i == 0 %>
-            <%= "#{dia.capitalize}:  #{grupo.start_times[i]} hs" %> </br>
+            <% if grupo.dias_permitidos[i] == 0 %>
+              <%= "#{dia.capitalize}:" %> Cerrado </br>
+            <% else %>
+              <%= "#{dia.capitalize}:  #{grupo.start_times[i]} hs" %> </br>
+            <% end %>
           <% end%>
         </td>
         <td>
           <% t('date.day_names').each_with_index do |dia, i| %>
-            <% next if i == 0 %>
-            <%= "#{dia.capitalize}:  #{grupo.end_times[i]} hs" %> </br>
+            <% unless grupo.dias_permitidos[i] == 0 %>
+              <%= "#{dia.capitalize}:  #{grupo.end_times[i]} hs" %> </br>
+            <% end%>
           <% end%>
         </td>
         <td>
@@ -53,7 +61,7 @@
           <% end%>
         </td>
         <td><%# link_to 'Show', grupo %></td>
-        <td><%# link_to 'Edit', edit_grupo_path(grupo) %></td>
+        <td><%= link_to 'Editar', edit_grupo_path(grupo) %></td>
         <td><%# link_to 'Destroy', grupo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>

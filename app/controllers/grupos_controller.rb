@@ -1,5 +1,5 @@
 class GruposController < ApplicationController
-  # before_action :set_grupo, only: %i[show edit update destroy]
+  before_action :set_grupo, only: %i[show edit update]
   before_action :assure_admin!
 
   # GET /grupos
@@ -18,9 +18,9 @@ class GruposController < ApplicationController
   #   @grupo = Grupo.new
   # end
 
-  # # GET /grupos/1/edit
-  # def edit
-  # end
+  # GET /grupos/1/edit
+  def edit
+  end
 
   # # POST /grupos
   # # POST /grupos.json
@@ -29,7 +29,7 @@ class GruposController < ApplicationController
 
   #   respond_to do |format|
   #     if @grupo.save
-  #       format.html { redirect_to @grupo, notice: 'Grupo was successfully created.' }
+  #       format.html { redirect_to @grupo, notice: 'Grupo creado  satisfactoriamente.' }
   #       format.json { render :show, status: :created, location: @grupo }
   #     else
   #       format.html { render :new }
@@ -38,39 +38,42 @@ class GruposController < ApplicationController
   #   end
   # end
 
-  # # PATCH/PUT /grupos/1
-  # # PATCH/PUT /grupos/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @grupo.update(grupo_params)
-  #       format.html { redirect_to @grupo, notice: 'Grupo was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @grupo }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @grupo.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  # PATCH/PUT /grupos/1
+  # PATCH/PUT /grupos/1.json
+  def update
+    respond_to do |format|
+      @grupo.nombre = params[:grupo][:nombre]
+      grup = params.require(:grupo)
+      @grupo.dias_permitidos = grup.require(:dias_permitidos).values
+      @grupo.start_times = grup.require(:start_times).values
+      @grupo.end_times = grup.require(:end_times).values
+      if @grupo.save
+        format.html { redirect_to grupos_path, notice: "Grupo actualizado satisfactoriamente." }
+      else
+        format.html { render :edit }
+      end
+    end
+  end
 
   # # DELETE /grupos/1
   # # DELETE /grupos/1.json
   # def destroy
   #   @grupo.destroy
   #   respond_to do |format|
-  #     format.html { redirect_to grupos_url, notice: 'Grupo was successfully destroyed.' }
+  #     format.html { redirect_to grupos_url, notice: 'Grupo fue destroyed satisfactoriamente.' }
   #     format.json { head :no_content }
   #   end
   # end
 
   private
 
-  # # Use callbacks to share common setup or constraints between actions.
-  # def set_grupo
-  #   @grupo = Grupo.find(params[:id])
-  # end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_grupo
+    @grupo = Grupo.find(params[:id])
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def grupo_params
-    params.require(:grupo).permit(:nombre, :start_time, :end_time)
-  end
+  # def grupo_params
+  #   params.require(:grupo).permit(:nombre, start_times: [], end_times: [], dias_permitidos: [])
+  # end
 end

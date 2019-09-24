@@ -66,7 +66,7 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem "overcommit", ">= 0.37.0", require: false
   gem "rack-livereload"
-  gem "rubocop", ">= 0.53.0", require: false
+  gem "rubocop", ">= 0.61.0", require: false
   gem 'web-console', '>= 3.3.0'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'

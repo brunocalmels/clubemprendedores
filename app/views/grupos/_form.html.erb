@@ -1,7 +1,7 @@
 <%= form_with(model: grupo, local: true) do |form| %>
   <% if grupo.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(grupo.errors.count, "error") %> prohibited this grupo from being saved:</h2>
+      <h2><%= pluralize(grupo.errors.count, "error") %> impidió que este grupo se guarde:</h2>
 
       <ul>
       <% grupo.errors.full_messages.each do |message| %>
@@ -16,17 +16,19 @@
     <%= form.text_field :nombre, id: :grupo_nombre %>
   </div>
 
-  <div class="field">
-    <%= form.label :start_time %>
-    <%= form.datetime_select :start_time, id: :grupo_start_time %>
-  </div>
-
-  <div class="field">
-    <%= form.label :end_time %>
-    <%= form.datetime_select :end_time, id: :grupo_end_time %>
-  </div>
+  <% t('date.day_names').each_with_index do |dia, i| %>
+    <div class="field grupo_horarios_fields">
+      <span><%= dia.capitalize %>: </span>
+      <%= form.label :abierto %>
+      <%= form.check_box "dias_permitidos[#{i}]", checked: @grupo.dias_permitidos[i] == 1 %>
+      <%= form.label :apertura %>
+      <%= form.select "start_times[#{i}]", 0..24, selected: @grupo.start_times[i] %>
+      <%= form.label :cierre %>
+      <%= form.select "end_times[#{i}]", 0..24, selected: @grupo.end_times[i] %>
+    </div>
+  <% end %>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Guardar', class: 'btn btn-success btn-grupos' %>
   </div>
 <% end %>

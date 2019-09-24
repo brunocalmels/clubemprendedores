@@ -1,3 +1,25 @@
 // Place all the styles related to the Grupos controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.grupo_horarios_fields {
+  label {
+    font-weight: normal;
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+}
+
+.btn-grupos {
+  margin: 20px;
+}
+
+#grupos_index_table {
+  td {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+}

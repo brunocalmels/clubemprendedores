@@ -105,12 +105,11 @@ class ReservasController < ApplicationController
       # rubocop:enable Metrics/BlockLength
     end
   end
+
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
-
-  # rubocop:disable Metrics/AbcSize
   # rubocop:disable Metrics/MethodLength
   def notice_admins_create
     return if current_user.admin?
@@ -129,7 +128,7 @@ class ReservasController < ApplicationController
       link: @link
     ).email_notificacion.deliver_later
   end
-  # rubocop:enable Metrics/AbcSize
+
   # rubocop:enable Metrics/MethodLength
 
   # PATCH/PUT /reservas/1
@@ -196,12 +195,11 @@ class ReservasController < ApplicationController
       end
     end
   end
+
   # rubocop:enable Metrics/AbcSize
   # rubocop:enable Metrics/CyclomaticComplexity
   # rubocop:enable Metrics/MethodLength
   # rubocop:enable Metrics/PerceivedComplexity
-
-  # rubocop:disable Metrics/AbcSize
   def notice_admins_update
     if !current_user.admin?
       AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
@@ -209,7 +207,6 @@ class ReservasController < ApplicationController
       AdminMailer.with(to: @reserva.user.email, subject: "Turno aprobado", text: "#{current_user.nombre_completo} ha aprobado tu reserva en el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
     end
   end
-  # rubocop:enable Metrics/AbcSize
 
   # DELETE /reservas/1
   # DELETE /reservas/1.json

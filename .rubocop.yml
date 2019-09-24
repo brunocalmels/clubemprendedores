@@ -21,6 +21,7 @@ Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
 Metrics/AbcSize:
+  Max: 20
   Exclude:
     - "test/**/*"
     - "db/migrate/**/*"
@@ -44,7 +45,6 @@ Metrics/LineLength:
     - "db/**/*"
     - "app/controllers/**"
     - "test/controllers/**"
-
 
 Metrics/MethodLength:
   Max: 12
