@@ -1,0 +1,4 @@
+Subject, Start Date, Start Time, End Date, End Time, Description
+<% @reservas.each do |reserva| %>
+  "<%= reserva.nombre %>", <%= reserva.start_time.strftime('%m/%d/%Y') %>, <%= reserva.start_time.strftime('%H:%M') %>, <%= reserva.end_time.strftime('%m/%d/%Y')  %>, <%= reserva.end_time.strftime('%H:%M')  %>, "<%= reserva.descripcion %>"
+<% end %>
