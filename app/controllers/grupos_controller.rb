@@ -1,6 +1,7 @@
 class GruposController < ApplicationController
   before_action :set_grupo, only: %i[show edit update add_user]
   before_action :assure_admin!
+  skip_before_action :verify_authenticity_token, only: %i[add_user]
 
   # GET /grupos
   # GET /grupos.json

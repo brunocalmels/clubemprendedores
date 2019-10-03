@@ -14,7 +14,7 @@ class ReservasController < ApplicationController
       format.html do
         @reservas = @reservas.page params[:page]
       end
-      format.csv {}
+      format.xls {}
     end
   end
 
