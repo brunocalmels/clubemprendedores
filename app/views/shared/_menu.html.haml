@@ -1,23 +1,22 @@
 = navbar container: 'fluid' do
-  -# = navbar_header brand: 'Club Emprendedor', brand_link: '/home'
 
   = navbar_header
   = navbar_group do
     = navbar_item '/' do
       = image_tag '/image/logo-club.png', height: 100, class: 'logo'
-  -# = navbar_header brand: image_tag '/image/logo-club.png', brand_link: '/'
 
   = navbar_collapse do
     = navbar_group id: 'menu' do
 
       = navbar_item "Inicio", '/'
 
-      - if signed_in? and current_user.admin?
-        = navbar_item "Reservas", '/reservas'
-      - else
-        = navbar_item "Mis reservas", '/reservas'
+      - if signed_in?
+        - if current_user.admin?
+          = navbar_item "Reservas", '/reservas'
+        - else
+          = navbar_item "Mis reservas", '/reservas'
 
-      - if current_user.present? && current_user.admin?
+      - if signed_in? && current_user.admin?
         = navbar_dropdown "Admin" do
           = navbar_dropdown_header "Administrador"
           = navbar_item "Exportar reservas a XLS", reservas_path(format: 'xls')
@@ -29,9 +28,8 @@
       = navbar_item "Acerca del Club", 'http://idea.cpymeadeneu.com.ar/#club'
 
     = navbar_group align: 'right' do
-      - if current_user.present?
-        = navbar_dropdown current_user.admin?? "#{current_user.nombre} (admin)" : "#{current_user.nombre} " do
-          -# = navbar_dropdown_header 'Mi cuenta 2'
+      - if signed_in?
+        = navbar_dropdown current_user.admin? ? "#{current_user.nombre} (admin)" : "#{current_user.nombre} " do
           = navbar_item "Editar perfil", edit_user_registration_url(current_user)
           = navbar_dropdown_divider
           = navbar_item "Salir", destroy_user_session_url, {}, { 'data-method': :delete }
