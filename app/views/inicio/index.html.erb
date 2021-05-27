@@ -1,29 +1,45 @@
 <%= month_calendar(attribute: :start_time, end_attribute: :end_time, events: @reservas) do |date, reservas| %>
-
-  <% if
-    current_user &&
-    date >= DateTime.yesterday + 1 &&
-    !esta_cerrado?(date)
-  %>
+  <% if current_user && date >= DateTime.yesterday + 1 && !esta_cerrado?(date)  %>
     <%= link_to("#{date.day} #{t('date.abbr_month_names')[date.month].capitalize}", new_reserva_url(date: date))%>
   <% else %>
     <%= "#{date.day} #{t('date.abbr_month_names')[date.month].capitalize}" %>
   <% end %>
-
   <% reservas.each do |reserva| %>
-  <!-- Si la reserva no esta aprobada y no es admin o el dueno, no mostrar -->
-  <%
+    <!-- Si la reserva no esta aprobada y no es admin o el dueno, no mostrar -->
+    <%
   if !reserva.aprobado
     if current_user.nil? || (!current_user.admin? && current_user != reserva.user)
       next
     end
   end
   %>
-
-  <div class="datos-reserva">
-    <!-- Si puede ver las reservas -->
-    <% if user_signed_in? %>
-      <%= link_to reserva, class: 'reserva' do %>
+    <div class="datos-reserva">
+      <!-- Si puede ver las reservas -->
+      <% if user_signed_in? %>
+        <%= link_to reserva, class: 'reserva' do %>
+          <% if reserva.finalidad == 'Evento/capacitación/reunión' %>
+            <%= "#{reserva.nombre}" %>
+            <% if reserva.invitados.any? %>
+              - <%= reserva.invitados.count %> inv.
+            <% end %>
+          <% else %>
+            <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
+            <% if reserva.invitados.any? %>
+              + <%= reserva.invitados.count %> inv.
+            <% end %>
+          <% end %>
+          <% if reserva.bloqueo? %>
+            <span class="bloquea">[Todo]</span>
+          <% end %>
+          <span class="reserva_hora">
+            <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
+          </span>
+          <% if !reserva.aprobado %>
+            <span class="esperando_aprobacion">Espera aprobación</span>
+          <% end %>
+        <% end %>
+        <!-- Si no puede editar las reservas -->
+      <% else %>
         <% if reserva.finalidad == 'Evento/capacitación/reunión' %>
           <%= "#{reserva.nombre}" %>
           <% if reserva.invitados.any? %>
@@ -41,34 +57,9 @@
         <span class="reserva_hora">
           <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
         </span>
-        <% if !reserva.aprobado %>
-          <span class="esperando_aprobacion">Espera aprobación</span>
-        <% end %>
-      <% end %>
-
-    <!-- Si no puede editar las reservas -->
-    <% else %>
-        <% if reserva.finalidad == 'Evento/capacitación/reunión' %>
-          <%= "#{reserva.nombre}" %>
-          <% if reserva.invitados.any? %>
-            - <%= reserva.invitados.count %> inv.
-          <% end %>
-        <% else %>
-          <%= "#{reserva.user.nombre} #{reserva.user.apellido}" %>
-          <% if reserva.invitados.any? %>
-            + <%= reserva.invitados.count %> inv.
-          <% end %>
-        <% end %>
-        <% if reserva.bloqueo? %>
-          <span class="bloquea">[Todo]</span>
-        <% end %>
-        <span class="reserva_hora">
-          <%= "(de #{reserva.hora_comienzo} a #{reserva.hora_fin})" %>
-        </span>
-    <% end %> <!--Se puede editar las reservas -->
-  </div>
+      <% end %> <!--Se puede editar las reservas -->
+    </div>
   <% end %>
-
   <!-- Vacaciones -->
   <% if esta_cerrado?(date) %>
     <div class="cerrado">
@@ -77,13 +68,15 @@
       </p>
     </div>
   <% end %>
-
   <!-- Lugares disponibles -->
   <% if date >= DateTime.yesterday + 1 &&
     !esta_cerrado?(date) %>
-    <div class="lugares_disponibles">
+  <div class="lugares_disponibles">
+    <% if current_user.nil? %>
+      <%= link_to '¡Reservá!', new_user_session_path %>
+    <% else %>
       <%= link_to '¡Reservá!', new_reserva_url(date: date) %>
-    </div>
-  <% end %>
-
+    <% end %>
+  </div>
+<% end %>
 <% end %>
