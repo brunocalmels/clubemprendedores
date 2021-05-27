@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 require "reservas_helper"
 
@@ -51,7 +53,7 @@ class ReservasControllerTest < ActionDispatch::IntegrationTest
     @reserva2 = assigns :reserva
     # Chequea que los invitados sean iguales en todos sus atributos (aunque no en ids)
     @reserva2.invitados.each do |invitado|
-      assert @reserva_repe.invitados.where(nombre: invitado.nombre, apellido: invitado.apellido, email: invitado.email, dni: invitado.dni).count > 0
+      assert @reserva_repe.invitados.where(nombre: invitado.nombre, apellido: invitado.apellido, email: invitado.email, dni: invitado.dni).count.positive?
     end
   end
 

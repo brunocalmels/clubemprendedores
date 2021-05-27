@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :mantenimiento do
   desc "Limpia reservas de hace más de un mes"
   task limpia_reservas_viejas: :environment do

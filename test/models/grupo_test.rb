@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: grupos
@@ -24,7 +26,7 @@ class GrupoTest < ActiveSupport::TestCase
     @user_con_grupo.update grupo: @grupo
   end
 
-  test "usuario con grupo puede crear un turno en periodos distintos que uno sin grupo" do
+  test 'usuario con grupo puede crear un turno en periodos distintos que uno sin grupo' do
     @hoy = Time.zone.today
     @hora_apertura = Time.zone.parse("#{HORAS_APERTURA[@hoy.wday]}:00:00")
     @hora_ini = @hora_apertura - 1.hour

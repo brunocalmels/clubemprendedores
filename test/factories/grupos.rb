@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: grupos
@@ -13,8 +15,8 @@
 
 FactoryBot.define do
   factory :grupo do
-    nombre "MyString"
-    start_times "2019-03-26 16:50:00"
-    end_times "2019-03-26 16:50:00"
+    nombre { "MyString" }
+    start_times { "2019-03-26 16:50:00" }
+    end_times { "2019-03-26 16:50:00" }
   end
 end

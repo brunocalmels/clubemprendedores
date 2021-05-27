@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdminMailer < ApplicationMailer
   # Envia un mail a los administradores ante notificaciones
   def email_notificacion

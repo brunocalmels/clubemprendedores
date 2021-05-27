@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: reservas
@@ -39,7 +41,7 @@ FactoryBot.define do
 
     factory :reserva_bloqueante do
       user { admins.sample }
-      bloqueo true
+      bloqueo { true }
     end
   end
 end

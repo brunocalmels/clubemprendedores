@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 TIPOS_ID = %w[DNI CUIL CUIT].freeze
 FINALIDADES = ["Co-Working", "Evento/capacitación/reunión"].freeze
 

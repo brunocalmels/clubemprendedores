@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class InicioController < ApplicationController
   before_action :assure_admin!, only: %i[docs]
 
@@ -7,6 +9,5 @@ class InicioController < ApplicationController
   end
 
   # GET /docs
-  def docs
-  end
+  def docs; end
 end

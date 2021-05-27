@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: reservas
@@ -95,7 +97,7 @@ class Reserva < ApplicationRecord
     invitados.count + 1
   end
 
-  # rubocop:disable AbcSize
+  # rubocop:disable Metrics/AbcSize
   def nombre_invitados(cuantos=3)
     return "" if invitados.no_anonimos.empty?
 
@@ -107,7 +109,7 @@ class Reserva < ApplicationRecord
       invitados.no_anonimos.order(id: :desc).first.nombre
     end
   end
-  # rubocop:enable AbcSize
+  # rubocop:enable Metrics/AbcSize
 
   def solapa_con?(hora_ini, hora_fin)
     if  start_time <  hora_fin && start_time > hora_ini ||

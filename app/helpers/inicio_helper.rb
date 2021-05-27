@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module InicioHelper
   def esta_cerrado?(date)
     CERRADO.each do |cerrado|

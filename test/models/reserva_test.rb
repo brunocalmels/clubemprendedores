@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: reservas
@@ -33,14 +35,14 @@ class ReservaTest < ActiveSupport::TestCase
     @user = create(:user)
     @user.confirm
     @invitado = {
-      nombre: "Jorge",
-      apellido: "Perez",
-      dni: "321654879",
-      email: "algun@email.com"
+      nombre: 'Jorge',
+      apellido: 'Perez',
+      dni: '321654879',
+      email: 'algun@email.com'
     }
   end
 
-  test "no se puede crear un turno antes del horario de apertura del dia" do
+  test 'no se puede crear un turno antes del horario de apertura del dia' do
     @hoy = Time.zone.today
     @hora_apertura = Time.zone.parse("#{HORAS_APERTURA[@hoy.wday]}:00:00")
     @hora_ini = @hora_apertura - 1.hour
@@ -49,7 +51,7 @@ class ReservaTest < ActiveSupport::TestCase
     assert_not @reserva.valid?
   end
 
-  test "no se puede crear un turno despues del horario de cierre del dia" do
+  test 'no se puede crear un turno despues del horario de cierre del dia' do
     @hoy = Time.zone.today
     @hora_cierre = Time.zone.parse("#{HORAS_CIERRE[@hoy.wday]}:00:00")
     @hora_fin = @hora_cierre + 1.hour
@@ -58,7 +60,7 @@ class ReservaTest < ActiveSupport::TestCase
     assert_not @reserva.valid?
   end
 
-  test "se puede crear un turno en el horario disponible del dia" do
+  test 'se puede crear un turno en el horario disponible del dia' do
     @hoy = Time.zone.today
     @hora_cierre = Time.zone.parse("#{HORAS_CIERRE[@hoy.wday]}:00:00")
     @hora_apertura = Time.zone.parse("#{HORAS_APERTURA[@hoy.wday]}:00:00")
@@ -68,7 +70,7 @@ class ReservaTest < ActiveSupport::TestCase
     assert @reserva.valid?
   end
 
-  test "un usuario sin grupo no puede crear una reserva un sábado" do
+  test 'un usuario sin grupo no puede crear una reserva un sábado' do
     sabado = Date.parse('Sat')
     hora_apertura = Time.zone.parse(sabado.to_s).change(hour: HORAS_APERTURA[sabado.wday])
     hora_cierre = Time.zone.parse(sabado.to_s).change(hour: HORAS_CIERRE[sabado.wday])
@@ -76,8 +78,8 @@ class ReservaTest < ActiveSupport::TestCase
     assert_not reserva.valid?
   end
 
-  test "un usuario del grupo Adeneu no puede crear una reserva un sábado" do
-    adeneu = Grupo.create(nombre: "Adeneu",
+  test 'un usuario del grupo Adeneu no puede crear una reserva un sábado' do
+    adeneu = Grupo.create(nombre: 'Adeneu',
                           start_times: HORAS_APERTURA_ADENEU,
                           end_times: HORAS_CIERRE_ADENEU,
                           dias_permitidos: DIAS_PERMITIDOS_ADENEU)

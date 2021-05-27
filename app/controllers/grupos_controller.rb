@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class GruposController < ApplicationController
   before_action :set_grupo, only: %i[show edit update add_user]
   before_action :assure_admin!
@@ -22,7 +24,7 @@ class GruposController < ApplicationController
   # GET /grupos/1/edit
   def edit
     @usuarios = User.where(grupo: @grupo).all.map(&:nombre_completo)
-    @otros_usuarios = User.where.not(grupo: @grupo).or(User.where(grupo: [nil, ""]))
+    @otros_usuarios = User.where.not(grupo: @grupo).or(User.where(grupo: [nil, '']))
   end
 
   # # POST /grupos
@@ -46,7 +48,7 @@ class GruposController < ApplicationController
     @user = User.find(params[:user_id])
     respond_to do |format|
       if @user.update grupo: @grupo
-        format.html { redirect_to edit_grupo_path(@grupo), notice: "Usuario añadido." }
+        format.html { redirect_to edit_grupo_path(@grupo), notice: 'Usuario añadido.' }
       else
         format.html { render :edit }
       end
@@ -62,7 +64,7 @@ class GruposController < ApplicationController
       @grupo.start_times = grup.require(:start_times).values
       @grupo.end_times = grup.require(:end_times).values
       if @grupo.save
-        format.html { redirect_to grupos_path, notice: "Grupo actualizado satisfactoriamente." }
+        format.html { redirect_to grupos_path, notice: 'Grupo actualizado satisfactoriamente.' }
       else
         format.html { render :edit }
       end

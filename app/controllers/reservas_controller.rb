@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # rubocop:disable Metrics/ClassLength
 class ReservasController < ApplicationController
   include ReservasHelper
@@ -47,8 +49,9 @@ class ReservasController < ApplicationController
   # GET /reservas/1/edit
   def edit
     redirect_to(@reserva) && return unless @reserva.start_time > Time.zone.now
+
     @reservas = Reserva.del_dia(@reserva)
-    @grupos = current_user.reservas.no_anonimas.order("reservas.created_at DESC").last(3).map do |reserva|
+    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map do |reserva|
       {
         nombres: reserva.nombre_invitados,
         reserva_id: reserva.id
@@ -82,7 +85,7 @@ class ReservasController < ApplicationController
       respond_to do |format|
         if @reserva.save
           notice_admins_create
-          if @reserva.finalidad == "Evento/capacitación/reunión" || current_user.admin?
+          if @reserva.finalidad == 'Evento/capacitación/reunión' || current_user.admin?
             invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
             @reserva.save
             invitados_anon.times do |_invitado_anon|
@@ -96,9 +99,9 @@ class ReservasController < ApplicationController
           end
           format.html do
             if params[:y_nueva].nil?
-              redirect_to @reserva, notice: "La reserva se creó correctamente."
+              redirect_to @reserva, notice: 'La reserva se creó correctamente.'
             else
-              redirect_to new_reserva_path(date: @reserva.start_time), notice: "La reserva se creó correctamente."
+              redirect_to new_reserva_path(date: @reserva.start_time), notice: 'La reserva se creó correctamente.'
             end
           end
           format.json { render :show, status: :created, location: @reserva }
@@ -125,10 +128,10 @@ class ReservasController < ApplicationController
 
     @link = reserva_url(@reserva)
     if @reserva.aprobado
-      @subject = "Reserva de turno"
+      @subject = 'Reserva de turno'
       @text = "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{@reserva.end_time.strftime('%e %b %H:%M hs')}"
     else
-      @subject = "Reserva de turno - Necesita aprobación"
+      @subject = 'Reserva de turno - Necesita aprobación'
       @text = "#{@reserva.user.nombre_completo} ha reservado el Club desde el #{@reserva.start_time.strftime('%e %b %H:%M hs')} hasta el #{@reserva.end_time.strftime('%e %b %H:%M hs')}. La reserva requiere de aprobación por parte de un administrador."
     end
     AdminMailer.with(
@@ -151,9 +154,9 @@ class ReservasController < ApplicationController
     if current_user == @reserva.user || current_user.admin?
 
       # Arregla invitados anonimos
-      if reserva_params[:finalidad] == "Evento/capacitación/reunión" || current_user.admin?
+      if reserva_params[:finalidad] == 'Evento/capacitación/reunión' || current_user.admin?
         invitados_anon = [params[:invitados_anon].to_i, MAX_OCUPACIONES].min
-        if invitados_anon > 0
+        if invitados_anon.positive?
           @reserva.invitados.delete_all
           invitados_anon.times do |_invitado_anon|
             @reserva.invitados.create(anonimo: true)
@@ -187,7 +190,7 @@ class ReservasController < ApplicationController
             # Avisa a admins
             notice_admins_update
 
-            format.html { redirect_to @reserva, notice: "La reserva fue correctamente guardada." }
+            format.html { redirect_to @reserva, notice: 'La reserva fue correctamente guardada.' }
             format.json { render :show, status: :ok, location: @reserva }
           else
             format.html do
@@ -199,7 +202,7 @@ class ReservasController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to root_path, notice: "No tiene los permisos necesarios", status: :unauthorized }
+        format.html { redirect_to root_path, notice: 'No tiene los permisos necesarios', status: :unauthorized }
         format.json { render :show, status: :unauthorized, location: @reserva }
       end
     end
@@ -211,9 +214,9 @@ class ReservasController < ApplicationController
   # rubocop:enable Metrics/PerceivedComplexity
   def notice_admins_update
     if !current_user.admin?
-      AdminMailer.with(subject: "Reserva de turno", text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+      AdminMailer.with(subject: 'Reserva de turno', text: "#{@reserva.user.nombre_completo} ha actualizado su reserva del Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
     elsif @por_aprobar && @reserva.aprobado
-      AdminMailer.with(to: @reserva.user.email, subject: "Turno aprobado", text: "#{current_user.nombre_completo} ha aprobado tu reserva en el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
+      AdminMailer.with(to: @reserva.user.email, subject: 'Turno aprobado', text: "#{current_user.nombre_completo} ha aprobado tu reserva en el Club.", link: reserva_url(@reserva)).email_notificacion.deliver_later
     end
   end
 
@@ -223,7 +226,7 @@ class ReservasController < ApplicationController
     @reserva.invitados.delete_all
     @reserva.destroy
     respond_to do |format|
-      format.html { redirect_to root_path, notice: "La reserva fue correctamente eliminada." }
+      format.html { redirect_to root_path, notice: 'La reserva fue correctamente eliminada.' }
       format.json { head :no_content }
     end
   end
@@ -234,7 +237,7 @@ class ReservasController < ApplicationController
     @reservas = Reserva.esperando_aprobacion
     respond_to do |format|
       format.html do
-        params[:title] = "Reservas esperando aprobación"
+        params[:title] = 'Reservas esperando aprobación'
         @reservas = @reservas.page params[:page]
         render :index
       end
@@ -247,14 +250,14 @@ class ReservasController < ApplicationController
   # Setea la aprobación por defecto o no, según las políticas
   def decide_aprobacion(reserva)
     # Si es de eventos/capacitacion, no se aprueba por defecto
-    reserva.aprobado = false if reserva.finalidad == "Evento/capacitación/reunión"
+    reserva.aprobado = false if reserva.finalidad == 'Evento/capacitación/reunión'
     reserva.aprobado = true if current_user.admin?
   end
 
   # Usado para buscar las reservas de ese día en new y create.
   def buscar_reservas_dia
     @reservas = Reserva.del_dia(@reserva)
-    @grupos = current_user.reservas.no_anonimas.order("reservas.created_at DESC").last(3).map do |reserva|
+    @grupos = current_user.reservas.no_anonimas.order('reservas.created_at DESC').last(3).map do |reserva|
       {
         nombres: reserva.nombre_invitados,
         reserva_id: reserva.id
@@ -270,7 +273,7 @@ class ReservasController < ApplicationController
                       end
     return if dias_permitidos[@reserva.start_time.wday] == 1
 
-    redirect_to root_path, alert: "No puede hacer reservas ese día"
+    redirect_to root_path, alert: 'No puede hacer reservas ese día'
   end
 
   def bloquear_solo_admins

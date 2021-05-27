@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ReservasHelper
   # Devuelve el array de integers de horas de apertura correspondientes al grupo
   def horas_apertura
